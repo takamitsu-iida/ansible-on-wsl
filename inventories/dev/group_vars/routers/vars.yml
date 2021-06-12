@@ -1,11 +1,14 @@
 ---
 
 ansible_connection: ansible.netcommon.network_cli
+
 ansible_network_os: cisco.iosxr.iosxr
 
-ansible_user: "{{ vault_user | default('cisco') }}"
+# ansible_user: "{{ vault_user | default('cisco') }}"
+ansible_user: admin
 ansible_port: 22
-ansible_password: "{{ vault_pass | default('password') }}"
-ansible_become: False
+# ansible_password: "{{ vault_pass | default('password') }}"
+ansible_password: password
+ansible_become: False  # not supported on cisco.iosxr.iosxr module
 ansible_become_method: enable
 ansible_become_pass: "{{ vault_become_pass | default('password') }}"

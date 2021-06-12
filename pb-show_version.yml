@@ -1,14 +1,14 @@
 ---
 
-- name: show global parameters
+- name: Retrieve IOS-XR version
   # hosts: routers
   hosts: r1
-  gather_facts: no
+  gather_facts: False
 
   tasks:
     - name: show version
       cisco.iosxr.iosxr_command:
         commands:
           - show version
-      when: ansible_network_os == 'cisco.iosxr.iosxr'
-
+      when:
+        - ansible_network_os == 'cisco.iosxr.iosxr'
