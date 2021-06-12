@@ -1,0 +1,4 @@
+
+[routers]
+r1 ansible_host=172.20.0.31
+r2 ansilbe_host=172.20.0.32
