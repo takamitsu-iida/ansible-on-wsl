@@ -1,0 +1,14 @@
+---
+
+- name: show global parameters
+  # hosts: routers
+  hosts: r1
+  gather_facts: no
+
+  tasks:
+    - name: show version
+      cisco.iosxr.iosxr_command:
+        commands:
+          - show version
+      when: ansible_network_os == 'cisco.iosxr.iosxr'
+

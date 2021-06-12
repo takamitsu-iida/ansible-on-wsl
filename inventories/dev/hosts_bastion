@@ -1,4 +1,6 @@
+#
 # 踏み台
+#
 
 [bastion]
 eve ansible_host=10.35.158.21 ansible_user=root
