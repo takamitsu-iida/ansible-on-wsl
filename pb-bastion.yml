@@ -1,0 +1,9 @@
+---
+
+- name: connectivity check
+  hosts: bastion
+  gather_facts: True
+
+  tasks:
+    - debug:
+        msg: "{{ ansible_default_ipv4.address }}"
