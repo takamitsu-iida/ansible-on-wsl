@@ -1,0 +1,27 @@
+---
+
+- block:
+    - name: show bgp neighbors
+      cisco.iosxr.iosxr_command:
+        commands:
+          - show bgp neighbors
+      register: result
+      when:
+        - ansible_network_os == 'cisco.iosxr.iosxr'
+
+  rescue:
+    - debug:
+        var: result
+    - fail:
+        msg: "Failed to execute command on {{ inventory_hostname }}"
+
+- debug:
+    msg: "{{ result.stdout[0] }}"
+
+- name: decode output text by textfsm
+  set_fact:
+    parsed_list: "{{ result.stdout[0] | parse_cli_textfsm(NTC_PATH) }}"
+
+- name: debug formatted text
+  debug:
+    var: parsed_list

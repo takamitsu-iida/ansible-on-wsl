@@ -1,0 +1,4 @@
+---
+
+# NTCテンプレートファイル
+NTC_PATH: "{{ role_path + '/files/cisco_xr_show_bgp_neighbors.textfsm' }}"

@@ -1,0 +1,26 @@
+---
+
+- name: Retrieve BGP neighbors info
+  hosts: core
+  gather_facts: false
+  strategy: linear  # 全てのホストでタスクが完了してから次に遷移する（デフォルト）。freeを指定すると待ち合わせをしない
+  serial: 0  # 0はfork数で同時実行
+
+  vars:
+    exec_commands:
+      - "show bgp neighbors"
+
+  tasks:
+    - name: execute command lists
+      cisco.iosxr.iosxr_command:
+        commands: "{{ exec_commands }}"
+      when:
+        - ansible_network_os == 'cisco.iosxr.iosxr'
+      register: r
+
+    - debug:
+        msg: |
+          {% for msg in r.stdout %}
+          {{ msg }}
+          {% endfor %}
+  

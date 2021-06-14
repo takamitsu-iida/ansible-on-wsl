@@ -1,7 +1,7 @@
 # ansible-in-wsl
 
 
-# ルール群
+# ツール群
 
 ## WSL Ubuntu 20.04
 
@@ -73,4 +73,81 @@ Python: 3.8.5 [64bit]
   unicon                       21.5
   unicon.plugins               21.5
 ```
+
+## ntc-templates
+
+<https://github.com/networktocode/ntc-templates>
+
+pipでインストールすることもできるけど、肝心のtextfsmファイルがどこに配置されたのか分かりづらいので`git clone`するか、zipでダウンロードする。
+
+```bash
+git clone https://github.com/networktocode/ntc-templates.git
+Cloning into 'ntc-templates'...
+remote: Enumerating objects: 9254, done.
+remote: Counting objects: 100% (87/87), done.
+remote: Compressing objects: 100% (66/66), done.
+remote: Total 9254 (delta 44), reused 47 (delta 21), pack-reused 9167
+Receiving objects: 100% (9254/9254), 2.53 MiB | 2.45 MiB/s, done.
+Resolving deltas: 100% (5151/5151), done.
+Updating files: 100% (1832/1832), done.
+```
+
+# Ansible関連
+
+## ansible.cfgの場所
+
+ansible.cfgファイルの場所は以下の順番で読み込まれる。共通的な設定がほとんどなので`~/.ansible.cfg`で設定するのがよい。
+
+- ANSIBLE_CONFIG (環境変数が設定されている場合)
+- ansible.cfg (現在のディレクトリー)
+- ~/.ansible.cfg (ホームディレクトリー)
+- /etc/ansible/ansible.cfg
+
+
+
+
+## role
+
+プレイブックを作るときにはロールを積極的に活用した方がよい。
+ディレクトリ構造は`ansible-galaxy init`で作ると簡単。
+
+```bash
+iida@FCCLS0008993-00:~/git/ansible-in-wsl/roles$ ansible-galaxy init bgp_neighbors
+- Role bgp_neighbors was created successfully
+
+iida@FCCLS0008993-00:~/git/ansible-in-wsl/roles$ tree .
+.
+└── bgp_neighbors
+    ├── README.md
+    ├── defaults
+    │   └── main.yml
+    ├── files
+    ├── handlers
+    │   └── main.yml
+    ├── meta
+    │   └── main.yml
+    ├── tasks
+    │   └── main.yml
+    ├── templates
+    ├── tests
+    │   ├── inventory
+    │   └── test.yml
+    └── vars
+        └── main.yml
+
+9 directories, 9 files
+iida@FCCLS0008993-00:~/git/ansible-in-wsl/roles$ 
+```
+
+使いたいntc-templatesのtextfsmファイルはfilesあたりに格納しておけばよい。
+
+defaults/main.ymlにはそのロールで使う静的変数を格納するので、textfsmファイルへのパスを変数として指定しておくと便利。
+
+```yaml
+---
+
+# ntc-templatesのtextfsmファイル
+NTC_PATH: "{{ role_path + 'files/cisco_xr_show_bgp_neighbors.textfsm' }}"
+```
+
 
