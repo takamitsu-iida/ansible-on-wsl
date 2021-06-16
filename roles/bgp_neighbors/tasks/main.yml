@@ -15,13 +15,18 @@
     - fail:
         msg: "Failed to execute command on {{ inventory_hostname }}"
 
-- debug:
-    msg: "{{ result.stdout[0] }}"
+# - debug:
+#     msg: "{{ result.stdout[0] }}"
 
 - name: decode output text by textfsm
   set_fact:
-    parsed_list: "{{ result.stdout[0] | parse_cli_textfsm(NTC_PATH) }}"
+    neighbors: "{{ result.stdout[0] | parse_cli_textfsm(NEIGHBOR_TEMPLATE_PATH) }}"
+    afi: "{{ result.stdout[0] | parse_cli_textfsm(AFI_TEMPLATE_PATH) }}"
 
-- name: debug formatted text
+- name: debug neighbors
   debug:
-    var: parsed_list
+    var: neighbors
+
+- name: debug afi
+  debug:
+    var: afi

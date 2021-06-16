@@ -1,4 +1,5 @@
 ---
 
-# NTCテンプレートファイル
-NTC_PATH: "{{ role_path + '/files/cisco_xr_show_bgp_neighbors.textfsm' }}"
+# path to NTC-TEMPLATES
+AFI_TEMPLATE_PATH: "{{ role_path + '/files/cisco_xr_show_bgp_neighbors_afi.textfsm' }}"
+NEIGHBOR_TEMPLATE_PATH: "{{ role_path + '/files/cisco_xr_show_bgp_neighbors_neighbor.textfsm' }}"

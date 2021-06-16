@@ -1,0 +1,40 @@
+# 2021.06.14 takamitsu-iida
+# XRv9000 7.3.3
+# show bgp neighbors
+#
+Value Filldown NEIGHBOR (\S+)
+Value AFI (.+?)
+Value AFI_VERSION (\d+)
+Value AFI_ROUTE_REFLECTOR_ROLE (\S+)
+Value AFI_PREFIXES_IN (\d+)
+Value AFI_PREFIXES_IN_BEST (\d+)
+Value AFI_PREFIXES_OUT (\d+)
+Value AFI_PREFIXES_OUT_SUPPRESSED (\d+)
+Value AFI_PREFIXES_OUT_WITHDRAWN (\d+)
+Value AFI_LAST_ACK_VERSION (\d+)
+Value AFI_LAST_SYNCED_ACK_VERSION (\d+)
+
+Start
+  ^BGP neighbor is\s+${NEIGHBOR}\s*$$
+  ^\s+For Address Family:\s+${AFI}\s*$$ -> AFI
+
+AFI
+  ^\s+For Address Family:\s+${AFI}\s*$$
+  ^\s+BGP neighbor version\s+${AFI_VERSION}\s*$$
+  ^\s+Update group:
+  ^\s+Route-Reflector\s+${AFI_ROUTE_REFLECTOR_ROLE}\s*$$
+  ^\s+Route refresh request:
+  ^\s+${AFI_PREFIXES_IN}\s+accepted prefixes,\s+${AFI_PREFIXES_IN_BEST}\s+are bestpaths
+  ^\s+Exact no\. of prefixes denied :
+  ^\s+Cumulative no\. of prefixes denied:
+  ^\s+Prefix advertised\s+${AFI_PREFIXES_OUT},\s+suppressed\s+${AFI_PREFIXES_OUT_SUPPRESSED},\s+withdrawn\s+${AFI_PREFIXES_OUT_WITHDRAWN}
+  ^\s+AIGP is
+  ^\s+An EoR was
+  ^\s+Last ack version\s+${AFI_LAST_ACK_VERSION},\s+Last synced ack version\s+${AFI_LAST_SYNCED_ACK_VERSION}
+  ^\s+Outstanding version objects:
+  ^\s+Additional-paths operation:
+  ^\s+Send Multicast Attributes
+  ^\s+Advertise routes with local-label
+  ^\s*$$ -> Record Start
+
+EOF

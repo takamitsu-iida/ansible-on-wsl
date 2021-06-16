@@ -1,0 +1,69 @@
+# 2021.06.14 takamitsu-iida
+# XRv9000 7.3.3
+# show bgp neighbors
+#
+Value NEIGHBOR (\S+)
+Value REMOTE_AS (\d+)
+Value LOCAL_AS (\d+)
+Value TYPE (\w+)
+Value REMOTE_ROUTER_ID (\S+)
+Value CLUSTER_ID (\S+)
+Value STATE (.+?)
+Value UPTIME (.+?)
+Value NSR_STATE (.+?)
+Value BFD_STATE (.+?)
+Value HOLDTIME (\d+)
+Value KEEPALIVE (\d+)
+Value NSR_IS (.+?)
+#
+Value CONNECTIONS_ESTABLISHED (\d+)
+Value CONNECTIONS_DROPPED (\d+)
+Value LOCAL_ADDRESS (.*)
+Value LOCAL_PORT (\d+)
+Value REMOTE_ADDRESS (.*)
+Value REMOTE_PORT (\d+)
+Value LAST_RESET (.+?)
+Value LAST_RESET_REASON (.+?)
+
+Start
+  ^BGP neighbor -> Continue.Record
+  ^BGP neighbor is\s+${NEIGHBOR}\s*$$
+  ^\s+Remote AS\s+${REMOTE_AS}\, local AS\s+${LOCAL_AS}\,\s+${TYPE}\s+link
+  ^\s+Remote router ID\s+${REMOTE_ROUTER_ID}
+  ^\s+Cluster ID\s+${CLUSTER_ID}\s*$$
+  ^\s+BGP state\s+=\s+${STATE}(?:, up for\s+${UPTIME})?\s*$$
+  ^\s+NSR State:\s+${NSR_STATE}\s*$$
+  ^\s+BFD\s+${BFD_STATE}\s*$$
+  ^\s+Last read
+  ^\s+Hold time is\s+${HOLDTIME},\s+keepalive interval is\s+${KEEPALIVE}
+  ^\s+Configured hold time:\s+\d+,\s+keepalive:
+  ^\s+Last write
+  ^\s+Second last write
+  ^\s+Last write before
+  ^\s+Second last write before
+  ^\s+Last write pulse
+  ^\s+Socket\s+(?:not\s+)?armed
+  ^\s+Last write thread
+  ^\s+Last KA
+  ^\s+Precedence:
+  ^\s+Non-stop routing is\s+${NSR_IS}\s*$$
+  ^\s+Multi-protocol capability
+  ^\s+Neighbor capabilities:
+  ^\s+Route refresh:
+  ^\s+4-byte AS:
+  ^\s+Address family
+  ^\s+Received\s+\d+\s+messages
+  ^\s+Sent\s+\d+\s+messages
+  ^\s+Minimum time between advertisement
+  ^\s+Inbound message logging
+  ^\s+Outbound message logging
+  ^\s+Connections established ${CONNECTIONS_ESTABLISHED};\s+dropped\s+${CONNECTIONS_DROPPED}\s*$$ -> Connection
+  ^\s*$$
+
+Connection
+  ^\s+Local host:\s+${LOCAL_ADDRESS}, Local port:\s+${LOCAL_PORT}
+  ^\s+Foreign host:\s+${REMOTE_ADDRESS}, Foreign port:\s+${REMOTE_PORT}
+  ^\s+Last reset\s+${LAST_RESET}(?:, due to\s+${LAST_RESET_REASON})?\s*$$
+  ^BGP neighbor -> Continue.Record
+  ^BGP neighbor is\s+${NEIGHBOR}\s*$$ -> Start
+  ^\s*$$

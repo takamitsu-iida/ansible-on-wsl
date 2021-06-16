@@ -1,25 +1,13 @@
-# 2021.06.14
+# 2021.06.14 takamitsu-iida
 # XRv9000 7.3.3
 # show bgp neighbors
 #
 # BGP neighbor is 10.255.255.1
 #  Remote AS 65452, local AS 65452, internal link
 #  Cluster ID 65452
-Value NEIGHBOR (\S+)
-Value REMOTE_AS (\d+)
-Value LOCAL_AS (\d+)
-Value TYPE (\w+)
-Value REMOTE_ROUTER_ID (\S+)
-Value CLUSTER_ID (\S+)
-#
 #  BGP state = Established, up for 1d21h
 #  NSR State: None
 #  BFD enabled (session down, BFD not configured on remote neighbor)
-Value STATE (.+?)
-Value UPTIME (.+?)
-Value NSR_STATE (.+?)
-Value BFD_STATE (.+?)
-#
 #  Last read 00:00:16, Last read before reset 00:00:00
 #  Hold time is 180, keepalive interval is 60 seconds
 #  Configured hold time: 180, keepalive: 60, min acceptable hold time: 3
@@ -37,6 +25,16 @@ Value BFD_STATE (.+?)
 #  Precedence: internet
 #  Non-stop routing is enabled
 #  Multi-protocol capability received
+Value NEIGHBOR (\S+)
+Value REMOTE_AS (\d+)
+Value LOCAL_AS (\d+)
+Value TYPE (\w+)
+Value REMOTE_ROUTER_ID (\S+)
+Value CLUSTER_ID (\S+)
+Value STATE (.+?)
+Value UPTIME (.+?)
+Value NSR_STATE (.+?)
+Value BFD_STATE (.+?)
 Value HOLDTIME (\d+)
 Value KEEPALIVE (\d+)
 Value NSR_IS (.+?)
@@ -57,19 +55,21 @@ Value NSR_IS (.+?)
 #  Additional-paths operation: None
 #  Send Multicast Attributes
 Value List AFI (.+?)
-Value List VERSION (\d+)
-Value List ROUTE_REFLECTOR_ROLE (\S+)
-Value List EXTENDED_NEXTHOP_ENCODING (.+)
-Value List PREFIXES_IN (\d+)
-Value List PREFIXES_IN_BEST (\d+)
-Value List PREFIXES_OUT (\d+)
-Value List PREFIXES_OUT_SUPPRESSED (\d+)
-Value List PREFIXES_OUT_WITHDRAWN (\d+)
-Value List MAX_PREFIXES (\d+)
-Value List MAX_PREFIXES_WARN_PERCENT (\d+)
-Value List DEFAULT_ORIGINATE (.+?)
-Value List LAST_ACK_VERSION (\d+)
-Value List LAST_SYNCED_ACK_VERSION (\d+)
+Value List AFI_VERSION (\d+)
+Value List AFI_ROUTE_REFLECTOR_ROLE (\S+)
+Value List AFI_PREFIXES_IN (\d+)
+Value List AFI_PREFIXES_IN_BEST (\d+)
+Value List AFI_PREFIXES_OUT (\d+)
+Value List AFI_PREFIXES_OUT_SUPPRESSED (\d+)
+Value List AFI_PREFIXES_OUT_WITHDRAWN (\d+)
+Value List AFI_LAST_ACK_VERSION (\d+)
+Value List AFI_LAST_SYNCED_ACK_VERSION (\d+)
+#
+#  --BLANK LINE EXISTS HERE--
+#  Connections established 1; dropped 0
+#  Local host: 10.255.255.5, Local port: 179, IF Handle: 0x00000000
+#  Foreign host: 10.255.255.1, Foreign port: 26981
+#  Last reset 00:00:00
 #
 Value CONNECTIONS_ESTABLISHED (\d+)
 Value CONNECTIONS_DROPPED (\d+)
@@ -79,13 +79,6 @@ Value REMOTE_ADDRESS (.*)
 Value REMOTE_PORT (\d+)
 Value LAST_RESET (.+?)
 Value LAST_RESET_REASON (.+?)
-Value LAST_NOTIFICATION_SENT (\S+)
-Value ERROR_CODE (.+?)
-Value LAST_NOTIFICATION_RECEIVED (\S+)
-Value PEER_ERROR_CODE (.+?)
-Value PEER_RESET_REASON (.+?)
-Value MAX_HOPS (\d+)
-
 
 Start
   ^BGP neighbor -> Continue.Record
@@ -93,23 +86,27 @@ Start
   ^\s+Remote AS\s+${REMOTE_AS}\, local AS\s+${LOCAL_AS}\,\s+${TYPE}\s+link
   ^\s+Remote router ID\s+${REMOTE_ROUTER_ID}
   ^\s+Cluster ID\s+${CLUSTER_ID}\s*$$
-  ^\s+BGP [Ss]tate\s+=\s+${STATE}(?:, up for\s+${UPTIME})?\s*$$
-  ^\s+NSR [Ss]tate:\s+${NSR_STATE}\s*$$
+  ^\s+BGP state\s+=\s+${STATE}(?:, up for\s+${UPTIME})?\s*$$
+  ^\s+NSR State:\s+${NSR_STATE}\s*$$
   ^\s+BFD\s+${BFD_STATE}\s*$$
   ^\s+Last read
   ^\s+Hold time is\s+${HOLDTIME},\s+keepalive interval is\s+${KEEPALIVE}
   ^\s+Configured hold time:\s+\d+,\s+keepalive:
-  ^\s+(?:Second\s+)?[Ll]ast\s+write
+  ^\s+Last write
+  ^\s+Second last write
+  ^\s+Last write before
+  ^\s+Second last write before
+  ^\s+Last write pulse
   ^\s+Socket\s+(?:not\s+)?armed
-  ^\s+Last\s+write thread
-  ^\s+Last\s+KA
+  ^\s+Last write thread
+  ^\s+Last KA
   ^\s+Precedence:
   ^\s+Non-stop routing is\s+${NSR_IS}\s*$$
-  ^\s+Multi-protocol\s+capability
-  ^\s+Neighbor\s+capabilities:
-  ^\s+Route\s+refresh:
-  ^\s+4-byte\s+AS:
-  ^\s+Address\s+family
+  ^\s+Multi-protocol capability
+  ^\s+Neighbor capabilities:
+  ^\s+Route refresh:
+  ^\s+4-byte AS:
+  ^\s+Address family
   ^\s+Received\s+\d+\s+messages
   ^\s+Sent\s+\d+\s+messages
   ^\s+Minimum time between advertisement
@@ -118,62 +115,34 @@ Start
   ^\s+For Address Family:\s+${AFI}\s*$$ -> AFI
   ^\s+Connections established ${CONNECTIONS_ESTABLISHED};\s+dropped\s+${CONNECTIONS_DROPPED}\s*$$ -> Connection
   ^\s*$$
-  ^. -> Error
 
 AFI
-  ^\s+For\s+Address\s+Family:\s+${AFI}\s*$$
-  ^\s+BGP\s+neighbor\s+version\s+${VERSION}\s*$$
-  ^\s+Update\s+group:
-  ^\s+Route-Reflector\s+${ROUTE_REFLECTOR_ROLE}\s*$$
-  ^\s+Extended Nexthop Encoding:\s+${EXTENDED_NEXTHOP_ENCODING}\s+$$
-  ^\s+Default\s+information\s+originate\:\s+${DEFAULT_ORIGINATE}\s*$$
-  ^\s+AF-dependent capabilities
-  ^\s+Graceful\s+Restart\s+capability
-  ^\s+Local\s+restart\s+time\s+is
-  ^\s+Maximum\s+stalepath\s+time\s+is
-  ^\s+Remote\s+Restart\s+time\s+is
-  ^\s+NEXT_HOP
-  ^\s+Route\s+refresh\s+request:
-  ^\s+${PREFIXES_IN}\s+accepted\s+prefixes,\s+${PREFIXES_IN_BEST}\s+are\s+bestpaths
-  ^\s+Cumulative\s+no\.\s+of\s+prefixes\s+denied:
-  ^\s+No\s+policy:
-  ^\s+By\s+ORF\s+policy:
-  ^\s+Prefix\s+advertised\s+${PREFIXES_OUT},\s+suppressed\s+${PREFIXES_OUT_SUPPRESSED},\s+withdrawn\s+${PREFIXES_OUT_WITHDRAWN}
-  ^\s+Maximum\s+prefixes\s+allowed\s+${MAX_PREFIXES}
-  ^\s+Threshold\s+for\s+warning\s+message\s+${MAX_PREFIXES_WARN_PERCENT}
-  ^\s+AIGP
-  ^\s+An\s+EoR
-  ^\s+Private\s+AS\s+number\s+removed
-  ^\s+Community\s+attribute
-  ^\s+Advertise\s+VPNv[46]\s+routes\s+(is\s)?enabled\s+with
-  ^\s+Last\s+ack\s+version\s+${LAST_ACK_VERSION},\s+Last\s+synced\s+ack\s+version\s+${LAST_SYNCED_ACK_VERSION}
-  ^\s+Outstanding\s+version\s+objects:
-  ^\s+Additional-paths\s+operation:
-  ^\s+AS\s+[oO]verride\s+is
-  ^\s+Send\s+Multicast\s+Attributes
-  ^\s+Connections\s+established\s+${CONNECTIONS_ESTABLISHED};\s+dropped\s+${CONNECTIONS_DROPPED}\s*$$ -> Connection
-  ^BGP\s+neighbor -> Continue.Record
-  ^BGP\s+neighbor\s+is\s+${NEIGHBOR}\s*$$ -> Start
+  ^\s+For Address Family:\s+${AFI}\s*$$
+  ^\s+BGP neighbor version\s+${AFI_VERSION}\s*$$
+  ^\s+Update group:
+  ^\s+Route-Reflector\s+${AFI_ROUTE_REFLECTOR_ROLE}\s*$$
+  ^\s+Route refresh request:
+  ^\s+${AFI_PREFIXES_IN}\s+accepted prefixes,\s+${AFI_PREFIXES_IN_BEST}\s+are bestpaths
+  ^\s+Exact no\. of prefixes denied :
+  ^\s+Cumulative no\. of prefixes denied:
+  ^\s+Prefix advertised\s+${AFI_PREFIXES_OUT},\s+suppressed\s+${AFI_PREFIXES_OUT_SUPPRESSED},\s+withdrawn\s+${AFI_PREFIXES_OUT_WITHDRAWN}
+  ^\s+AIGP is
+  ^\s+An EoR was
+  ^\s+Last ack version\s+${AFI_LAST_ACK_VERSION},\s+Last synced ack version\s+${AFI_LAST_SYNCED_ACK_VERSION}
+  ^\s+Outstanding version objects:
+  ^\s+Additional-paths operation:
+  ^\s+Send Multicast Attributes
+  ^\s+Advertise routes with local-label
+  ^\s+Connections established ${CONNECTIONS_ESTABLISHED};\s+dropped\s+${CONNECTIONS_DROPPED}\s*$$ -> Connection
+  ^BGP neighbor -> Continue.Record
+  ^BGP neighbor is\s+${NEIGHBOR}\s*$$ -> Start
   ^\s*$$
 
 Connection
-  ^\s+Local\s+host\:\s+${LOCAL_ADDRESS}\,\s+Local\s+port\:\s+${LOCAL_PORT}
-  ^\s+Foreign\s+host\:\s+${REMOTE_ADDRESS}\,\s+Foreign\s+port\:\s+${REMOTE_PORT}
-  ^\s+Last\s+reset\s+${LAST_RESET}(?:\,\s+due\s+to\s+${LAST_RESET_REASON})?\s*$$
-  ^\s+External\s+BGP\s+neighbor\s+not\s+directly
-  ^\s+Time\s+since\s+last\s+notification\s+sent\s+to\s+neighbor:\s+${LAST_NOTIFICATION_SENT}
-  ^\s+Error\s+Code:\s+${ERROR_CODE}\s*$$
-  ^\s+Notification\s+data\s+(?:sent|received):
-  ^\s+(?:[0-9A-F]{8}|None)\s*$$
-  ^\s+Time\s+since\s+last\s+notification\s+received\s+from\s+neighbor:\s+${LAST_NOTIFICATION_RECEIVED} -> PeerError
-  ^\s+Peer\s+reset\s+reason:\s+${PEER_RESET_REASON}\s*$$
-  ^\s+.+up\s+to\s+${MAX_HOPS}\s+hops\s+away
-  ^BGP\s+neighbor -> Continue.Record
-  ^BGP\s+neighbor\s+is\s+${NEIGHBOR}\s*$$ -> Start
-  ^\s+For\s+Address\s+Family:\s+${AFI}\s*$$ -> AFI
+  ^\s+Local host:\s+${LOCAL_ADDRESS}, Local port:\s+${LOCAL_PORT}
+  ^\s+Foreign host:\s+${REMOTE_ADDRESS}, Foreign port:\s+${REMOTE_PORT}
+  ^\s+Last reset\s+${LAST_RESET}(?:, due to\s+${LAST_RESET_REASON})?\s*$$
+  ^BGP neighbor -> Continue.Record
+  ^BGP neighbor is\s+${NEIGHBOR}\s*$$ -> Start
+  ^\s+For Address Family:\s+${AFI}\s*$$ -> AFI
   ^\s*$$
-  ^. -> Error
-
-PeerError
-  ^\s+Error\s+Code:\s+${PEER_ERROR_CODE}\s*$$ -> Connection
-  ^. -> Error
