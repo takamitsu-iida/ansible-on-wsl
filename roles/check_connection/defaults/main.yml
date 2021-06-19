@@ -1,0 +1,53 @@
+---
+
+# 実行対象としないホストの配列
+EXCLUDE_HOSTS: []
+
+# 踏み台を踏んだ場合は、その踏み台から接続できるかどうかを確認する
+# WAIT_FOR_DELEGATOR: localhost
+WAIT_FOR_DELEGATOR: bastion_host
+
+#
+# wait_forモジュールに引き渡すパラメータ
+#
+
+# 接続を試みるインターバル、デフォルトは1秒
+SLEEP: 3
+
+# 接続タイムアウト
+CONNECT_TIMEOUT: 6
+
+# トータルで諦めるまでの秒数
+TIMEOUT: 30
+
+# アドレス
+ADDR: "{{ ansible_host|default(inventory_hostname) }}"
+
+# ポート
+PORT: "{{ ansible_port|default(22) }}"
+
+#
+# サマリ情報を出力するためのパラメータ
+#
+
+# サマリ情報のテンプレートファイル
+SUMMARY_CSV: summary.csv.j2
+SUMMARY_JSON: summary.json.j2
+SUMMARY_TEXT: summary.text.j2
+
+# ログファイルのディレクトリ
+LOG_DIR: "{{ lookup('env', 'PWD') + '/log' }}"
+
+# ファイル名のプレフィクス
+SUMMARY_FILE_PREFIX: ''
+
+# ファイル名
+SUMMARY_FILE: check_connection_summary
+
+#
+# templateモジュール用のパラメータ
+#
+
+# csvをwindowsのエクセルで開くことを想定
+OUTPUT_ENCODING: 'utf_8_sig'
+NEWLINE_SEQUENCE: '\r\n'

@@ -1,0 +1,53 @@
+---
+
+# サマリ情報の生成は一度だけでよい
+-
+  block:
+
+  - name: get current time
+    set_fact:
+      date: "{{ lookup('pipe', 'date +%Y%m%d_%H%M%S') }}"
+
+  - name: set filename
+    set_fact:
+      filename: "{{ SUMMARY_FILE_PREFIX + SUMMARY_FILE + '_' + date }}"
+
+  - name: create log directory if not exists
+    local_action:
+      module: file
+      path: "{{ LOG_DIR }}"
+      state: directory
+      recurse: true
+    changed_when: false
+
+  - name: save result as csv file
+    local_action:
+      module: template
+      src: "{{ SUMMARY_CSV }}"
+      dest: "{{ LOG_DIR + '/' + filename + '.csv' }}"
+      newline_sequence: "{{ NEWLINE_SEQUENCE }}"
+      output_encoding: "{{ OUTPUT_ENCODING }}"
+    changed_when: false
+    ignore_errors: true
+
+  - name: save result as json file
+    local_action:
+      module: template
+      src: "{{ SUMMARY_JSON }}"
+      dest: "{{ LOG_DIR + '/' + filename + '.json' }}"
+      newline_sequence: "{{ NEWLINE_SEQUENCE }}"
+      output_encoding: "{{ OUTPUT_ENCODING }}"
+    changed_when: false
+    ignore_errors: true
+
+  - name: display result as text
+    debug:
+      msg: "{{ lookup('template', SUMMARY_TEXT) }}"
+    changed_when: false
+    ignore_errors: true
+
+  # run_once: true
+  # でもよいが、どのホストで実行されるかやってみないと分からなくなるので、
+  # 常にインベントリの先頭で実行されるようにする
+  when:
+    - inventory_hostname == ansible_play_hosts_all[0]

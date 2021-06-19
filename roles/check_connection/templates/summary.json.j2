@@ -1,0 +1,15 @@
+[
+{% for host in ansible_play_hosts %}
+{% set inventory=host %}
+{% set address=hostvars[host]._addr|default('') %}
+{% set port=hostvars[host]._port|default('') %}
+{% set result=hostvars[host]._result|default('') %}
+  {
+    "ansible_host": "{{ host }}",
+    "address": "{{ address }}",
+    "port": "{{ port }}",
+    "result": "{{ result }}"
+  }{% if not loop.last %},{% endif %}
+
+{% endfor %}
+]

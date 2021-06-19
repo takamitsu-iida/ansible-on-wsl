@@ -1,8 +1,8 @@
-
 #
 # 踏み台
 #
 [bastion]
+bastion_host ansible_host=10.35.158.21
 eve ansible_host=10.35.158.21
 
 #

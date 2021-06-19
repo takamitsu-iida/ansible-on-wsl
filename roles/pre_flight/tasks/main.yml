@@ -1,8 +1,10 @@
 ---
 
 - name: ansible version check
-  include_tasks: ansible_version_check.yml
+  # 静的にタスクを取り込む
+  import_tasks: ansible_version_check.yml
 
 - name: pip module check
+  # 変数を読み込んでループを回すため、実行時に読み込むinclude_tasksでなければならない
   include_tasks: pip_module_check.yml
   loop: "{{ pip_module_list }}"

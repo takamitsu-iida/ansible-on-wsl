@@ -1,0 +1,37 @@
+---
+
+# 実行時のエラーを備えてblock rescueを使う
+# IPアドレスやポート番号、実行結果についてはset_factして、レポート用に取り出せるようにしておく
+-
+  block:
+
+    #
+    # wait_forモジュールを使ってポートが開いているかを確認する
+    #
+    - wait_for:
+        state: started
+        host: "{{ ADDR }}"
+        port: "{{ PORT }}"
+        connect_timeout: "{{ CONNECT_TIMEOUT }}"
+        sleep: "{{ SLEEP }}"
+        timeout: "{{ TIMEOUT }}"
+      register: r
+      delegate_to: "{{ WAIT_FOR_DELEGATOR }}"
+
+    #
+    # レポート用に実行結果をset_factする
+    #
+    - set_fact:
+        _result: "{{ 'NG' if r.failed else 'OK' }}"
+
+  rescue:
+    #
+    # レポート用に失敗した情報をset_factする
+    #
+    - set_fact:
+        _result: 'NG'
+
+  always:
+    - set_fact:
+        _addr: "{{ ADDR }}"
+        _port: "{{ PORT }}"
