@@ -345,7 +345,7 @@ ntc-templatesのtextfsmファイルであったり、ロールのタスク実行
 
 最低限必要なAnsibleのバージョン、必要なPythonモジュールの有無を事前にチェックするためのロールです。
 
-pre_flight\vars\main.ymlでは以下のように定義しているので、このファイルを直接編集するか、ロールの実行時に変数を上書き定義して実行してください。
+`pre_flight\vars\main.yml`では以下のように定義しているので、このファイルを直接編集するか、ロールの実行時に変数を上書き定義して実行してください。
 
 ```yaml
 # Ansibleバージョン
@@ -357,3 +357,10 @@ pip_module_list:
   - jinja2
   - tabulate
 ```
+
+
+## check_connection
+
+接続確認を行います。
+
+パラメータ類は`defaults/main.yml`に記述しています。

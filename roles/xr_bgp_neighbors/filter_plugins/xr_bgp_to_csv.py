@@ -8,11 +8,11 @@ class FilterModule(object):
   def filters(self):
     # {filter name: function name}
     return {
-      'list_to_csv': self.list_to_csv
+      'xr_bgp_to_csv': self.xr_bgp_to_csv
     }
 
   # io.StringIO requires python3
-  def list_to_csv(self, lines):
+  def xr_bgp_to_csv(self, lines):
     # lines shoud be like this
     # [ {obj}, {obj}, {obj} ]
     output = io.StringIO()
