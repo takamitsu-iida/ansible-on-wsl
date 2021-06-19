@@ -8,4 +8,4 @@
 
   tasks:
     - include_role:
-        name: ../../bgp_neighbors
+        name: ../../xr_bgp_neighbors
