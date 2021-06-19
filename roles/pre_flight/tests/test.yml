@@ -1,5 +1,10 @@
 ---
-- hosts: localhost
-  remote_user: root
-  roles:
-    - pre_flight
+
+- name: Validate environment
+  hosts: localhost
+  connection: local
+  gather_facts: false
+
+  tasks:
+    - include_role:
+        name: ../../pre_flight

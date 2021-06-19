@@ -1,0 +1,12 @@
+---
+
+#
+# Ansibleのバージョンチェック
+#
+
+- assert:
+    that:
+      - ansible_version is defined
+      - ansible_version.full is version("{{ required_ansible_version }}", '>=')
+    fail_msg: "{{ 'required ansible version is ' + required_ansible_version|string + ', your version is ' + ansible_version.full|string }}"
+    success_msg: "{{ 'OK: Ansible ' + ansible_version.full|string + ' is installed'}}"

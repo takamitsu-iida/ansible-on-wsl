@@ -1,2 +1,8 @@
 ---
-# tasks file for pre_flight
+
+- name: ansible version check
+  include_tasks: ansible_version_check.yml
+
+- name: pip module check
+  include_tasks: pip_module_check.yml
+  loop: "{{ pip_module_list }}"
