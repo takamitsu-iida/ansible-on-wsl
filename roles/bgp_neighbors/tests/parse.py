@@ -76,7 +76,7 @@ except ImportError as e:
 try:
   from tabulate import tabulate
 except ImportError as e:
-  logger.exception("tabulateモジュールのインポートｎ失敗しました: %s", e)
+  logger.exception("tabulateモジュールのインポートに失敗しました: %s", e)
 
 #
 # ここからスクリプト

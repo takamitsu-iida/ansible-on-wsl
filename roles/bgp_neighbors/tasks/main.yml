@@ -1,6 +1,7 @@
 ---
 
-- block:
+-
+  block:
     - name: show bgp neighbors
       cisco.iosxr.iosxr_command:
         commands:
@@ -9,24 +10,41 @@
       when:
         - ansible_network_os == 'cisco.iosxr.iosxr'
 
+    # - debug:
+    #     msg: "{{ result.stdout[0] }}"
+
   rescue:
     - debug:
         var: result
     - fail:
         msg: "Failed to execute command on {{ inventory_hostname }}"
 
-# - debug:
-#     msg: "{{ result.stdout[0] }}"
-
-- name: decode output text by textfsm
+- name: parse neighbor info and set_fact as NEIGHBORS
   set_fact:
-    neighbors: "{{ result.stdout[0] | parse_cli_textfsm(NEIGHBOR_TEMPLATE_PATH) }}"
-    afi: "{{ result.stdout[0] | parse_cli_textfsm(AFI_TEMPLATE_PATH) }}"
+    NEIGHBORS: "{{ result.stdout[0] | parse_cli_textfsm(NEIGHBOR_TEMPLATE_PATH) }}"
+  ignore_errors: true
 
-- name: debug neighbors
-  debug:
-    var: neighbors
+- name: parse address family info and set_fact as AFI
+  set_fact:
+    AFI: "{{ result.stdout[0] | parse_cli_textfsm(AFI_TEMPLATE_PATH) }}"
+  ignore_errors: true
 
-- name: debug afi
-  debug:
-    var: afi
+- name: convert NEIGHBORS to csv and set_fact as NEIGHBORS_CSV
+  set_fact:
+    NEIGHBORS_CSV: "{{ NEIGHBORS | xr_bgp_to_csv }}"
+  when: NEIGHBORS is defined
+  ignore_errors: true
+
+- name: conver AFI to csv and set_fact as AFI_CSV
+  set_fact:
+    AFI_CSV: "{{ AFI | xr_bgp_to_csv }}"
+  when: AFI is defined
+  ignore_errors: true
+
+- name: debug NEIGHBORS_CSV
+  debug: msg="{{ NEIGHBORS_CSV }}"
+  when: NEIGHBORS_CSV is defined
+
+- name: debug AFI_CSV
+  debug: msg="{{ AFI_CSV }}"
+  when: AFI_CSV is defined

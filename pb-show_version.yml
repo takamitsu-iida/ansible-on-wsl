@@ -23,10 +23,9 @@
       when:
         - ansible_network_os == 'cisco.iosxr.iosxr'
       register: r
-      
+
     - debug:
         msg: |
           {% for msg in r.stdout %}
           {{ msg }}
           {% endfor %}
-  
