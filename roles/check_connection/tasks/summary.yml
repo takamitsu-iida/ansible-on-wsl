@@ -29,6 +29,7 @@
       output_encoding: "{{ OUTPUT_ENCODING }}"
     changed_when: false
     ignore_errors: true
+    when: SAVE_CSV is defined and SAVE_CSV == true
 
   - name: save result as json file
     local_action:
@@ -39,6 +40,7 @@
       output_encoding: "{{ OUTPUT_ENCODING }}"
     changed_when: false
     ignore_errors: true
+    when: SAVE_JSON is defined and SAVE_JSON == true
 
   - name: display result as text
     debug:
@@ -48,6 +50,6 @@
 
   # run_once: true
   # でもよいが、どのホストで実行されるかやってみないと分からなくなるので、
-  # 常にインベントリの先頭で実行されるようにする
+  # インベントリの先頭ホストで実行されるようにする
   when:
     - inventory_hostname == ansible_play_hosts_all[0]

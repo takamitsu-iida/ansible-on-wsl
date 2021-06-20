@@ -1,50 +1,28 @@
 ---
 
+# 結果をファイルとして保存するなら、保存先のディレクトリを作成する
+- name: create log directory if not exists
+  local_action:
+    module: file
+    path: "{{ LOG_DIR }}"
+    state: directory
+    recurse: true
+  changed_when: false
+  run_once: true
+  when:
+    - SAVE_RESULT is defined and SAVE_RESULT == true
+
 -
   block:
-    - name: show bgp neighbors
-      cisco.iosxr.iosxr_command:
-        commands:
-          - show bgp neighbors
-      register: result
-      when:
-        - ansible_network_os == 'cisco.iosxr.iosxr'
 
-    # - debug:
-    #     msg: "{{ result.stdout[0] }}"
+  - name: show bgp neighbors
+    include_tasks: show_bgp_neighbors.yml
 
-  rescue:
-    - debug:
-        var: result
-    - fail:
-        msg: "Failed to execute command on {{ inventory_hostname }}"
+  - name: parse command output
+    include_tasks: parse.yml
 
-- name: parse neighbor info and set_fact as NEIGHBORS
-  set_fact:
-    NEIGHBORS: "{{ result.stdout[0] | parse_cli_textfsm(NEIGHBOR_TEMPLATE_PATH) }}"
-  ignore_errors: true
+  - name: summary
+    include_tasks: summary.yml
 
-- name: parse address family info and set_fact as AFI
-  set_fact:
-    AFI: "{{ result.stdout[0] | parse_cli_textfsm(AFI_TEMPLATE_PATH) }}"
-  ignore_errors: true
-
-- name: convert NEIGHBORS to csv and set_fact as NEIGHBORS_CSV
-  set_fact:
-    NEIGHBORS_CSV: "{{ NEIGHBORS | xr_bgp_to_csv }}"
-  when: NEIGHBORS is defined
-  ignore_errors: true
-
-- name: conver AFI to csv and set_fact as AFI_CSV
-  set_fact:
-    AFI_CSV: "{{ AFI | xr_bgp_to_csv }}"
-  when: AFI is defined
-  ignore_errors: true
-
-- name: debug NEIGHBORS_CSV
-  debug: msg="{{ NEIGHBORS_CSV }}"
-  when: NEIGHBORS_CSV is defined
-
-- name: debug AFI_CSV
-  debug: msg="{{ AFI_CSV }}"
-  when: AFI_CSV is defined
+  when:
+    - inventory_hostname not in EXCLUDE_HOSTS

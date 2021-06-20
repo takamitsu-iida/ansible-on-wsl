@@ -1,0 +1,9 @@
+inventory            show bgp neighbors   csv(nei)  csv(afi)
+====================+====================+=========+=========
+{% for host in ansible_play_hosts -%}
+{% set inventory=host.ljust(20, ' ') %}
+{% set command=(hostvars[host]._result|default(' ')).ljust(20, ' ') %}
+{% set neighbors=(hostvars[host]._neighbors_result|default(' ')).ljust(9, ' ') %}
+{% set afi=(hostvars[host]._afi_result|default(' ')).ljust(9, ' ') %}
+{{ inventory }} {{ command }} {{ neighbors }} {{ afi }}
+{% endfor %}

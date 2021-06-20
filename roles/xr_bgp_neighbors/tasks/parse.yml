@@ -1,0 +1,68 @@
+---
+
+# コマンド出力をパース
+-
+  block:
+  #
+  # neighbor情報をパース
+  # - debug: msg="{{ _stdout | parse_cli_textfsm(NEIGHBOR_TEMPLATE_PATH) | xr_bgp_to_csv }}"
+  #
+  - name: parse neighbor info and set_fact as NEIGHBORS_CSV
+    set_fact:
+      NEIGHBORS_CSV: "{{ _stdout | parse_cli_textfsm(NEIGHBOR_TEMPLATE_PATH) | xr_bgp_to_csv }}"
+    ignore_errors: true
+
+  - set_fact:
+      _neighbors_result: "{{ 'OK' if NEIGHBORS_CSV is defined else 'NG' }}"
+
+  - name: debug NEIGHBORS_CSV
+    debug: msg="{{ NEIGHBORS_CSV }}"
+    when: NEIGHBORS_CSV is defined
+
+  #
+  # address family情報をパース
+  # - debug: msg="{{ _stdout | parse_cli_textfsm(AFI_TEMPLATE_PATH) | xr_bgp_to_csv }}"
+  #
+  - name: parse address family info and set_fact as AFI_CSV
+    set_fact:
+      AFI_CSV: "{{ _stdout | parse_cli_textfsm(AFI_TEMPLATE_PATH) | xr_bgp_to_csv }}"
+    ignore_errors: true
+
+  - set_fact:
+      _afi_result: "{{ 'OK' if AFI_CSV is defined else 'NG' }}"
+
+  - name: debug AFI_CSV
+    debug: msg="{{ AFI_CSV }}"
+    when: AFI_CSV is defined
+
+  when:
+    - _result is defined and _result == 'OK'
+    - _stdout is defined
+
+
+# 結果をファイルに保存
+-
+  block:
+
+  - name: set filename
+    set_fact:
+      filename: "{{ PREFIX|d('') + role_name|basename + '_' + inventory_hostname + '_' + _date|d('') }}"
+
+  - name: save NEIGHBORS_CSV
+    local_action:
+      module: copy
+      content: "{{ NEIGHBORS_CSV }}"
+      dest: "{{ LOG_DIR + '/' + filename + '_neighbors.csv' }}"
+    when:
+      - NEIGHBORS_CSV is defined
+
+  - name: save AFI_CSV
+    local_action:
+      module: copy
+      content: "{{ AFI_CSV }}"
+      dest: "{{ LOG_DIR + '/' + filename + '_afi.csv' }}"
+    when:
+      - AFI_CSV is defined
+
+  when:
+    - SAVE_RESULT is defined and SAVE_RESULT == true

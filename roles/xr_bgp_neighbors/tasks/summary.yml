@@ -1,0 +1,17 @@
+---
+
+# サマリ情報の生成は一度だけでよい
+-
+  block:
+    - name: summary
+      debug:
+        msg: "{{ lookup('template', SUMMARY_TEXT) }}"
+      changed_when: false
+      ignore_errors: true
+
+  # run_once: true
+  # でもよいが、どのホストで実行されるかやってみないと分からなくなるので、
+  # インベントリの先頭ホストで実行されるようにする
+  when:
+    - inventory_hostname == ansible_play_hosts_all[0]
+    - _result is defined

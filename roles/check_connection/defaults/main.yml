@@ -30,6 +30,12 @@ PORT: "{{ ansible_port|default(22) }}"
 # サマリ情報を出力するためのパラメータ
 #
 
+# 結果をCSVで保存したい場合はtrue
+SAVE_CSV: true
+
+# 結果をJSONで保存したい場合はtrue
+SAVE_JSON: false
+
 # サマリ情報のテンプレートファイル
 SUMMARY_CSV: summary.csv.j2
 SUMMARY_JSON: summary.json.j2
