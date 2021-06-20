@@ -1,8 +1,8 @@
 ---
 
-- name: Retrieve bgp neighbor info
-  # hosts: core
-  hosts: iosxr_routers
+- name: show version
+  hosts: core
+  # hosts: iosxr_routers
   gather_facts: false
   strategy: linear
   serial: 0

@@ -1,0 +1,20 @@
+---
+
+- set_fact:
+    task_file: >-
+      {%- if   ansible_network_os == 'iosxr' or ansible_network_os == 'cisco.iosxr.iosxr' -%}iosxr_show_version.yml
+      {%- elif ansible_network_os == 'nxos'  or ansible_network_os == 'cisco.nxos.nxos'   -%}nxos_show_version.yml
+      {%- elif ansible_network_os == 'ios'   or ansible_network_os == 'cisco.ios.ios'     -%}ios_show_version.yml
+      {%- else -%}
+      {%- endif -%}
+
+-
+  block:
+
+  - include_tasks: iosxr_show_version.yml
+    when:
+      - ansible_network_os in ['iosxr', 'cisco.iosxr.iosxr']
+
+
+  when:
+    - inventory_hostname not in EXCLUDE_HOSTS
