@@ -9,7 +9,8 @@ WSL内の環境をどれだけいじってもWindowsそのものが汚れるこ�
 
 ## WSL Ubuntu 20.04
 
-WSL2ではなく、WSLを利用します。
+【重要】WSL2ではなく、WSLを利用します。
+
 WSL2の場合はホストマシンとなるWindowsでVPN接続を行うとインタフェースメトリックが操作されて通信できなくなる事象が発生します。
 WSLならそのようなことは起こりません。
 
@@ -25,7 +26,7 @@ Add-AppxPackage .\app_name.appx
 
 Ubuntuをインストールできたらそれを最新化します。
 
-プロキシサーバを経由しないとインターネットに接続できない環境の場合、プロキシの設定を先に済ませます。
+ですが、プロキシサーバを経由しないとインターネットに接続できない環境の場合はプロキシの設定を先に済ませます。
 
 `~/.bashrc`の最後に以下を追記します。
 
@@ -54,7 +55,7 @@ git config --global https.proxy http://username:password@proxy-server.address:80
 
 ```ini
 [user]
-  name = takamitsu-iida
+  name = ______
   email = ______@gmail.com
 
 [core]
@@ -89,7 +90,7 @@ sudo pip3 install pip -U
 
 Ansibleをインストールします。
 
-pipで個人環境に入れるのではなく、aptで導入します。pipで入れた場合、踏み台経由のSSHが動作しない事象が発生しました。
+【重要】pipで個人環境に入れるのではなくaptで導入します。pipで入れた場合、踏み台経由のSSHが動作しない事象が発生しました。
 
 ```bash
 sudo apt-get update
@@ -102,7 +103,7 @@ sudo apt-get install ansible
 ## アンチウィルスソフトの設定追加
 
 WSLを導入するとWindowsの中に独立したネットワークが作られ、NATして外部と通信するようになります。
-Windows側のアンチウィルスソフトからすると、知らないネットワークからの通信が出入りすることになりますので、ファイアウォール・ルールを追加しないと通信を遮断されてしまいます。
+Windowsのアンチウィルスソフトからすると、知らないネットワークからの通信が出入りすることになりますので、ファイアウォール・ルールを追加しないと通信を遮断されてしまいます。
 Symantec Endpoint Protectionの場合、「不一致IPトラフィックの設定」を「IPトラフィックを許可する」にした上で、以下のルールを追加します。
 
 - 22番ポート宛の発信通信を許可
@@ -123,7 +124,7 @@ WindowsにVisual Studio Codeを導入します。
 
 ## Windows Terminal
 
-WSLのターミナルはデフォルトのままだと使いづらいので、Windows Terminalを別途導入します。
+【おすすめ】WSLのターミナルはデフォルトのままだと使いづらいので、Windows Terminalを別途導入します。
 
 <https://github.com/microsoft/terminal>
 
@@ -136,10 +137,9 @@ Windows Terminalを開いたときに開くシェルをWSLにするには、JSON
 <https://github.com/networktocode/ntc-templates>
 
 pipでインストールすることもできますが、
-肝心のtextfsmファイルがどこに配置されたのか分かりづらいので`git clone`するかzipでダウンロードして、
-必要なテンプレートだけを利用します。
+肝心のtextfsmファイルがどこに配置されたのか分かりづらいので`git clone`するかzipでダウンロードして必要なテンプレートだけを利用します。
 
-簡単なものはそのまま利用できますが、
+といっても、簡単なものはそのまま利用できますが、
 `show bgp neighbors`コマンドの出力のように複雑な構造のものは自前で作る方がよいかもしれません。
 
 ```bash
@@ -153,6 +153,20 @@ Receiving objects: 100% (9254/9254), 2.53 MiB | 2.45 MiB/s, done.
 Resolving deltas: 100% (5151/5151), done.
 Updating files: 100% (1832/1832), done.
 ```
+
+- - -
+
+# EVE-NG関連
+
+ネットワーク機器をansibleで操作することを想定して、仮想のネットワーク環境をEVE-NGで整えます。
+
+サーバを1台調達して、そこにVMwareを入れて、VMwareの上にEVE-NGを導入します。
+
+＜追記予定＞
+
+
+
+- - -
 
 # Ansible関連
 
