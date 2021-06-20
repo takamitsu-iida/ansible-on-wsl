@@ -1,0 +1,30 @@
+---
+
+- vars:
+  - task_file: >-
+      {%- if   ansible_network_os == 'iosxr' or ansible_network_os == 'cisco.iosxr.iosxr' -%} xr_show_version
+      {%- elif ansible_network_os == 'nxos'  or ansible_network_os == 'cisco.nxos.nxos'   -%} nxos_show_version
+      {%- elif ansible_network_os == 'ios'   or ansible_network_os == 'cisco.ios.ios'     -%} ios_show_version
+      {%- else -%} NONE
+      {%- endif -%}
+
+- debug: msg="{{ task_file }}"
+
+- meta: end_play
+
+-
+  block:
+
+  - name: xrv show version
+    include_tasks: xrv_show_version.yml
+    when:
+
+
+  - name: parse command output
+    include_tasks: parse.yml
+
+  - name: summary
+    include_tasks: summary.yml
+
+  when:
+    - inventory_hostname not in EXCLUDE_HOSTS
