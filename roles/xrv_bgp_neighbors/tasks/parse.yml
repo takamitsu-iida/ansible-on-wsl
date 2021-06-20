@@ -5,11 +5,11 @@
   block:
   #
   # neighbor情報をパース
-  # - debug: msg="{{ _stdout | parse_cli_textfsm(NEIGHBOR_TEMPLATE_PATH) | xr_bgp_to_csv }}"
+  # - debug: msg="{{ _stdout | parse_cli_textfsm(NEIGHBOR_TEMPLATE_PATH) | xrv_bgp_to_csv }}"
   #
   - name: parse neighbor info and set_fact as NEIGHBORS_CSV
     set_fact:
-      NEIGHBORS_CSV: "{{ _stdout | parse_cli_textfsm(NEIGHBOR_TEMPLATE_PATH) | xr_bgp_to_csv }}"
+      NEIGHBORS_CSV: "{{ _stdout | parse_cli_textfsm(NEIGHBOR_TEMPLATE_PATH) | xrv_bgp_to_csv }}"
     ignore_errors: true
 
   - set_fact:
@@ -21,11 +21,11 @@
 
   #
   # address family情報をパース
-  # - debug: msg="{{ _stdout | parse_cli_textfsm(AFI_TEMPLATE_PATH) | xr_bgp_to_csv }}"
+  # - debug: msg="{{ _stdout | parse_cli_textfsm(AFI_TEMPLATE_PATH) | xrv_bgp_to_csv }}"
   #
   - name: parse address family info and set_fact as AFI_CSV
     set_fact:
-      AFI_CSV: "{{ _stdout | parse_cli_textfsm(AFI_TEMPLATE_PATH) | xr_bgp_to_csv }}"
+      AFI_CSV: "{{ _stdout | parse_cli_textfsm(AFI_TEMPLATE_PATH) | xrv_bgp_to_csv }}"
     ignore_errors: true
 
   - set_fact:

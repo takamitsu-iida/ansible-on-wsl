@@ -1,5 +1,5 @@
 # 2021.06.14 takamitsu-iida
-# XRv9000 7.3.3
+# XRv9000 7.3.1
 # show bgp neighbors
 #
 Value NEIGHBOR (\S+)

@@ -9,4 +9,4 @@
 
   tasks:
     - include_role:
-        name: ../../xr_bgp_neighbors
+        name: ../../xrv_bgp_neighbors

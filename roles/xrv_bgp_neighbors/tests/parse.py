@@ -101,7 +101,7 @@ if __name__ == '__main__':
       logger.exception(e.__class__.__name__)
       return 1
 
-    textfsm_path = os.path.join(files_dir, 'cisco_xr_show_bgp_neighbors_neighbor.textfsm')
+    textfsm_path = os.path.join(files_dir, 'cisco_xrv_show_bgp_neighbors_neighbor.textfsm')
     try:
       with open(textfsm_path) as f:
         table = textfsm.TextFSM(f)
@@ -116,7 +116,7 @@ if __name__ == '__main__':
 
     print(tabulate(result, headers=header))
 
-    textfsm_path = os.path.join(files_dir, 'cisco_xr_show_bgp_neighbors_afi.textfsm')
+    textfsm_path = os.path.join(files_dir, 'cisco_xrv_show_bgp_neighbors_afi.textfsm')
     try:
       with open(textfsm_path) as f:
         table = textfsm.TextFSM(f)
