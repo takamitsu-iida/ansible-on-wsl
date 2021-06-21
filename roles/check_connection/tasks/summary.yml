@@ -41,7 +41,7 @@
       ignore_errors: true
 
   vars:
-    data: "{{ lookup('pipe', 'date +%Y%m%d_%H%M%S') }}"
+    date: "{{ lookup('pipe', 'date +%Y%m%d_%H%M%S') }}"
     filename: "{{ SUMMARY_FILE_PREFIX }}{% if SUMMARY_FILE_PREFIX != '' %}_{% endif %}{{ SUMMARY_FILE}}_{{ date }}"
 
   # 実行したインベントリの先頭ホストのときにだけ実行する
