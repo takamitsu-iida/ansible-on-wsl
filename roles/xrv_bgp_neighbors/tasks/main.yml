@@ -15,14 +15,14 @@
 -
   block:
 
-  - name: show bgp neighbors
-    include_tasks: show_bgp_neighbors.yml
+    - name: show bgp neighbors
+      include_tasks: show_bgp_neighbors.yml
 
-  - name: parse command output
-    include_tasks: parse.yml
+    - name: parse command output
+      include_tasks: parse.yml
 
-  - name: summary
-    include_tasks: summary.yml
+    - name: summary
+      include_tasks: summary.yml
 
   when:
     - inventory_hostname not in EXCLUDE_HOSTS

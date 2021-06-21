@@ -3,11 +3,11 @@
 -
   block:
 
-  - name: check connection
-    include_tasks: check_connection.yml
+    - name: check connection
+      include_tasks: check_connection.yml
 
-  - name: create summary info
-    include_tasks: summary.yml
+    - name: create summary info
+      include_tasks: summary.yml
 
   when:
     - inventory_hostname not in EXCLUDE_HOSTS
