@@ -1,8 +1,7 @@
 ---
 
 - name: gather facts
-  hosts: core
-  # hosts: iosxr_routers
+  hosts: iosxr_routers
   gather_facts: false
   strategy: linear
   serial: 0
