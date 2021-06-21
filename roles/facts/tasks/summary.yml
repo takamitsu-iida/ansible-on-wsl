@@ -16,23 +16,12 @@
       local_action:
         module: template
         src: "{{ SUMMARY_CSV }}"
-        dest: "{{ LOG_DIR }}/{{ filename }}.csv"
+        dest: "{{ LOG_DIR + '/' + filename + '.csv' }}"
         newline_sequence: "{{ NEWLINE_SEQUENCE }}"
         output_encoding: "{{ OUTPUT_ENCODING }}"
       changed_when: false
       ignore_errors: true
       when: SAVE_CSV is defined and SAVE_CSV == true
-
-    - name: save result as json file
-      local_action:
-        module: template
-        src: "{{ SUMMARY_JSON }}"
-        dest: "{{ LOG_DIR }}/{{ filename }}.json"
-        newline_sequence: "{{ NEWLINE_SEQUENCE }}"
-        output_encoding: "{{ OUTPUT_ENCODING }}"
-      changed_when: false
-      ignore_errors: true
-      when: SAVE_JSON is defined and SAVE_JSON == true
 
     - name: display result as text
       debug:
@@ -41,10 +30,13 @@
       ignore_errors: true
 
   vars:
-    data: "{{ lookup('pipe', 'date +%Y%m%d_%H%M%S') }}"
+    # current date time
+    date: "{{ lookup('pipe', 'date +%Y%m%d_%H%M%S') }}"
+    # filename
     filename: "{{ SUMMARY_FILE_PREFIX }}{% if SUMMARY_FILE_PREFIX != '' %}_{% endif %}{{ SUMMARY_FILE}}_{{ date }}"
 
-  # 実行したインベントリの先頭ホストのときにだけ実行する
-  # run_once: true でもよい
+  # run_once: true
+  # でもよいが、どのホストで実行されるかやってみないと分からなくなるので、
+  # インベントリの先頭ホストで実行されるようにする
   when:
     - inventory_hostname == ansible_play_hosts_all[0]

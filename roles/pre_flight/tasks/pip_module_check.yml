@@ -11,5 +11,5 @@
 - assert:
     that:
       - pip_module_check.stdout
-    fail_msg: "{{ item + ' is required but not found, please run: pip install ' +  item }}"
-    success_msg: "{{ 'OK: ' + item + ' is installed'}}"
+    fail_msg: "{{ item }} is required but not found, please run: pip install ' + {{ item }}"
+    success_msg: "OK: {{ item }} is installed"

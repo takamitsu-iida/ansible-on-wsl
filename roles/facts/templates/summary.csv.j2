@@ -1,8 +1,8 @@
 inventory,address,port,result
 {% for host in ansible_play_hosts -%}
 {% set inventory=host %}
-{% set address=hostvars[host]._addr|d('') %}
-{% set port=hostvars[host]._port|d('') %}
-{% set result=hostvars[host]._result|d('') %}
+{% set address=hostvars[host]._addr|default('') %}
+{% set port=hostvars[host]._port|default('') %}
+{% set result=hostvars[host]._result|default('') %}
 {{ inventory }},{{ address }},{{ port }},{{ result }}
 {% endfor %}

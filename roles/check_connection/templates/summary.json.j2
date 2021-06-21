@@ -1,9 +1,9 @@
 [
 {% for host in ansible_play_hosts %}
 {% set inventory=host %}
-{% set address=hostvars[host]._addr|default('') %}
-{% set port=hostvars[host]._port|default('') %}
-{% set result=hostvars[host]._result|default('') %}
+{% set address=hostvars[host]._addr|d('') %}
+{% set port=hostvars[host]._port|d('') %}
+{% set result=hostvars[host]._result|d('') %}
   {
     "ansible_host": "{{ host }}",
     "address": "{{ address }}",

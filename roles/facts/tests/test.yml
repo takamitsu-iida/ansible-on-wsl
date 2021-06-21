@@ -1,6 +1,6 @@
 ---
 
-- name: show version
+- name: gather facts
   hosts: core
   # hosts: iosxr_routers
   gather_facts: false
@@ -9,4 +9,4 @@
 
   tasks:
     - include_role:
-        name: ../../show_version
+        name: ../../facts

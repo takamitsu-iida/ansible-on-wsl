@@ -4,8 +4,8 @@
 EXCLUDE_HOSTS: []
 
 # path to NTC-TEMPLATES
-AFI_TEMPLATE_PATH: "{{ role_path + '/files/cisco_xrv_show_bgp_neighbors_afi.textfsm' }}"
-NEIGHBOR_TEMPLATE_PATH: "{{ role_path + '/files/cisco_xrv_show_bgp_neighbors_neighbor.textfsm' }}"
+AFI_TEMPLATE_PATH: "{{ role_path }}/files/cisco_xrv_show_bgp_neighbors_afi.textfsm"
+NEIGHBOR_TEMPLATE_PATH: "{{ role_path }}/files/cisco_xrv_show_bgp_neighbors_neighbor.textfsm"
 
 # jinja2 template file
 SUMMARY_TEXT: summary.text.j2
@@ -14,7 +14,7 @@ SUMMARY_TEXT: summary.text.j2
 SAVE_RESULT: true
 
 # ログファイルを残すディレクトリ
-LOG_DIR: "{{ lookup('env', 'PWD') + '/log' }}"
+LOG_DIR: "{{ lookup('env', 'PWD') }}/log"
 
 # ログファイルの先頭につける文字列（もしあれば）
 PREFIX: ''

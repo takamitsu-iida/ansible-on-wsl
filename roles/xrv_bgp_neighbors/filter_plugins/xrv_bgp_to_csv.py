@@ -6,9 +6,9 @@ import io
 
 class FilterModule(object):
   def filters(self):
-    # {filter name: function name}
+    # { "filter name": function}
     return {
-      'xrv_bgp_to_csv': self.xrv_bgp_to_csv
+      "xrv_bgp_to_csv": self.xrv_bgp_to_csv
     }
 
   # io.StringIO requires python3

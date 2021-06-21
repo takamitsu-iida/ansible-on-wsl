@@ -1,3 +1,32 @@
 ---
 
+# 実行対象としないホストの配列
 EXCLUDE_HOSTS: []
+
+#
+# サマリ情報を出力するためのパラメータ
+#
+
+# 結果をCSVで保存したい場合はtrue
+SAVE_CSV: true
+
+# サマリ情報のテンプレートファイル
+SUMMARY_CSV: summary.csv.j2
+SUMMARY_TEXT: summary.text.j2
+
+# ログファイルのディレクトリ
+LOG_DIR: "{{ lookup('env', 'PWD') + '/log' }}"
+
+# ファイル名のプレフィクス
+SUMMARY_FILE_PREFIX: ''
+
+# ファイル名
+SUMMARY_FILE: facts_summary
+
+#
+# templateモジュール用のパラメータ
+#
+
+# csvをwindowsのエクセルで開くことを想定
+OUTPUT_ENCODING: 'utf_8_sig'
+NEWLINE_SEQUENCE: '\r\n'
