@@ -1,5 +1,14 @@
 ---
-- hosts: localhost
-  remote_user: root
-  roles:
-    - reload
+
+- name: Reload devices
+  # hosts: iosxr_routers
+  hosts: pe1
+  gather_facts: false
+  strategy: linear
+  serial: 0
+
+  tasks:
+    - include_role:
+        name: ../../reload
+      vars:
+        WAIT_FOR_DELEGATOR: bastion_host

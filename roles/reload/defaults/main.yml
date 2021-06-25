@@ -1,2 +1,8 @@
 ---
-# defaults file for reload
+
+# 実行対象としないホストの配列
+# EXCLUDE_HOSTS: []
+
+# 踏み台を踏んだ場合は、その踏み台から接続できるかどうかを確認する
+# WAIT_FOR_DELEGATOR: localhost
+WAIT_FOR_DELEGATOR: bastion_host

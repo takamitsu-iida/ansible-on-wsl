@@ -9,3 +9,5 @@
   tasks:
     - include_role:
         name: ../../check_connection
+      vars:
+        WAIT_FOR_DELEGATOR: bastion_host

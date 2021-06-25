@@ -1,0 +1,42 @@
+---
+
+# サマリ情報の生成は一度だけでよい
+-
+  block:
+
+    # - debug: var=ansible_facts
+
+    - name: create log directory if not exists
+      local_action:
+        module: file
+        path: "{{ LOG_DIR }}"
+        state: directory
+        recurse: true
+      changed_when: false
+
+    - name: save result as csv file
+      local_action:
+        module: template
+        src: "{{ SUMMARY_CSV }}"
+        dest: "{{ LOG_DIR }}/{{ filename }}.csv"
+        newline_sequence: "{{ NEWLINE_SEQUENCE }}"
+        output_encoding: "{{ OUTPUT_ENCODING }}"
+      changed_when: false
+      ignore_errors: true
+      when: SAVE_CSV is defined and SAVE_CSV == true
+
+    - name: display result as text
+      debug:
+        msg: "{{ lookup('template', SUMMARY_TEXT) }}"
+      changed_when: false
+      ignore_errors: true
+
+  vars:
+    # current date time
+    date: "{{ lookup('pipe', 'date +%Y%m%d_%H%M%S') }}"
+    # filename
+    filename: "{{ SUMMARY_FILE_PREFIX }}{% if SUMMARY_FILE_PREFIX != '' %}_{% endif %}{{ SUMMARY_FILE }}_{{ date }}"
+
+  # run_once: true でもよい
+  when:
+    - inventory_hostname == ansible_play_hosts_all[0]

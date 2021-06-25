@@ -1,0 +1,25 @@
+---
+
+- name: reset the connection
+  meta: reset_connection
+
+- name: wait for ssh down
+  delegate_to: "{{ WAIT_FOR_DELEGATOR }}"
+  wait_for:
+    host: "{{ ansible_host }}"
+    port: 22
+    state: stopped
+    timeout: 30
+
+- name: wait for ssh up
+  delegate_to: "{{ WAIT_FOR_DELEGATOR }}"
+  wait_for:
+    host: "{{ ansible_host }}"
+    port: 22
+    state: started
+    delay: 30
+
+- name: sleep for 30 seconds
+  local_action:
+    module: wait_for
+    timeout: 30
