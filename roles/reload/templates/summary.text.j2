@@ -1,0 +1,9 @@
+inventory            reload command  ssh down        ssh up
+====================+===============+===============+===============
+{% for host in ansible_play_hosts -%}
+{% set inventory=host.ljust(20, ' ') %}
+{% set cmd=(hostvars[host].cmd_date|d(' ')).ljust(15, ' ') %}
+{% set down=(hostvars[host].ssh_down_date|d(' ')).ljust(15, ' ') %}
+{% set up=(hostvars[host].ssh_up_date|d(' ')).ljust(15, ' ') %}
+{{ inventory }} {{ cmd }} {{ down }} {{ up }}
+{% endfor %}

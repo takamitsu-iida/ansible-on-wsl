@@ -1,23 +1,18 @@
 ---
 
-# https://www.redhat.com/ja/explore/ansible/getting-started/rebooting-network-devices-with-ansible
-
-- name: reboot the device
+- name: reload the device
   cli_command:
     command: reload location all
     prompt:
-      - '[confirm]'
-      - '[confirm]'
+      - '\[confirm\]'
+      - '\[confirm\]'
     answer:
      - y
      - y
-  register: r
-
-- set_fact:
-    reloaded: "{{ not r.failed }}"
+    check_all: true
+  ignore_errors: true
+  vars:
+    ansible_command_timeout: 5
 
 - name: wait for device up
   include_tasks: wait_for.yml
-  when: not r.failed
-
-- debug: var=reloaded

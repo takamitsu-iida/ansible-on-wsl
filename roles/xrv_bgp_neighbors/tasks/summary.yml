@@ -9,7 +9,8 @@
       changed_when: false
       ignore_errors: true
 
-  # run_once: true でもよい
+  run_once: true
+
   when:
-    - inventory_hostname == ansible_play_hosts_all[0]
     - _result is defined
+    # - inventory_hostname == ansible_play_hosts_all[0]

@@ -1,0 +1,24 @@
+---
+
+# - name: save running-config
+#   ios_config:
+#     save_when: modified
+#   ignore_errors: true
+
+- name: write memory
+  cli_command:
+    command: write memory
+
+# 1分後に再起動がかかるようにする
+# コマンドプロンプトが戻ってこないことがあるためignore_errorsする
+- name: reload the device
+  cli_command:
+    command: reload in 1
+    prompt: confirm
+    answer: y
+  ignore_errors: true
+  vars:
+    ansible_command_timeout: 5
+
+- name: wait for device up
+  include_tasks: wait_for.yml

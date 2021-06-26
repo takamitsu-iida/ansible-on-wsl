@@ -1,4 +1,6 @@
 ---
 
-- name: Gather facts
+- name: Gather facts of nxos
   nxos_facts:
+
+- debug: var=ansible_facts

@@ -15,8 +15,8 @@
     - set_fact:
         skipped: "{{ r.skipped|d(false) }}"
 
-    #- name: create summary info
-    #  include_tasks: summary.yml
+    - name: create summary info
+      include_tasks: summary.yml
 
   vars:
     task_file: >-

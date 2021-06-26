@@ -1,8 +1,33 @@
 ---
 
-# 実行対象としないホストの配列
-# EXCLUDE_HOSTS: []
-
 # 踏み台を踏んだ場合は、その踏み台から接続できるかどうかを確認する
 # WAIT_FOR_DELEGATOR: localhost
 WAIT_FOR_DELEGATOR: bastion_host
+
+#
+# サマリ情報を出力するためのパラメータ
+#
+
+# 結果をCSVで保存したい場合はtrue
+SAVE_CSV: false
+
+# サマリ情報のテンプレートファイル
+SUMMARY_CSV: summary.csv.j2
+SUMMARY_TEXT: summary.text.j2
+
+# ログファイルのディレクトリ
+LOG_DIR: "{{ lookup('env', 'PWD') + '/log' }}"
+
+# ファイル名のプレフィクス
+SUMMARY_FILE_PREFIX: ''
+
+# ファイル名
+SUMMARY_FILE: reload_summary
+
+#
+# templateモジュール用のパラメータ
+#
+
+# csvをwindowsのエクセルで開くことを想定
+OUTPUT_ENCODING: 'utf_8_sig'
+NEWLINE_SEQUENCE: '\r\n'

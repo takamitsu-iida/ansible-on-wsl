@@ -100,6 +100,39 @@ sudo apt-get update
 sudo apt-get install ansible
 ```
 
+## SSHの設定
+
+`~/.ssh/config` に接続先の情報を記述します。
+踏み台となるサーバには鍵認証でログインできるように自分の公開鍵を格納しておきます。
+
+その踏み台の先にいる機器にはProxyCommandを設定します。
+
+相手が古い装置の場合はSSHのアルゴリズムを追加する必要があります。
+
+```ini
+Host bastion_host
+  User root
+  HostName a.b.c.d
+  Port 22
+
+Host pe1
+  User admin
+  HostName 172.20.0.31
+  Port 22
+  ProxyCommand ssh -W %h:%p bastion_host
+
+Host pe2
+  User admin
+  HostName 172.20.0.32
+  Port 22
+  ProxyCommand ssh -W %h:%p bastion_host
+
+Host x.x.x.x
+  User cisco
+  KexAlgorithms +diffie-hellman-group1-sha1
+  Ciphers aes128-cbc,3des-cbc,aes192-cbc,aes256-cbc
+```
+
 ## アンチウィルスソフトの設定追加
 
 WSLを導入するとWindowsの中に独立したネットワークが作られ、NATして外部と通信するようになります。

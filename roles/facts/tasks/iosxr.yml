@@ -1,4 +1,6 @@
 ---
 
-- name: Gather facts
+- name: Gather facts of iosxr
   iosxr_facts:
+
+# - debug: var=ansible_facts

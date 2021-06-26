@@ -1,10 +1,7 @@
 ---
 
-# サマリ情報の生成は一度だけでよい
 -
   block:
-
-    # - debug: var=ansible_facts
 
     - name: create log directory if not exists
       local_action:
@@ -13,6 +10,7 @@
         state: directory
         recurse: true
       changed_when: false
+      when: SAVE_CSV is defined and SAVE_CSV == true
 
     - name: save result as csv file
       local_action:
@@ -37,6 +35,4 @@
     # filename
     filename: "{{ SUMMARY_FILE_PREFIX }}{% if SUMMARY_FILE_PREFIX != '' %}_{% endif %}{{ SUMMARY_FILE }}_{{ date }}"
 
-  # run_once: true でもよい
-  when:
-    - inventory_hostname == ansible_play_hosts_all[0]
+  run_once: true

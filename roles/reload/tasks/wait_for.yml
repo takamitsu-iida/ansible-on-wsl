@@ -3,23 +3,35 @@
 - name: reset the connection
   meta: reset_connection
 
+- name: get current time
+  set_fact:
+    cmd_date: "{{ lookup('pipe', 'date +%Y%m%d_%H%M%S') }}"
+
 - name: wait for ssh down
-  delegate_to: "{{ WAIT_FOR_DELEGATOR }}"
+  delegate_to: "{{ WAIT_FOR_DELEGATOR|d('localhost') }}"
   wait_for:
     host: "{{ ansible_host }}"
     port: 22
     state: stopped
-    timeout: 30
+    timeout: 300
+
+- name: get current time
+  set_fact:
+    ssh_down_date: "{{ lookup('pipe', 'date +%Y%m%d_%H%M%S') }}"
 
 - name: wait for ssh up
-  delegate_to: "{{ WAIT_FOR_DELEGATOR }}"
+  delegate_to: "{{ WAIT_FOR_DELEGATOR|d('localhost') }}"
   wait_for:
     host: "{{ ansible_host }}"
     port: 22
     state: started
     delay: 30
 
-- name: sleep for 30 seconds
+- name: get current time
+  set_fact:
+    ssh_up_date: "{{ lookup('pipe', 'date +%Y%m%d_%H%M%S') }}"
+
+- name: sleep 10 seconds
   local_action:
     module: wait_for
-    timeout: 30
+    timeout: 10

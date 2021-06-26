@@ -10,3 +10,5 @@
   tasks:
     - include_role:
         name: ../../xrv_bgp_neighbors
+      vars:
+        SAVE_RESULT: true

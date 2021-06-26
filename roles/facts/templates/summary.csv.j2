@@ -3,7 +3,8 @@ inventory,net_system,net_model,net_version,net_all_ipv4_addresses
 {% set inventory=host %}
 {% set net_system=hostvars[host].ansible_facts.net_system|d('') %}
 {% set net_model=hostvars[host].ansible_facts.net_model|d('') %}
+{% set net_platform=hostvars[host].ansible_facts.net_platform|d('') %}
 {% set net_version=hostvars[host].ansible_facts.net_version|d('') %}
 {% set ipv4_addresses=hostvars[host].ansible_facts.net_all_ipv4_addresses|d([])|join(' ') %}
-{{ inventory }},{{ net_system }},{{ net_model }},{{ net_version }},{{ ipv4_addresses }}
+{{ inventory }},{{ net_system }},{{ net_model }},{{ net_platform }},{{ net_version }},{{ ipv4_addresses }}
 {% endfor %}

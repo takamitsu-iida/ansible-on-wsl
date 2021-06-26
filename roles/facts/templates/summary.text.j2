@@ -1,10 +1,9 @@
-inventory            net_system      net_model            net_version     net_all_ipv4_addresses
-====================+===============+====================+===============+======================
+inventory            net_system      net_version     net_all_ipv4_addresses
+====================+===============+===============+======================
 {% for host in ansible_play_hosts -%}
 {% set inventory=host.ljust(20, ' ') %}
 {% set net_system=(hostvars[host].ansible_facts.net_system|d(' ')).ljust(15, ' ') %}
-{% set net_model=(hostvars[host].ansible_facts.net_model|d(' ')).ljust(20, ' ') %}
 {% set net_version=(hostvars[host].ansible_facts.net_version|d(' ')).ljust(15, ' ') %}
 {% set ipv4_addresses=(hostvars[host].ansible_facts.net_all_ipv4_addresses|d([])|join(' ')).ljust(22, ' ') %}
-{{ inventory }} {{ net_system }} {{ net_model }} {{ net_version }} {{ ipv4_addresses }}
+{{ inventory }} {{ net_system }} {{ net_version }} {{ ipv4_addresses }}
 {% endfor %}
