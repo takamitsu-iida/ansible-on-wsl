@@ -1,0 +1,57 @@
+---
+
+- name: dir bootflash
+  cli_command:
+    command: 'dir bootflash:'
+  register: r
+
+- debug: msg="{{ r.stdout }}"
+
+# CE3#dir bootflash:
+# Directory of bootflash:/
+#
+#    11  drwx            16384   Jun 8 2021 21:08:24 +09:00  lost+found
+#    12  -rw-        469275740   Jun 8 2021 21:09:14 +09:00  csr1000v-mono-universalk9.17.03.03.SPA.pkg
+#    13  -rw-         48363587   Jun 8 2021 21:09:14 +09:00  csr1000v-rpboot.17.03.03.SPA.pkg
+#    21  -rw-        468361091  Jun 27 2021 15:12:00 +09:00  csr1000v-universalk9.16.12.05.SPA.bin
+#
+# 6286540800 bytes total (4534333440 bytes free)
+# CE3#
+
+- set_fact:
+    image_file_exist: "{{ image_file in r.stdout }}"
+
+- debug: msg="{{ image_file }} exists {{ image_file_exist }}"
+
+- set_fact:
+    available_memory: "{{ r.stdout | regex_search('(?P<mem>\\d+) bytes free', '\\g<mem>', multiline=true) | join }}"
+
+- assert:
+    that:
+      - available_memory|int > image_size|int
+    fail_msg: "not enough memory, available_memory is {{ available_memory }} bytes, image size is {{ image_size }}"
+    success_msg: "available_memory is {{ available_memory }} bytes, image size is {{ image_size }}"
+
+# timeout 60sec x 20min = 1200sec
+- name: copy image from tftp to bootflash
+  cli_command:
+    command: "copy tftp://{{ tftp_server }}/{{ image_file }} bootflash:"
+    prompt: '\]\?'
+    answer: ''
+  register: copy_result
+  vars:
+    ansible_command_timeout: 1200
+  when:
+    - not image_file_exist
+
+- debug: var=copy_result
+
+- name: change boot system
+  cli_command:
+    command: "{{ item }}"
+  loop:
+    - configure terminal
+    - no boot system
+    - "boot system flash bootflash:/{{ image_file }}"
+    - end
+    - write

@@ -1,0 +1,17 @@
+---
+
+- name: csr1000v ios upgrade
+  hosts: ios_routers
+  gather_facts: false
+  strategy: linear
+  serial: 0
+
+  tasks:
+    - include_role:
+        name: ../../csr1000v_upgrade
+      vars:
+        tftp_server: 172.20.0.21
+        image_file: csr1000v-universalk9.17.03.03.SPA.bin
+        image_size: 517570560
+        # image_file: csr1000v-universalk9.16.12.05.SPA.bin
+        # image_size: 468365312
