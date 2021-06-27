@@ -1,0 +1,7 @@
+---
+
+# 実行対象としないホストの配列
+EXCLUDE_HOSTS: []
+
+# 対象とするインタフェースを抽出する正規表現
+target_interface_regex: '(GigabitEthernet\d+)'

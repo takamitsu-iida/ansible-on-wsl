@@ -1,0 +1,20 @@
+---
+
+- name: Check tcp port connectivity
+  # hosts: nxos_switches
+  hosts: ios_routers
+  gather_facts: false
+  strategy: linear
+  serial: 0
+
+  tasks:
+    - include_role:
+        name: ../../clear_counters
+      vars:
+        # ios csr1000v
+        # GigabitEthernet1 - 4
+        target_interface_regex: 'GigabitEthernet[1-4]{1,1}$'
+
+        # nxos nexus9000v
+        # Ethernet1/1 - 1/4
+        # target_interface_regex: 'Ethernet1/[1-4]{1,1}$'

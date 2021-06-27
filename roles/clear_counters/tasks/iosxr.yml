@@ -1,0 +1,11 @@
+---
+
+- name: set command
+  set_fact:
+    CMD: 'clear counters interface '
+
+- name: Gather facts of iosxr
+  iosxr_facts:
+    gather_subset: interfaces
+
+# - debug: var=ansible_facts
