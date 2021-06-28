@@ -1,6 +1,6 @@
 ---
 
-- name: run test script
+- name: debug test script
   command: "{{ role_path }}/files/show_ip_route.py"
   args:
     chdir: "{{ role_path }}/files"

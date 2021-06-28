@@ -75,8 +75,9 @@ except ImportError as e:
 
 try:
   from tabulate import tabulate
-except ImportError as e:
-  logger.exception("tabulateモジュールのインポートに失敗しました: %s", e)
+  HAS_TABULATE = True
+except ImportError:
+  HAS_TABULATE = False
 
 #
 # ここからスクリプト
@@ -129,7 +130,8 @@ if __name__ == '__main__':
       logger.exception(e.__class__.__name__)
       return 1
 
-    print(tabulate(result, headers=header))
+    if HAS_TABULATE:
+      print(tabulate(result, headers=header))
 
     return 0
 

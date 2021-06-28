@@ -3,7 +3,7 @@
 """Ciscoのshow ip routeをパースします
 
 2016/04/20 初版
-2021/06/28 ntc_templatesを使うように変更
+2021/06/28 textfsmを使ってパースするクラスを追加
 """
 
 __author__ = 'Takamitsu IIDA'
@@ -11,8 +11,31 @@ __version__ = '0.2'
 __date__ = '2021/06/28'
 
 
-import codecs
+#
+# 標準ライブラリのインポート
+#
 import re
+import os
+
+#
+# 外部ライブラリのインポート
+#
+HAS_TEXTFSM = True
+try:
+  import textfsm
+except ImportError:
+  HAS_TEXTFSM = False
+
+
+def here(path=''):
+  """相対パスを絶対パスに変換して返却します"""
+  return os.path.abspath(os.path.join(os.path.dirname(__file__), path))
+
+# アプリケーションのホームディレクトリ
+app_dir = here(".")
+
+# filesのディレクトリ
+files_dir = here("../files")
 
 
 class IPv4RouteEntry(object):
@@ -41,45 +64,182 @@ class IPv4RouteEntry(object):
     except Exception:
       raise ValueError('address error')
 
+
   def __eq__(self, other):
     """=="""
     return all([self.addr == other.addr, self.mask == other.mask, self.gw == other.gw])
+
 
   def __ne__(self, other):
     """!="""
     return not all([self.addr == other.addr, self.mask == other.mask, self.gw == other.gw])
 
+
   def __cmp__(self, other):
     """比較"""
     return self.addr32 - other.addr32
+
 
   def __lt__(self, other):
     """less than"""
     return self.addr32 < other.addr32
 
+
   def __gt__(self, other):
     """greater than"""
     return self.addr32 > other.addr32
+
 
   def __le__(self, other):
     """less or equal"""
     return self.addr32 <= other.addr32
 
+
   def __ge__(self, other):
     """greater or equal"""
     return self.addr32 >= other.addr32
+
 
   def __repr__(self):
     """print"""
     return '{0} {1}/{2} via {3} {4}'.format(self.proto, self.addr, self.mask, self.gw, self.interface)
 
-  def toString(self):
+
+  def __str__(self):
     """print"""
     return self.__repr__()
 
 
-class ShowIpRouteTextParser(object):
+  #
+  # 以下、フィルタのためのスタティックメソッド
+  #
+  @staticmethod
+  def filter_addr(query):
+    """アドレスを文字列で比較して条件にあえばそのIPv4RouteEntryを返却する（関数を返却する）"""
+    r = re.compile(r"%s" % query)
+
+    def _filter(ipv4_route_entry):
+      ret = None
+      if r.search(ipv4_route_entry.addr):
+        ret = ipv4_route_entry
+      return ret
+    return _filter
+
+
+  @staticmethod
+  def filter_proto(query):
+    """プロトコルを文字列で比較して条件にあえばそのIPv4RouteEntryを返却する（関数を返却する）"""
+    r = re.compile(r"%s" % query, re.IGNORECASE)
+
+    def _filter(ipv4_route_entry):
+      ret = None
+      if r.search(ipv4_route_entry.proto):
+        ret = ipv4_route_entry
+      return ret
+    return _filter
+
+
+  @staticmethod
+  def filter_gw(query):
+    """ゲートウェイを文字列で比較して条件にあえばそのIPv4RouteEntryを返却する（関数を返却する）"""
+    r = re.compile(r"%s" % query)
+
+    def _filter(ipv4_route_entry):
+      ret = None
+      if r.search(ipv4_route_entry.gw):
+        ret = ipv4_route_entry
+      return ret
+    return _filter
+
+
+  @staticmethod
+  def filter_interface(query):
+    """インタフェース名が条件にあえばそのIPv4RouteEntryを返却する（関数を返却する）"""
+    r = re.compile(r"%s" % query, re.IGNORECASE)
+
+    def _filter(ipv4_route_entry):
+      ret = None
+      if r.search(ipv4_route_entry.interface):
+        ret = ipv4_route_entry
+      return ret
+    return _filter
+
+
+  @staticmethod
+  def filter_mask(masklen, *_ope):
+    """マスク長が条件にあえばそのIPv4RouteEntryを返却する（関数を返却する）"""
+    if _ope:
+      ope = _ope[0]
+    else:
+      ope = 'eq'
+
+    def _filter(ipv4_route_entry):
+      ret = None
+      if ope == 'le':
+        if ipv4_route_entry.mask <= masklen:
+          ret = ipv4_route_entry
+      if ope == 'lt':
+        if ipv4_route_entry.mask < masklen:
+          ret = ipv4_route_entry
+      if ope == 'ge':
+        if ipv4_route_entry.mask >= masklen:
+          ret = ipv4_route_entry
+      if ope == 'gt':
+        if ipv4_route_entry.mask > masklen:
+          ret = ipv4_route_entry
+      if ope == 'eq':
+        if ipv4_route_entry.mask == masklen:
+          ret = ipv4_route_entry
+      return ret
+    return _filter
+
+
+  @staticmethod
+  def get_filter_result(ipv4_route_entry, funcs):
+    """IPv4RouteEntryとフィルタ関数の配列を受け取り、フィルタの条件にあえばそのIPv4RouteEntryを返却する"""
+    func = funcs[0]
+    result = func(ipv4_route_entry)
+    if result and funcs[1:]:
+      return IPv4RouteEntry.get_filter_result(ipv4_route_entry, funcs[1:])
+    return result, func
+
+
+  @staticmethod
+  def get_diff_list(src_list, dst_list):
+    """差分を取り、追加は['+', ipv4_route_entry]、削除は['-', ipv4_route_entry]で返却します"""
+    plus = [['+', ipv4_route_entry] for ipv4_route_entry in dst_list if ipv4_route_entry not in src_list]
+    minus = [['-', ipv4_route_entry] for ipv4_route_entry in src_list if ipv4_route_entry not in dst_list]
+    return plus + minus
+
+
+  @staticmethod
+  def get_diff_text(diff_list):
+    """差分のリストをテキストにして返却します"""
+    if not diff_list:
+      return "差分なし"
+    text = ""
+    for l in diff_list:
+      text += l[0].ljust(3) + l[1].toString() + "\r\n"
+    return text
+
+
+  @staticmethod
+  def get_diff_csv(diff_list):
+    """差分のリストをCSVテキストにして返却します"""
+    text = "ope, ipv4 route entry\r\n"
+    if not diff_list:
+      text += "=,no difference\r\n"
+      return text
+    for l in diff_list:
+      text += l[0] + "," + l[1].toString() + "\r\n"
+    return text
+
+
+
+class ShowIpRouteParser(object):
   """Ciscoのshow ip routeコマンド表示を受け取って、加工します"""
+
+  # 正規表現のパターン定義
 
   # 10.1.22.0
   _ipv4_addr = r'(?P<addr>(?:\d{1,3}\.){3}\d{1,3})'
@@ -109,9 +269,11 @@ class ShowIpRouteTextParser(object):
   #                      [110/2] via 192.168.12.2, 7w0d, Vlan12
   _ipv4_prefix_ecmp = r'\s+\[\d+/\d+] via (?P<gw>(?:\d{1,3}\.){3}\d{1,3}),.*,(?P<interface>.*)'
 
+  # 統計情報
   pstat = None
   mstat = None
   gstat = None
+
 
   def __init__(self):
     """コンストラクタ"""
@@ -128,6 +290,7 @@ class ShowIpRouteTextParser(object):
     self.mstat = {}
     self.gstat = {}
 
+
   def setCounter(self, d, k):
     """辞書型dのキーkの値を+1する"""
     if not k:
@@ -135,6 +298,7 @@ class ShowIpRouteTextParser(object):
     counter = d.get(k, 0)
     counter += 1
     d[k] = counter
+
 
   def parse_lines(self, lines):
     """行の配列を走査してIPv4RouteEntryオブジェクトをyieldする"""
@@ -239,116 +403,7 @@ class ShowIpRouteTextParser(object):
         yield ipv4_route_entry, line
         continue
     # end for
-  #
 
-  def filter_addr(self, query):
-    """アドレスを文字列で比較して条件にあえばそのIPv4RouteEntryを返却する（関数を返却する）
-
-    >>> filter_addr("192.168.0.0")(IPv4RouteEntry("O E1", "192.168.0.0", "24", "192.168.0.254", "Vlan100")) is not None
-    True
-    >>> filter_addr("192.168.1.0")(IPv4RouteEntry("O E1", "192.168.0.0", "24", "192.168.0.254", "Vlan100")) is not None
-    False
-    """
-    r = re.compile(r"%s" % query)
-
-    def _filter(ipv4_route_entry):
-      ret = None
-      if r.search(ipv4_route_entry.addr):
-        ret = ipv4_route_entry
-      return ret
-    return _filter
-
-  def filter_proto(self, query):
-    """プロトコルを文字列で比較して条件にあえばそのIPv4RouteEntryを返却する（関数を返却する）
-
-    >>> filter_proto("O E1")(IPv4RouteEntry("O E1", "192.168.0.0", "24", "192.168.0.254", "Vlan100")) is not None
-    True
-    >>> filter_proto("L")(IPv4RouteEntry("O E1", "192.168.0.0", "24", "192.168.0.254", "Vlan100")) is not None
-    False
-    """
-    r = re.compile(r"%s" % query, re.IGNORECASE)
-
-    def _filter(ipv4_route_entry):
-      ret = None
-      if r.search(ipv4_route_entry.proto):
-        ret = ipv4_route_entry
-      return ret
-    return _filter
-
-  def filter_gw(self, query):
-    """ゲートウェイを文字列で比較して条件にあえばそのIPv4RouteEntryを返却する（関数を返却する）
-
-    >>> filter_gw("192.168.0.254")(IPv4RouteEntry("O E1", "192.168.0.0", "24", "192.168.0.254", "Vlan100")) is not None
-    True
-    >>> filter_gw("192.168.1.254")(IPv4RouteEntry("O E1", "192.168.0.0", "24", "192.168.0.254", "Vlan100")) is not None
-    False
-    """
-    r = re.compile(r"%s" % query)
-
-    def _filter(ipv4_route_entry):
-      ret = None
-      if r.search(ipv4_route_entry.gw):
-        ret = ipv4_route_entry
-      return ret
-    return _filter
-
-  def filter_interface(self, query):
-    """インタフェース名が条件にあえばそのIPv4RouteEntryを返却する（関数を返却する）
-
-    >>> filter_interface("Vlan100")(IPv4RouteEntry("O E1", "192.168.0.0", "24", "192.168.0.254", "Vlan100")) is not None
-    True
-    >>> filter_interface("Vlan101")(IPv4RouteEntry("O E1", "192.168.0.0", "24", "192.168.0.254", "Vlan100")) is not None
-    False
-    """
-    r = re.compile(r"%s" % query, re.IGNORECASE)
-
-    def _filter(ipv4_route_entry):
-      ret = None
-      if r.search(ipv4_route_entry.interface):
-        ret = ipv4_route_entry
-      return ret
-    return _filter
-
-  def filter_mask(self, masklen, *_ope):
-    """マスク長が条件にあえばそのIPv4RouteEntryを返却する（関数を返却する）
-
-    >>> filter_mask(24)(IPv4RouteEntry("O E1", "192.168.0.0", "24", "192.168.0.254", "Vlan100")) is not None
-    True
-    >>> filter_mask(25)(IPv4RouteEntry("O E1", "192.168.0.0", "24", "192.168.0.254", "Vlan100")) is not None
-    False
-    """
-    if _ope:
-      ope = _ope[0]
-    else:
-      ope = 'eq'
-
-    def _filter(ipv4_route_entry):
-      ret = None
-      if ope == 'le':
-        if ipv4_route_entry.mask <= masklen:
-          ret = ipv4_route_entry
-      if ope == 'lt':
-        if ipv4_route_entry.mask < masklen:
-          ret = ipv4_route_entry
-      if ope == 'ge':
-        if ipv4_route_entry.mask >= masklen:
-          ret = ipv4_route_entry
-      if ope == 'gt':
-        if ipv4_route_entry.mask > masklen:
-          ret = ipv4_route_entry
-      if ope == 'eq':
-        if ipv4_route_entry.mask == masklen:
-          ret = ipv4_route_entry
-      return ret
-    return _filter
-
-  def get_filter_result(self, ipv4_route_entry, funcs):
-    """IPv4RouteEntryとフィルタ関数の配列を受け取り、条件にあえばそのIPv4RouteEntryを返却する"""
-    func = funcs[0]
-    result = func(ipv4_route_entry)
-    if result and funcs[1:]:
-      return self.get_filter_result(ipv4_route_entry, funcs[1:])
-    return result, func
 
   def print_statistics(self):
     """統計情報をprintする"""
@@ -369,30 +424,52 @@ class ShowIpRouteTextParser(object):
     for key in sorted(self.gstat):
       print_dict(self.gstat, key, 16)
 
-  def get_diff_list(self, src_list, dst_list):
-    """差分を取り、追加は['+', ipv4_route_entry]、削除は['-', ipv4_route_entry]で返却します"""
-    plus = [['+', ipv4_route_entry] for ipv4_route_entry in dst_list if ipv4_route_entry not in src_list]
-    minus = [['-', ipv4_route_entry] for ipv4_route_entry in src_list if ipv4_route_entry not in dst_list]
-    return plus + minus
 
-  def get_diff_text(self, diff_list):
-    """差分のリストをテキストにして返却します"""
-    if not diff_list:
-      return "差分なし"
-    text = ""
-    for l in diff_list:
-      text += l[0].ljust(3) + l[1].toString() + "\r\n"
-    return text
 
-  def get_diff_csv(self, diff_list):
-    """差分のリストをCSVテキストにして返却します"""
-    text = "ope, ipv4 route entry\r\n"
-    if not diff_list:
-      text += "=,no difference\r\n"
-      return text
-    for l in diff_list:
-      text += l[0] + "," + l[1].toString() + "\r\n"
-    return text
+class ShowIpRouteTextfsm(object):
+  """Parse by Textfsm"""
+
+  textfsm_path = None
+  table = None
+
+
+  def __init__(self, textfsm_path):
+    """コンストラクタ"""
+
+    self.textfsm_path = textfsm_path
+    try:
+      with open(textfsm_path) as f:
+        self.table = textfsm.TextFSM(f)
+    except FileNotFoundError:
+      raise ValueError("{0} not found".format(textfsm_path))
+    except Exception as e:
+      print(e.__class__.__name__)
+      raise ValueError('invalid textfsm_path')
+
+
+  def parse_file(self, file_path):
+
+    try:
+      with open(file_path, 'r') as f:
+        data = f.read()
+    except FileNotFoundError:
+      print("{0} not found".format(file_path))
+      return None
+
+    route_entries = []
+
+    parsed_list = self.table.ParseText(data)
+    for item in parsed_list:
+      proto = (item[0] + ' ' + item[1]).strip()
+      addr = item[2]
+      mask = item[3]
+      gw = item[6]
+      intf = item[7]
+      entry = IPv4RouteEntry(proto=proto, addr=addr, mask=mask, gw=gw, interface=intf)
+      route_entries.append(entry)
+
+    return route_entries
+
 
 if __name__ == "__main__":
 
@@ -401,111 +478,131 @@ if __name__ == "__main__":
   def read_file(path):
     """ファイルを読んで行配列を返却する"""
     lines = []
-    with codecs.open(path, mode="rU", encoding="utf-8") as f:
+    with open(path, 'r') as f:
       for line in f:
         lines.append(line.rstrip())
     return lines
 
+
   def test_parse(filename):
     """ファイルから経路をパースする"""
+
+    # カレントディレクトリからのパス
+    input_path = os.path.join(app_dir, filename)
+
     # ファイルを行配列にする
-    lines = read_file(filename)
+    lines = read_file(input_path)
+
     # パーサーをインスタンス化する
-    parser = ShowIpRouteTextParser()
+    parser = ShowIpRouteParser()
+
     # リストに格納する
     route_entries = []
     for ipv4_route_entry, line in parser.parse_lines(lines):
       route_entries.append(ipv4_route_entry)
-    #
+
     for ipv4_route_entry in route_entries:
       print(ipv4_route_entry)
-  #
 
-  def test_ecmp():
-    """ECMPを含む経路をパースする"""
-    # ファイルを行配列にする
-    filename3 = "show_ip_route3.log"
-    lines3 = read_file(filename3)
-    # パーサーをインスタンス化する
-    parser = ShowIpRouteTextParser()
-    # リストに格納する
-    route_entries3 = []
-    for ipv4_route_entry, line in parser.parse_lines(lines3):
-      route_entries3.append(ipv4_route_entry)
-    #
-    for ipv4_route_entry in route_entries3:
-      print(ipv4_route_entry)
-  #
 
-  def test_filter():
+  def test_filter(filename):
     """フィルタのテスト"""
+
+    # カレントディレクトリからのパス
+    input_path = os.path.join(app_dir, filename)
+
     # ファイルを行配列にする
-    filename1 = "show_ip_route1.log"
-    lines1 = read_file(filename1)
+    lines = read_file(input_path)
+
     # パーサーをインスタンス化する
-    parser = ShowIpRouteTextParser()
+    parser = ShowIpRouteParser()
+
     # リストに格納する
-    route_entries1 = []
-    for ipv4_route_entry, line in parser.parse_lines(lines1):
-      route_entries1.append(ipv4_route_entry)
-    #
-    f1 = parser.filter_addr(r'^10\.')
-    f2 = parser.filter_mask(24, 'ge')
-    # f3 = parser.filter_proto('L')
-    # f4 = parser.filter_gw('10.245.2.2')
-    f5 = parser.filter_interface('vlan102')
+    route_entries = []
+    for ipv4_route_entry, line in parser.parse_lines(lines):
+      route_entries.append(ipv4_route_entry)
+
+    f1 = IPv4RouteEntry.filter_addr(r'^10\.')       # 10.x.x.xで始まるIPアドレス
+    f2 = IPv4RouteEntry.filter_mask(24, 'ge')       # マスク長が24ビット以上
+    # f3 = IPv4RouteEntry.filter_proto('L')
+    # f4 = IPv4RouteEntry.filter_gw('10.245.2.2')
+    f5 = IPv4RouteEntry.filter_interface('vlan102') # インタフェースがvlan102
     funcs = [f1, f2, f5]
-    for ipv4_route_entry in route_entries1:
-      result, func = parser.get_filter_result(ipv4_route_entry, funcs)
+    for ipv4_route_entry in route_entries:
+      result, func = IPv4RouteEntry.get_filter_result(ipv4_route_entry, funcs)
       if result:
         print(result)
-    #
-  #
 
-  def test_diff():
+
+  def test_diff(filename1, filename2):
     """差分を取るテスト"""
-    # ファイルを行配列にする
-    filename1 = "show_ip_route1.log"
-    filename2 = "show_ip_route2.log"
-    lines1 = read_file(filename1)
-    lines2 = read_file(filename2)
+
+    # カレントディレクトリからのパス
+    input_path1 = os.path.join(app_dir, filename1)
+    input_path2 = os.path.join(app_dir, filename2)
+
+    lines1 = read_file(input_path1)
+    lines2 = read_file(input_path2)
+
     # パーサーをインスタンス化する
-    parser = ShowIpRouteTextParser()
+    parser = ShowIpRouteParser()
 
     # リストに格納する
     route_entries1 = []
     for ipv4_route_entry, line in parser.parse_lines(lines1):
       route_entries1.append(ipv4_route_entry)
-    #
+
     route_entries2 = []
     for ipv4_route_entry, line in parser.parse_lines(lines2):
       route_entries2.append(ipv4_route_entry)
-    #
-    diff_list = parser.get_diff_list(route_entries1, route_entries2)
+
+    diff_list = IPv4RouteEntry.get_diff_list(route_entries1, route_entries2)
     for diff in diff_list:
       print(diff)
-  #
 
-  def test_stat():
+
+  def test_stat(filename):
     """統計のテスト"""
+
+    # カレントディレクトリからのパス
+    input_path = os.path.join(app_dir, filename)
+
     # ファイルを行配列にする
-    filename1 = "show_ip_route1.log"
-    lines1 = read_file(filename1)
+    lines = read_file(input_path)
+
     # パーサーをインスタンス化する
-    parser = ShowIpRouteTextParser()
+    parser = ShowIpRouteParser()
+
     # リストに格納する
     route_entries1 = []
-    for ipv4_route_entry, line in parser.parse_lines(lines1):
+    for ipv4_route_entry, line in parser.parse_lines(lines):
       route_entries1.append(ipv4_route_entry)
-    #
-    parser.print_statistics()
-    #
-  #
 
-  test_parse("show_ip_route1.log")
-  # test_parse("show_ip_route2.log")
-  # test_parse("show_ip_route3.log")
-  # test_ecmp()
-  # test_filter()
-  # test_diff()
-  # test_stat()
+    # 統計情報を表示
+    parser.print_statistics()
+
+
+  def test_textfsm(filename):
+    """textfsmによるパース"""
+    if not HAS_TEXTFSM or not HAS_TABULATE:
+      return 1
+
+    input_path = os.path.join(app_dir, filename)
+    textfsm_path = os.path.join(app_dir, 'cisco_ios_show_ip_route.textfsm')
+    parser = ShowIpRouteTextfsm(textfsm_path)
+    route_entries = parser.parse_file(input_path)
+    for entry in route_entries:
+      print(entry)
+
+
+  filename1 = "show_ip_route1.log"
+  filename2 = "show_ip_route2.log"
+  filename3 = "show_ip_route3.log"  # ECMP経路あり
+  # test_parse(filename1)
+  # test_parse(filename2)
+  # test_parse(filename3)
+  # test_filter(filename1)
+  # test_stat(filename1)
+  test_diff(filename1, filename2)
+
+  # test_textfsm('show_ip_route3.log')
