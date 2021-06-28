@@ -584,7 +584,7 @@ if __name__ == "__main__":
 
   def test_textfsm(filename):
     """textfsmによるパース"""
-    if not HAS_TEXTFSM or not HAS_TABULATE:
+    if not HAS_TEXTFSM:
       return 1
 
     input_path = os.path.join(app_dir, filename)
