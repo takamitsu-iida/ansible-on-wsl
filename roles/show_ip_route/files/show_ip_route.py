@@ -219,19 +219,19 @@ class IPv4RouteEntry(object):
       return "差分なし"
     text = ""
     for l in diff_list:
-      text += l[0].ljust(3) + l[1].toString() + "\r\n"
+      text += l[0].ljust(3) + l[1].toString() + "\n"
     return text
 
 
   @staticmethod
   def get_diff_csv(diff_list):
     """差分のリストをCSVテキストにして返却します"""
-    text = "ope, ipv4 route entry\r\n"
+    text = "ope, ipv4 route entry\n"
     if not diff_list:
-      text += "=,no difference\r\n"
+      text += "=,no difference\n"
       return text
     for l in diff_list:
-      text += l[0] + "," + l[1].toString() + "\r\n"
+      text += l[0] + "," + l[1].toString() + "\n"
     return text
 
 
