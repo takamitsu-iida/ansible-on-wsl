@@ -1,5 +1,11 @@
 ---
 
+- assert:
+    that:
+      - image_file is defined
+      - image_size is defined
+    fail_msg: image_file and image_size are required
+
 - name: dir bootflash
   cli_command:
     command: 'dir bootflash:'
@@ -32,26 +38,51 @@
     fail_msg: "not enough memory, available_memory is {{ available_memory }} bytes, image size is {{ image_size }}"
     success_msg: "available_memory is {{ available_memory }} bytes, image size is {{ image_size }}"
 
-# timeout 60sec x 20min = 1200sec
-- name: copy image from tftp to bootflash
-  cli_command:
-    command: "copy tftp://{{ tftp_server }}/{{ image_file }} bootflash:"
-    prompt: '\]\?'
-    answer: ''
-  register: copy_result
-  vars:
-    ansible_command_timeout: 1200
-  when:
-    - not image_file_exist
+- set_fact:
+    tftp_start_date: "{{ lookup('pipe', 'date +%Y%m%d_%H%M%S') }}"
+
+-
+  block:
+
+    - set_fact:
+        tftp_start_date: "{{ lookup('pipe', 'date +%Y%m%d_%H%M%S') }}"
+        tftp_success: false
+
+    # timeout 60sec x 20min = 1200sec
+    - name: copy image from tftp to bootflash
+      cli_command:
+        command: "copy tftp://{{ tftp_server }}/{{ image_file }} bootflash:"
+        prompt: '\]\?'
+        answer: ''
+      register: copy_result
+      vars:
+        ansible_command_timeout: 1200
+      when:
+        - not image_file_exist
+
+    - set_fact:
+        tftp_end_date: "{{ lookup('pipe', 'date +%Y%m%d_%H%M%S') }}"
+        tftp_success: true
+
+  rescue:
+    - set_fact:
+        tftp_error_date: "{{ lookup('pipe', 'date +%Y%m%d_%H%M%S') }}"
 
 - debug: var=copy_result
 
-- name: change boot system
-  cli_command:
-    command: "{{ item }}"
-  loop:
-    - configure terminal
-    - no boot system
-    - "boot system flash bootflash:/{{ image_file }}"
-    - end
-    - write
+-
+  block:
+    - name: change boot system
+      cli_command:
+        command: "{{ item }}"
+      loop:
+        - configure terminal
+        - no boot system
+        - "boot system flash bootflash:/{{ image_file }}"
+        - end
+        - write
+  when:
+    - tftp_success
+
+- name: create summary info
+  include_tasks: summary.yml

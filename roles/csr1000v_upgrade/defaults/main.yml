@@ -1,4 +1,11 @@
 ---
 
-image_file: csr1000v-universalk9.17.03.03.SPA.bin
-image_size: 517570560
+image_file:
+image_size:
+
+# image_file: csr1000v-universalk9.17.03.03.SPA.bin
+# image_size: 517570560
+
+# サマリ情報のテンプレートファイル
+SUMMARY_CSV: summary.csv.j2
+SUMMARY_TEXT: summary.text.j2

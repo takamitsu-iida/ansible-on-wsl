@@ -1,0 +1,9 @@
+inventory            tftp start           tftp end             tftp error
+====================+====================+====================+====================
+{% for host in ansible_play_hosts -%}
+{% set inventory=host.ljust(20, ' ') %}
+{% set start=(hostvars[host].tftp_start_date|d(' ')).ljust(20, ' ') %}
+{% set end=(hostvars[host].tftp_end_date|d(' ')).ljust(20, ' ') %}
+{% set error=(hostvars[host].tftp_end_date|d(' ')).ljust(20, ' ') %}
+{{ inventory }} {{ start }} {{ end }} {{ error }}
+{% endfor %}
