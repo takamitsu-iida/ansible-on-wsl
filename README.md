@@ -121,11 +121,13 @@ Host pe1
   Port 22
   ProxyCommand ssh -W %h:%p bastion_host
 
-Host pe2
+Host ce1
   User admin
-  HostName 172.20.0.32
+  HostName 172.20.0.41
   Port 22
-  ProxyCommand ssh -W %h:%p bastion_host
+  ProxyCommand ssh -W %h:%p eve
+  KexAlgorithms +diffie-hellman-group1-sha1,diffie-hellman-group14-sha1
+  Ciphers aes128-ctr,aes192-ctr,aes256-ctr
 
 Host x.x.x.x
   User cisco
