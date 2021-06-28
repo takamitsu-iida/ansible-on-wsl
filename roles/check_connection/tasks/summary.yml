@@ -42,6 +42,6 @@
 
   vars:
     date: "{{ lookup('pipe', 'date +%Y%m%d_%H%M%S') }}"
-    filename: "{{ SUMMARY_FILE_PREFIX }}{% if SUMMARY_FILE_PREFIX != '' %}_{% endif %}{{ SUMMARY_FILE}}_{{ date }}"
+    filename: "{{ SUMMARY_FILE_PREFIX }}{% if SUMMARY_FILE_PREFIX != '' %}_{% endif %}{{ SUMMARY_FILE }}_{{ date }}"
 
   run_once: true

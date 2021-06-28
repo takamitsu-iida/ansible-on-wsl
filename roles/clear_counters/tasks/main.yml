@@ -4,7 +4,7 @@
 -
   block:
 
-    - name: Gather facts
+    - name: include tasks
       include_tasks: "{{ item }}"
       with_first_found:
         - files: "{{ task_file }}"
@@ -44,7 +44,7 @@
       {%- if   ansible_network_os is in ['ios', 'cisco.ios.ios'] -%}ios.yml
       {%- elif ansible_network_os is in ['nxos', 'cisco.nxos.nxos'] -%}nxos.yml
       {%- elif ansible_network_os is in ['iosxr', 'cisco.iosxr.iosxr'] -%}iosxr.yml
-      {%- else -%}FILE_NOT_FOUND
+      {%- else -%}not_found.yml
       {%- endif -%}
 
   when:
