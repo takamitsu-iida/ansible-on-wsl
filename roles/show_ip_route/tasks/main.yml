@@ -1,2 +1,3 @@
 ---
-# tasks file for show_ip_route
+
+- include_tasks: test_python_script.yml

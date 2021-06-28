@@ -1,5 +1,13 @@
 ---
-- hosts: localhost
-  remote_user: root
-  roles:
-    - show_ip_route
+
+- name: Retrieve bgp neighbor info
+  hosts: ios_routers
+  gather_facts: false
+  strategy: linear
+  serial: 0
+
+  tasks:
+    - include_role:
+        name: ../../show_ip_route
+      vars:
+        SAVE_RESULT: false
