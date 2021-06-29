@@ -47,31 +47,29 @@
         date: "{{ lookup('pipe', 'date +%Y%m%d_%H%M%S') }}"
         filename: "{{ inventory_hostname }}_{{ role_name|basename }}_{{ date }}.txt"
 
-    - name: Find log files
-      local_action:
-        module: find
-        paths: "{{ LOG_DIR }}"
-        patterns: "{{ inventory_hostname }}_{{ role_name|basename }}_*.txt"
-      register: find_result
 
-    - set_fact:
-        log_files: "{{ find_result.files | sort(attribute='ctime', reverse=True) | map(attribute='path') | list }}"
-
-    - debug: var=log_files
-
-    - set_fact:
-        iter_num: "{{ (log_files|count) if (log_files|count) <= MAX_FILES else MAX_FILES }}"
-
-    - debug: msg="{{ log_files[0] }}-{{ log_files[item] }}"
+    # - name: Find log files
+    #   local_action:
+    #     module: find
+    #     paths: "{{ LOG_DIR }}"
+    #     patterns: "{{ inventory_hostname }}_{{ role_name|basename }}_*.txt"
+    #   register: find_result
+    #
+    # - set_fact:
+    #     log_files: "{{ find_result.files | sort(attribute='ctime', reverse=True) | map(attribute='path') | list }}"
+    #
+    # - debug: var=log_files
+    #
+    # - debug: msg="{{ log_files[0] }}-{{ log_files[item] }}"
 
     - name: run script
-      command: "{{ role_path }}/files/show_ip_route.py log_files[0] log_files[item]"
+      command: "{{ role_path }}/files/show_ip_route.py -d {{ LOG_DIR }} -p {{ inventory_hostname }} -t cisco_ios_show_ip_route.textfsm"
       args:
         chdir: "{{ role_path }}/files"
       delegate_to: localhost
-      with_items:
-        - "{{ range(1, iter_num|int) | list }}"
+      register: script_result
 
+    - debug: msg="{{ script_result.stdout }}"
 
   vars:
     task_file: >-

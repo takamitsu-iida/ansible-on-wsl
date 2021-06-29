@@ -16,6 +16,7 @@ __date__ = '2021/06/28'
 #
 import re
 import os
+import sys
 
 #
 # 外部ライブラリのインポート
@@ -41,23 +42,19 @@ files_dir = here("../files")
 class IPv4RouteEntry(object):
   """IPv4経路を格納する入れ物です"""
 
-  proto = None
-  addr = None
-  mask = None
-  gw = None
-  interface = None
-
   def __init__(self, proto, addr, mask, gw, interface):
     """コンストラクタ"""
     self.proto = proto
     self.addr = addr
+    self.mask = mask
     try:
-      if isinstance(mask, str):
+      if isinstance(self.mask, str):
         self.mask = int(mask)
     except Exception:
       raise ValueError('mask error')
     self.gw = gw
     self.interface = interface
+
     try:
       cols = addr.split('.')
       self.addr32 = int(cols[0]) * 256 * 256 * 256 + int(cols[1]) * 256 * 256 + int(cols[2] * 256) + int(cols[3])
@@ -67,17 +64,9 @@ class IPv4RouteEntry(object):
 
   def __eq__(self, other):
     """=="""
-    return all([self.addr == other.addr, self.mask == other.mask, self.gw == other.gw])
-
-
-  def __ne__(self, other):
-    """!="""
-    return not all([self.addr == other.addr, self.mask == other.mask, self.gw == other.gw])
-
-
-  def __cmp__(self, other):
-    """比較"""
-    return self.addr32 - other.addr32
+    if isinstance(other, self.__class__):
+      return all([self.proto == other.proto, self.addr == other.addr, self.mask == other.mask, self.gw == other.gw])
+    return False
 
 
   def __lt__(self, other):
@@ -207,8 +196,10 @@ class IPv4RouteEntry(object):
   @staticmethod
   def get_diff_list(src_list, dst_list):
     """差分を取り、追加は['+', ipv4_route_entry]、削除は['-', ipv4_route_entry]で返却します"""
-    plus = [['+', ipv4_route_entry] for ipv4_route_entry in dst_list if ipv4_route_entry not in src_list]
-    minus = [['-', ipv4_route_entry] for ipv4_route_entry in src_list if ipv4_route_entry not in dst_list]
+    print(src_list)
+    print(dst_list)
+    plus =  [['+', entry] for entry in src_list if entry not in dst_list]
+    minus = [['-', entry] for entry in dst_list if entry not in src_list]
     return plus + minus
 
 
@@ -236,7 +227,7 @@ class IPv4RouteEntry(object):
 
 
 
-class ShowIpRouteParser(object):
+class ShowIpRouteParser:
   """Ciscoのshow ip routeコマンド表示を受け取って、加工します"""
 
   # 正規表現のパターン定義
@@ -269,11 +260,6 @@ class ShowIpRouteParser(object):
   #                      [110/2] via 192.168.12.2, 7w0d, Vlan12
   _ipv4_prefix_ecmp = r'\s+\[\d+/\d+] via (?P<gw>(?:\d{1,3}\.){3}\d{1,3}),.*,(?P<interface>.*)'
 
-  # 統計情報
-  pstat = None
-  mstat = None
-  gstat = None
-
 
   def __init__(self):
     """コンストラクタ"""
@@ -286,6 +272,8 @@ class ShowIpRouteParser(object):
     self.re_ipv4_fixed_prefix = re.compile(self._ipv4_fixed_prefix)
     self.re_ipv4_variable_prefix = re.compile(self._ipv4_variable_prefix)
     self.re_ipv4_prefix_ecmp = re.compile(self._ipv4_prefix_ecmp)
+
+    # 統計情報
     self.pstat = {}
     self.mstat = {}
     self.gstat = {}
@@ -426,25 +414,22 @@ class ShowIpRouteParser(object):
 
 
 
-class ShowIpRouteTextfsm(object):
+class ShowIpRouteTextfsm:
   """Parse by Textfsm"""
-
-  textfsm_path = None
-  table = None
-
 
   def __init__(self, textfsm_path):
     """コンストラクタ"""
 
+    if not HAS_TEXTFSM:
+      raise ValueError('textfsm not imported')
+
     self.textfsm_path = textfsm_path
+
     try:
       with open(textfsm_path) as f:
         self.table = textfsm.TextFSM(f)
     except FileNotFoundError:
       raise ValueError("{0} not found".format(textfsm_path))
-    except Exception as e:
-      print(e.__class__.__name__)
-      raise ValueError('invalid textfsm_path')
 
 
   def parse_file(self, file_path):
@@ -456,15 +441,15 @@ class ShowIpRouteTextfsm(object):
       print("{0} not found".format(file_path))
       return None
 
-    route_entries = []
-
     parsed_list = self.table.ParseText(data)
+
+    route_entries = []
     for item in parsed_list:
       proto = (item[0] + ' ' + item[1]).strip()
-      addr = item[2]
-      mask = item[3]
-      gw = item[6]
-      intf = item[7]
+      addr = item[2].strip()
+      mask = item[3].strip()
+      gw = item[6].strip()
+      intf = item[7].strip()
       entry = IPv4RouteEntry(proto=proto, addr=addr, mask=mask, gw=gw, interface=intf)
       route_entries.append(entry)
 
@@ -475,7 +460,29 @@ if __name__ == "__main__":
 
   # python -m doctest show_ip_route.py
 
-  def read_file(path):
+  from pathlib import Path
+  import argparse
+
+
+  def get_files(dir, prefix):
+    paths = list(Path(dir).glob('{0}*'.format(prefix)))
+    paths.sort(key=os.path.getctime, reverse=True)
+    # paths.sort(key=os.path.getmtime, reverse=True)
+    return paths
+
+
+  def get_diff_textfsm(src_file_path, dst_file_path, textfsm_path):
+    """parse two log files using textfsm and return diff"""
+    parser = ShowIpRouteTextfsm(textfsm_path)
+    src_route_entries = parser.parse_file(src_file_path)
+
+    parser = ShowIpRouteTextfsm(textfsm_path)
+    dst_route_entries = parser.parse_file(dst_file_path)
+
+    return IPv4RouteEntry.get_diff_list(src_route_entries, dst_route_entries)
+
+
+  def get_lines(path):
     """ファイルを読んで行配列を返却する"""
     lines = []
     with open(path, 'r') as f:
@@ -491,7 +498,7 @@ if __name__ == "__main__":
     input_path = os.path.join(app_dir, filename)
 
     # ファイルを行配列にする
-    lines = read_file(input_path)
+    lines = get_lines(input_path)
 
     # パーサーをインスタンス化する
     parser = ShowIpRouteParser()
@@ -512,7 +519,7 @@ if __name__ == "__main__":
     input_path = os.path.join(app_dir, filename)
 
     # ファイルを行配列にする
-    lines = read_file(input_path)
+    lines = get_lines(input_path)
 
     # パーサーをインスタンス化する
     parser = ShowIpRouteParser()
@@ -541,8 +548,8 @@ if __name__ == "__main__":
     input_path1 = os.path.join(app_dir, filename1)
     input_path2 = os.path.join(app_dir, filename2)
 
-    lines1 = read_file(input_path1)
-    lines2 = read_file(input_path2)
+    lines1 = get_lines(input_path1)
+    lines2 = get_lines(input_path2)
 
     # パーサーをインスタンス化する
     parser = ShowIpRouteParser()
@@ -568,7 +575,7 @@ if __name__ == "__main__":
     input_path = os.path.join(app_dir, filename)
 
     # ファイルを行配列にする
-    lines = read_file(input_path)
+    lines = get_lines(input_path)
 
     # パーサーをインスタンス化する
     parser = ShowIpRouteParser()
@@ -595,14 +602,61 @@ if __name__ == "__main__":
       print(entry)
 
 
-  filename1 = "show_ip_route1.log"
-  filename2 = "show_ip_route2.log"
-  filename3 = "show_ip_route3.log"  # ECMP経路あり
-  # test_parse(filename1)
-  # test_parse(filename2)
-  # test_parse(filename3)
-  # test_filter(filename1)
-  # test_stat(filename1)
-  test_diff(filename1, filename2)
+  def debug():
+    filename1 = "show_ip_route1.log"
+    filename2 = "show_ip_route2.log"
+    filename3 = "show_ip_route3.log"  # ECMP経路あり
+    filename4 = "../tests/log/ce1_show_ip_route_20210629_233753.txt"
+    filename5 = "../tests/log/ce1_show_ip_route_20210629_233831.txt"
+    # test_parse(filename1)
+    # test_parse(filename2)
+    # test_parse(filename3)
+    # test_filter(filename1)
+    # test_stat(filename1)
+    # test_diff(filename1, filename2)
+    test_textfsm(filename4)
+    test_textfsm(filename5)
 
-  # test_textfsm('show_ip_route3.log')
+
+  def main():
+    """メイン関数
+
+    Returns:
+      int -- 正常終了は0、異常時はそれ以外を返却
+    """
+
+    # 引数処理
+    parser = argparse.ArgumentParser(description='parse show ip route output.')
+    parser.add_argument('-d', '--directory', dest='directory', default='.', help='Directory to search log files')
+    parser.add_argument('-p', '--prefix', dest='prefix', default='', help='Prefix of log file')
+    parser.add_argument('-t', '--textfsm', dest='textfsm', default='', help='Path to textfsm')
+    parser.add_argument('--debug', action='store_true', default=False, help='Debug to develop script')
+    args = parser.parse_args()
+
+    if args.debug:
+      debug()
+      return 0
+
+    if args.directory and args.prefix:
+      textfsm_path = args.textfsm if args.textfsm else os.path.join(app_dir, 'cisco_ios_show_ip_route.textfsm')
+      files = get_files(dir=args.directory, prefix=args.prefix)
+      if len(files) >= 2:
+        src_path = files[0]
+        for i in range(1, len(files)):
+          dst_path = files[i]
+          # print("{0} {1}".format(src_path, dst_path))
+
+          diff_list = get_diff_textfsm(src_file_path=src_path, dst_file_path=dst_path, textfsm_path=textfsm_path)
+
+          flat_diff_list = [i for x in diff_list for i in x]
+          num_plus = flat_diff_list.count('+')
+          str_plus = str(num_plus).ljust(3)
+          num_minus = flat_diff_list.count('-')
+          str_minus = str(num_minus).ljust(3)
+          num_diff = len(diff_list)
+          str_diff = str(num_diff).ljust(3)
+          print("diff: {} +: {} -: {} src={}, dst={}".format(str_diff, str_plus, str_minus, os.path.basename(src_path), os.path.basename(dst_path)))
+
+    return 0
+
+  sys.exit(main())
