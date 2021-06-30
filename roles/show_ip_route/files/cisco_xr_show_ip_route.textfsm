@@ -5,8 +5,8 @@ Value Filldown MASK (\d+)
 Value DISTANCE (\d+|is)
 Value METRIC (\d+)
 Value TYPE (directly|via)
-Value Required NEXT_HOP (connected|\d+\.\d+\.\d+\.\d+)
-Value INTERFACE (\S+|vrf\s\S+)
+Value Required NEXTHOP_IP (connected|\d+\.\d+\.\d+\.\d+)
+Value NEXTHOP_IF (\S+|vrf\s\S+)
 Value UPTIME (\S+)
 
 
@@ -15,11 +15,11 @@ Start
   ^Codes:
   ^\s+(\S+\s+-\s+.+[,]*)+
   ^Gateway\s+of\s+last\s+resort
-  ^${PROTOCOL}\s+${NETWORK}/${MASK}\s+(?:\[${DISTANCE}/${METRIC}\]|is)\s+${TYPE}\s+${NEXT_HOP},\s+${UPTIME},\s+${INTERFACE} -> Record
-  ^\s+(?:\[${DISTANCE}/${METRIC}\]|is)\s+${TYPE}\s+${NEXT_HOP},\s+${UPTIME},\s+${INTERFACE} -> Record
-  ^${PROTOCOL}\s+${NETWORK}/${MASK}\s+(?:\[${DISTANCE}/${METRIC}\]|is)\s+${TYPE}\s+${NEXT_HOP},\s+${UPTIME} -> Record
-  ^${PROTOCOL}\s+${NETWORK}/${MASK}\s+(?:\[${DISTANCE}/${METRIC}\]|is)\s+${TYPE}\s+${NEXT_HOP}\s+\(nexthop\sin\s${INTERFACE}\),\s+${UPTIME} -> Record
-  ^\s+(?:\[${DISTANCE}/${METRIC}\]|is)\s+${TYPE}\s+${NEXT_HOP},\s+${UPTIME} -> Record
+  ^${PROTOCOL}\s+${NETWORK}/${MASK}\s+(?:\[${DISTANCE}/${METRIC}\]|is)\s+${TYPE}\s+${NEXTHOP_IP},\s+${UPTIME},\s+${NEXTHOP_IF} -> Record
+  ^\s+(?:\[${DISTANCE}/${METRIC}\]|is)\s+${TYPE}\s+${NEXTHOP_IP},\s+${UPTIME},\s+${NEXTHOP_IF} -> Record
+  ^${PROTOCOL}\s+${NETWORK}/${MASK}\s+(?:\[${DISTANCE}/${METRIC}\]|is)\s+${TYPE}\s+${NEXTHOP_IP},\s+${UPTIME} -> Record
+  ^${PROTOCOL}\s+${NETWORK}/${MASK}\s+(?:\[${DISTANCE}/${METRIC}\]|is)\s+${TYPE}\s+${NEXTHOP_IP}\s+\(nexthop\sin\s${NEXTHOP_IF}\),\s+${UPTIME} -> Record
+  ^\s+(?:\[${DISTANCE}/${METRIC}\]|is)\s+${TYPE}\s+${NEXTHOP_IP},\s+${UPTIME} -> Record
   ^\s*$$
   ^\S+\s+\S+\s+\d+\s+\d+:\d+:\d+
   ^% No matching routes found

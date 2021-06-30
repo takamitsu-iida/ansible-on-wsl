@@ -5,6 +5,3 @@ EXCLUDE_HOSTS: []
 
 # ログファイルのディレクトリ
 LOG_DIR: "{{ lookup('env', 'PWD') + '/log' }}"
-
-# 比較対象にするログファイルの数
-MAX_FILES: 5

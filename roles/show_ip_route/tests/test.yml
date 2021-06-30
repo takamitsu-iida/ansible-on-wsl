@@ -1,7 +1,9 @@
 ---
 
 - name: show ip route
-  hosts: ce1  # ios_routers
+  # hosts: ios_routers
+  # hosts: ce1
+  hosts: pe1
   gather_facts: false
   strategy: linear
   serial: 0

@@ -63,9 +63,9 @@
     # - debug: msg="{{ log_files[0] }}-{{ log_files[item] }}"
 
     - name: run script
-      command: "{{ role_path }}/files/show_ip_route.py -d {{ LOG_DIR }} -p {{ inventory_hostname }} -t cisco_ios_show_ip_route.textfsm"
-      args:
-        chdir: "{{ role_path }}/files"
+      command: "{{ role_path }}/files/show_ip_route.py -d {{ LOG_DIR }} -p {{ inventory_hostname }} -t {{ textfsm }}"
+      #args:
+      #  chdir: "{{ role_path }}/files"
       delegate_to: localhost
       register: script_result
 

@@ -64,7 +64,8 @@ class IPv4RouteEntry:
       cols = addr.split('.')
       self.addr32 = int(cols[0]) * 256 * 256 * 256 + int(cols[1]) * 256 * 256 + int(cols[2] * 256) + int(cols[3])
     except Exception:
-      raise ValueError('address error')
+      self.addr32 = -1
+      # raise ValueError('address error')
 
 
   def __eq__(self, other):
@@ -96,7 +97,7 @@ class IPv4RouteEntry:
 
   def __repr__(self):
     """print"""
-    return '{0} {1}/{2} via {3} {4}'.format((self.proto + ' ' + self.ptype).ljust(4, ' '), self.addr.ljust(16, ' '), str(self.mask).ljust(4, ' '), self.gw.ljust(16, ' '), self.intf)
+    return '{0} {1}/{2} via {3} {4}'.format((self.proto + ' ' + self.ptype).ljust(12, ' '), self.addr.ljust(16, ' '), str(self.mask).ljust(4, ' '), self.gw.ljust(16, ' '), self.intf)
 
 
   def __str__(self):
@@ -490,16 +491,24 @@ class TextfsmRouteParser(RouteParser):
 
     self.clear_stats()
 
+    header = table.header
     parsed_list = table.ParseText(data)
+
+    p_index = header.index('PROTOCOL')
+    t_index = header.index('TYPE')
+    a_index = header.index('NETWORK')
+    m_index = header.index('MASK')
+    g_index = header.index('NEXTHOP_IP')
+    i_index = header.index('NEXTHOP_IF')
 
     route_entries = []
     for item in parsed_list:
-      p = item[0].strip()
-      t = item[1].strip()
-      a = item[2].strip()
-      m = item[3].strip()
-      g = item[6].strip()
-      i = item[7].strip()
+      p = item[p_index].strip()
+      t = item[t_index].strip()
+      a = item[a_index].strip()
+      m = item[m_index].strip()
+      g = item[g_index].strip()
+      i = item[i_index].strip()
       self.setCounter(self.pstat, p)
       self.setCounter(self.mstat, m)
       self.setCounter(self.gstat, g)
@@ -658,10 +667,13 @@ if __name__ == "__main__":
       if len(files) >= 2:
         src_path = files[0]
         print("newest file: {}".format(os.path.basename(src_path)))
-        print("")
         parser = TextfsmRouteParser(textfsm_path)
         src_route_entries = parser.parse_file(src_path)
         parser.print_statistics()
+        print("")
+        # for entry in src_route_entries:
+        #   print(entry)
+        # print("")
 
         for i in range(1, len(files)):
           dst_path = files[i]

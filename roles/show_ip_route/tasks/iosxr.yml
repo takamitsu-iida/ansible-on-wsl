@@ -7,6 +7,6 @@
 
 - set_fact:
     stdout: "{{ cli_result.stdout }}"
-    textfsm: "{{ role_path }}/files/cisco_ios_show_ip_route.textfsm"
+    textfsm: "{{ role_path }}/files/cisco_xr_show_ip_route.textfsm"
 
 # - debug: msg="{{ cli_result.stdout }}"
