@@ -18,6 +18,7 @@ import re
 import os
 import sys
 from typing import Text
+import typing
 
 #
 # 外部ライブラリのインポート
@@ -109,7 +110,7 @@ class IPv4RouteEntry:
   # 以下、フィルタのためのスタティックメソッド
   #
   @staticmethod
-  def filter_addr(query):
+  def filter_addr(query:str) -> typing.Callable:
     """アドレスを文字列で比較して条件にあえばそのIPv4RouteEntryを返却する（関数を返却する）"""
     r = re.compile(r"%s" % query)
 
@@ -122,11 +123,11 @@ class IPv4RouteEntry:
 
 
   @staticmethod
-  def filter_proto(query):
+  def filter_proto(query:str) -> typing.Callable:
     """プロトコルを文字列で比較して条件にあえばそのIPv4RouteEntryを返却する（関数を返却する）"""
     r = re.compile(r"%s" % query, re.IGNORECASE)
 
-    def _filter(ipv4_route_entry):
+    def _filter(ipv4_route_entry) -> function:
       ret = None
       if r.search(ipv4_route_entry.proto):
         ret = ipv4_route_entry
@@ -135,7 +136,7 @@ class IPv4RouteEntry:
 
 
   @staticmethod
-  def filter_gw(query):
+  def filter_gw(query:str) -> typing.Callable:
     """ゲートウェイを文字列で比較して条件にあえばそのIPv4RouteEntryを返却する（関数を返却する）"""
     r = re.compile(r"%s" % query)
 
@@ -148,7 +149,7 @@ class IPv4RouteEntry:
 
 
   @staticmethod
-  def filter_interface(query):
+  def filter_interface(query:str) -> typing.Callable:
     """インタフェース名が条件にあえばそのIPv4RouteEntryを返却する（関数を返却する）"""
     r = re.compile(r"%s" % query, re.IGNORECASE)
 
@@ -161,7 +162,7 @@ class IPv4RouteEntry:
 
 
   @staticmethod
-  def filter_mask(masklen, *_ope):
+  def filter_mask(masklen:int, *_ope:str) -> typing.Callable:
     """マスク長が条件にあえばそのIPv4RouteEntryを返却する（関数を返却する）"""
     if _ope:
       ope = _ope[0]
@@ -190,7 +191,7 @@ class IPv4RouteEntry:
 
 
   @staticmethod
-  def get_filter_result(ipv4_route_entry, funcs):
+  def get_filter_result(ipv4_route_entry, funcs:list):
     """IPv4RouteEntryとフィルタ関数の配列を受け取り、フィルタの条件にあえばそのIPv4RouteEntryを返却する"""
     func = funcs[0]
     result = func(ipv4_route_entry)
@@ -200,7 +201,7 @@ class IPv4RouteEntry:
 
 
   @staticmethod
-  def get_diff_list(src_list, dst_list):
+  def get_diff_list(src_list:list, dst_list:list) -> list:
     """差分を取り、追加は['+', ipv4_route_entry]、削除は['-', ipv4_route_entry]で返却します"""
     plus =  [['+', entry] for entry in src_list if entry not in dst_list]
     minus = [['-', entry] for entry in dst_list if entry not in src_list]
@@ -208,7 +209,7 @@ class IPv4RouteEntry:
 
 
   @staticmethod
-  def get_diff_text(diff_list):
+  def get_diff_text(diff_list:list) -> str:
     """差分のリストをテキストにして返却します"""
     if not diff_list:
       return "差分なし"
@@ -219,7 +220,7 @@ class IPv4RouteEntry:
 
 
   @staticmethod
-  def get_diff_csv(diff_list):
+  def get_diff_csv(diff_list:list) -> str:
     """差分のリストをCSVテキストにして返却します"""
     text = "ope, ipv4 route entry\n"
     if not diff_list:
@@ -252,7 +253,7 @@ class RouteParser:
     d[k] = counter
 
 
-  def print_statistics(self):
+  def print_statistics(self) -> None:
     """統計情報をprintする"""
     def print_dict(d, key, ljust):
       value = d.get(key)
@@ -286,29 +287,29 @@ class RegexpRouteParser(RouteParser):
   # _ipv4_prefix = r'^(?P<addr>(?:\d{1,3}\.){3}\d{1,3})/(?P<mask>\d{1,2})'
 
   #      100.0.0.0/16 is subnetted, 63 subnets
-  _fixed_mask = r'^\s+(?P<addr>(?:\d{1,3}\.){3}\d{1,3})/(?P<mask>\d{1,2}) is subnetted'
+  FIXED_MASK = r'^\s+(?P<addr>(?:\d{1,3}\.){3}\d{1,3})/(?P<mask>\d{1,2}) is subnetted'
 
   #      110.0.0.0/8 is variably subnetted, 7 subnets, 2 masks
-  _variable_mask = r'^\s+(?P<addr>(?:\d{1,3}\.){3}\d{1,3})/(?P<mask>\d{1,2}) is variably subnetted'
+  VARIABLE_MASK = r'^\s+(?P<addr>(?:\d{1,3}\.){3}\d{1,3})/(?P<mask>\d{1,2}) is variably subnetted'
 
   # C       192.168.254.1 is directly connected, Loopback0
-  _fixed_directly_connected = r'^(?P<proto>\w)\*?\s+(?P<addr>(?:\d{1,3}\.){3}\d{1,3}) is directly connected,\s+(?P<interface>\w.*)'
+  FIXED_DIRECTLY_CONNECTED = r'^(?P<proto>\w)\*?\s+(?P<addr>(?:\d{1,3}\.){3}\d{1,3}) is directly connected,\s+(?P<interface>\w.*)'
 
   # S        110.0.0.0/8 is directly connected, Null0
-  _variable_directly_connected = r'^(?P<proto>\w)\*?\s+(?P<ptype>\w{0,2})\s+(?P<addr>(?:\d{1,3}\.){3}\d{1,3})/(?P<mask>\d{1,2}) is directly connected,\s+(?P<interface>\w.*)'
+  VARIABLE_DIRECTLY_CONNECTED = r'^(?P<proto>\w)\*?\s+(?P<ptype>\w{0,2})\s+(?P<addr>(?:\d{1,3}\.){3}\d{1,3})/(?P<mask>\d{1,2}) is directly connected,\s+(?P<interface>\w.*)'
 
   # O E1     100.3.0.0 [110/122] via 10.245.2.2, 7w0d, Vlan102
   # S       172.18.0.0 [1/0] via 192.168.1.10
-  _ipv4_fixed_prefix = r'^(?P<proto>\w)\*?\s(?P<ptype>\w{0,2})\s+(?P<addr>(?:\d{1,3}\.){3}\d{1,3}) \[\d+/\d+] via (?P<gw>(?:\d{1,3}\.){3}\d{1,3})(, \w+,\s+(?P<interface>\w.*))?'
+  IPv4_FIXED_PREFIX = r'^(?P<proto>\w)\*?\s(?P<ptype>\w{0,2})\s+(?P<addr>(?:\d{1,3}\.){3}\d{1,3}) \[\d+/\d+] via (?P<gw>(?:\d{1,3}\.){3}\d{1,3})(, \w+,\s+(?P<interface>\w.*))?'
 
   # S*    0.0.0.0/0 [252/0] via 10.245.2.2, Vlan102
   # O        10.244.1.0/24 [110/2] via 10.245.11.2, 7w0d, Vlan111
   # S        10.128.0.0/24 [1/0] via 10.245.29.4, Vlan129
-  _ipv4_variable_prefix = r'^(?P<proto>\w)\*?\s(?P<ptype>\w{0,2})\s+(?P<addr>(?:\d{1,3}\.){3}\d{1,3})/(?P<mask>\d{1,2}) \[\d+/\d+\] via (?P<gw>(?:\d{1,3}\.){3}\d{1,3})(, \w+)?,\s+(?P<interface>\w.*)$'
+  IPv4_VARIABLE_PREFIX = r'^(?P<proto>\w)\*?\s(?P<ptype>\w{0,2})\s+(?P<addr>(?:\d{1,3}\.){3}\d{1,3})/(?P<mask>\d{1,2}) \[\d+/\d+\] via (?P<gw>(?:\d{1,3}\.){3}\d{1,3})(, \w+)?,\s+(?P<interface>\w.*)$'
 
   # O    192.168.23.0/24 [110/2] via 192.168.13.3, 7w0d, Vlan13
   #                      [110/2] via 192.168.12.2, 7w0d, Vlan12
-  _ipv4_prefix_ecmp = r'^\*?\s+\[\d+/\d+] via (?P<gw>(?:\d{1,3}\.){3}\d{1,3}), \w+,\s+(?P<interface>\w.*)$'
+  IPv4_PREFIX_ECMP = r'^\*?\s+\[\d+/\d+] via (?P<gw>(?:\d{1,3}\.){3}\d{1,3}), \w+,\s+(?P<interface>\w.*)$'
 
 
   def __init__(self) -> None:
@@ -316,17 +317,16 @@ class RegexpRouteParser(RouteParser):
     super().__init__()
 
     # compile regexp
+    self.re_fixed_mask = re.compile(RegexpRouteParser.FIXED_MASK)
+    self.re_variable_mask = re.compile(RegexpRouteParser.VARIABLE_MASK)
+    self.re_fixed_directly_connected = re.compile(RegexpRouteParser.FIXED_DIRECTLY_CONNECTED)
+    self.re_variable_directly_connected = re.compile(RegexpRouteParser.VARIABLE_DIRECTLY_CONNECTED)
+    self.re_ipv4_fixed_prefix = re.compile(RegexpRouteParser.IPv4_FIXED_PREFIX)
+    self.re_ipv4_variable_prefix = re.compile(RegexpRouteParser.IPv4_VARIABLE_PREFIX)
+    self.re_ipv4_prefix_ecmp = re.compile(RegexpRouteParser.IPv4_PREFIX_ECMP)
 
-    self.re_fixed_mask = re.compile(self._fixed_mask)
-    self.re_variable_mask = re.compile(self._variable_mask)
-    self.re_fixed_directly_connected = re.compile(self._fixed_directly_connected)
-    self.re_variable_directly_connected = re.compile(self._variable_directly_connected)
-    self.re_ipv4_fixed_prefix = re.compile(self._ipv4_fixed_prefix)
-    self.re_ipv4_variable_prefix = re.compile(self._ipv4_variable_prefix)
-    self.re_ipv4_prefix_ecmp = re.compile(self._ipv4_prefix_ecmp)
 
-
-  def get_lines(self, path):
+  def get_lines(self, path:str) -> list:
     """ファイルを読んで行配列を返却する"""
     lines = []
     with open(path, 'r') as f:
@@ -335,7 +335,7 @@ class RegexpRouteParser(RouteParser):
     return lines
 
 
-  def parse_file(self, file_path) -> list:
+  def parse_file(self, file_path:str) -> list:
     lines = self.get_lines(file_path)
 
     # リストに格納する
@@ -346,7 +346,7 @@ class RegexpRouteParser(RouteParser):
     return route_entries
 
 
-  def parse_lines(self, lines):
+  def parse_lines(self, lines:list) -> typing.Generator[IPv4RouteEntry, None, None]:
     """行の配列を走査してIPv4RouteEntryオブジェクトをyieldする"""
     self.clear_stats()
 
@@ -474,7 +474,7 @@ class TextfsmRouteParser(RouteParser):
     self.textfsm_path = textfsm_path
 
 
-  def parse_file(self, file_path) -> list:
+  def parse_file(self, file_path:str) -> list:
     """parse file using textfsm"""
     try:
       with open(self.textfsm_path) as f:
@@ -526,14 +526,14 @@ if __name__ == "__main__":
   import argparse
 
 
-  def get_files(dir, prefix):
+  def get_files(dir:str, prefix:str) -> list:
     paths = list(Path(dir).glob('{0}*'.format(prefix)))
     paths.sort(key=os.path.getctime, reverse=True)
     # paths.sort(key=os.path.getmtime, reverse=True)
     return paths
 
 
-  def test_parse(filename):
+  def test_parse(filename:str) -> None:
     """ファイルから経路をパースする"""
 
     # カレントディレクトリからのパス
@@ -557,8 +557,7 @@ if __name__ == "__main__":
       print(item)
 
 
-
-  def test_filter(filename):
+  def test_filter(filename:str) -> None:
     """フィルタのテスト"""
 
     # カレントディレクトリからのパス
@@ -580,7 +579,7 @@ if __name__ == "__main__":
         print(result)
 
 
-  def test_diff(filename1, filename2):
+  def test_diff(filename1:str, filename2:str) -> None:
     """差分を取るテスト"""
 
     # カレントディレクトリからのパス
@@ -597,7 +596,7 @@ if __name__ == "__main__":
       print(diff)
 
 
-  def test_stat(filename):
+  def test_stat(filename:str) -> None:
     """統計のテスト"""
 
     # カレントディレクトリからのパス
@@ -617,7 +616,7 @@ if __name__ == "__main__":
     t_parser.print_statistics()
 
 
-  def test_textfsm(filename):
+  def test_textfsm(filename:str) -> None:
     """textfsmによるパース"""
     if not HAS_TEXTFSM:
       return 1
@@ -630,19 +629,19 @@ if __name__ == "__main__":
       print(entry)
 
 
-  def debug():
+  def debug() -> None:
     filename1 = "show_ip_route1.log"
     filename2 = "show_ip_route2.log"
     filename3 = "show_ip_route3.log"  # ECMP経路あり
-    # test_parse(filename1)
+    test_parse(filename1)
     # test_parse(filename2)
     # test_parse(filename3)
     # test_filter(filename1)
-    test_stat(filename1)
+    # test_stat(filename1)
     # test_diff(filename1, filename2)
 
 
-  def main():
+  def main() -> int:
     """メイン関数
 
     Returns:
