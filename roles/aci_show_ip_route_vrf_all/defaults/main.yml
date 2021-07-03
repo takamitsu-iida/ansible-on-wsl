@@ -1,0 +1,13 @@
+---
+
+# 実行対象としないホストの配列
+EXCLUDE_HOSTS: []
+
+# ログファイルのディレクトリ
+LOG_DIR: "{{ lookup('env', 'PWD') + '/log' }}"
+
+# 実行後に処理するスクリプト
+SCRIPT: "{{ role_path }}/files/aci_show_ip_route_vrf_all.py"
+
+# 利用するtextfsm
+TEXTFSM: "{{ role_path }}/files/aci_show_ip_route_vrf_all.textfsm"

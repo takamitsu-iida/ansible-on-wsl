@@ -27,9 +27,6 @@ def here(path=''):
 # アプリケーションのホームディレクトリ
 app_dir = here(".")
 
-# filesのディレクトリ
-files_dir = here("../files")
-
 # 自身の名前から拡張子を除いてプログラム名を得る
 app_name = os.path.splitext(os.path.basename(__file__))[0]
 
@@ -91,7 +88,12 @@ if __name__ == '__main__':
       int -- 正常終了は0、異常時はそれ以外を返却
     """
 
-    input_path = os.path.join(app_dir, 'show_bgp_neighbors.txt')
+    LOGFILE1 = 'show_ip_route_vrf_all.1.log'
+    LOGFILE2 = 'show_ip_route_vrf_all.2.log'
+
+    TEXTFSM = 'aci_show_ip_route_vrf_all.textfsm'
+
+    input_path = os.path.join(app_dir, LOGFILE1)
     try:
       with open(input_path, 'r') as f:
         data = f.read()
@@ -102,22 +104,7 @@ if __name__ == '__main__':
       logger.exception(e.__class__.__name__)
       return 1
 
-    textfsm_path = os.path.join(files_dir, 'cisco_xrv_show_bgp_neighbors_neighbor.textfsm')
-    try:
-      with open(textfsm_path) as f:
-        table = textfsm.TextFSM(f)
-        header = table.header
-        result = table.ParseText(data)
-    except FileNotFoundError:
-      print("{0}が見つかりません".format(textfsm_path))
-      return 1
-    except Exception as e:
-      logger.exception(e.__class__.__name__)
-      return 1
-
-    print(tabulate(result, headers=header))
-
-    textfsm_path = os.path.join(files_dir, 'cisco_xrv_show_bgp_neighbors_afi.textfsm')
+    textfsm_path = os.path.join(app_dir, TEXTFSM)
     try:
       with open(textfsm_path) as f:
         table = textfsm.TextFSM(f)

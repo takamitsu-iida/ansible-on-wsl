@@ -1,0 +1,48 @@
+# 2021.07.03
+# takamitsu-iida
+# ACI 3.10
+# show ip route vrf all
+#
+Value Filldown VRF (\S+)
+Value Filldown NETWORK (\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3})
+Value Filldown MASK (\d{1,2})
+Value NEXTHOP_IP (\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}(/\d{1,2})?)
+Value NEXTHOP_IF (\S+)
+Value UPTIME (\S+)
+Value PROTOCOL (\S+)
+Value TYPE (\S+)
+
+Start
+  ^IP Route Table for VRF \"${VRF}\"$$
+  #
+  ^${NETWORK}/${MASK}, ubest/mbest:
+  #
+  # 10.0.0.1/32, ubest/mbest: 3/0
+  #   *via 10.0.64.92, eth1/51.9, [115/12], 06w00d, isis-isis_infra, L1
+  #   *via 10.0.40.80, eth1/49.7, [115/12], 06w00d, isis-isis_infra, L1
+  #   *via 10.0.40.67, eth1/53.8, [115/12], 03w04d, isis-isis_infra, L1
+  ^\s+\*{0,2}via\s${NEXTHOP_IP},\s+${NEXTHOP_IF},\s+\[\d+/\d+\],\s+${UPTIME},\s+${PROTOCOL},\s+${TYPE}$$ -> Record
+  #
+  # 10.0.224.69/32, ubest/mbest: 2/0, attached, direct
+  #   *via 10.0.224.69, lo1, [1/0], 07w04d, local, local
+  #   *via 10.0.224.69, lo1, [1/0], 07w04d, direct
+  ^\s+\*{0,2}via\s${NEXTHOP_IP},\s+${NEXTHOP_IF},\s+\[\d+(/\d+)?\],\s+${UPTIME},\s+${PROTOCOL}$$ -> Record
+  #
+  # 10.104.0.0/21, ubest/mbest: 1/0, attached, direct, pervasive
+  #   *via 10.0.200.66%overlay-1, [1/0], 06w00d, static
+  ^\s+\*{0,2}via\s${NEXTHOP_IP}%${NEXTHOP_IF},\s+\[\d+/\d+\],\s+${UPTIME},\s+${PROTOCOL}$$ -> Record
+  #
+  # 10.104.15.254/32, ubest/mbest: 1/0, attached, pervasive
+  #   *via 10.104.15.254, vlan12, [1/0], 07w04d, local, local
+  ^\s+\*{0,2}via\s${NEXTHOP_IP}%${NEXTHOP_IF},\s+\[\d+/\d+\],\s+${UPTIME},\s+${PROTOCOL},\s+${TYPE}$$ -> Record
+  #
+  # 10.255.1.1/32, ubest/mbest: 2/0
+  #   *via 10.0.40.64%overlay-1, [200/4], 04w01d, bgp-65000, internal, tag 65000
+  #   *via 10.0.40.65%overlay-1, [200/4], 04w01d, bgp-65000, internal, tag 65000
+  ^\s+\*{0,2}via\s${NEXTHOP_IP}%${NEXTHOP_IF},\s+\[\d+/\d+\],\s+${UPTIME},\s+${PROTOCOL},\s+${TYPE},\s+tag\s+\S+$$ -> Record
+  #
+  # 10.101.0.0/21, ubest/mbest: 1/0, attached, direct, pervasive
+  #   *via 10.0.200.66%overlay-1, [1/0], 06w00d, static, tag 4294967295
+  ^\s+\*{0,2}via\s${NEXTHOP_IP}%${NEXTHOP_IF},\s+\[\d+/\d+\],\s+${UPTIME},\s+${PROTOCOL},\s+tag\s+\S+$$ -> Record
+
+EOF
