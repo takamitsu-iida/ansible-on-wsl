@@ -1,10 +1,11 @@
-aci_show_ip_route_vrf_all
-=========================
+# aci_show_ip_route_vrf_all
 
 Cisco ACIの各スイッチにSSH接続してiShell上のコマンド `show ip route vrf all` を実行してルーティングテーブルを採取します。
 
-Requirements
-------------
+<BR>
+
+# Requirements
+
 
 SSHでCisco ACIの各スイッチに接続できる環境が必要です。踏み台(bastionホスト)経由で構いません。
 
@@ -13,8 +14,9 @@ SSHでCisco ACIの各スイッチに接続できる環境が必要です。踏�
 ACIの各スイッチはnetwork_osをnxosとして設定しますが、実際にはACI独自のiShellですので、terminal_pluginsで挙動を変更する必要があります。このロールに同梱しています。
 
 
-Role Variables
---------------
+<BR>
+
+# Role Variables
 
 defaults/main.ymlに記載の変数を利用します。
 
@@ -26,13 +28,15 @@ defaults/main.ymlに記載の変数を利用します。
 LOG_DIR: "{{ lookup('env', 'PWD') + '/log' }}"
 ```
 
-Dependencies
-------------
+<BR>
+
+# Dependencies
 
 他のロールへの依存はありません。
 
-Example Playbook
-----------------
+<BR>
+
+# Example Playbook
 
 初回実行時と、二回目以降の実行で挙動が変わります。
 
@@ -104,6 +108,8 @@ total 216
 -rw-r--r-- 1 iida 48171 Jul  4 14:38 leaf4_aci_show_ip_route_vrf_all_20210704_143851.txt
 iida@FCCLS0008993-00:~/git/ansible-on-wsl/roles/aci_show_ip_route_vrf_all/tests$
 ```
+
+<BR>
 
 ## 二度目以降の実行
 
@@ -183,9 +189,11 @@ leaf4                      : ok=5    changed=2    unreachable=0    failed=0    s
 iida@FCCLS0008993-00:~/git/ansible-on-wsl/roles/aci_show_ip_route_vrf_all/tests$
 ```
 
+<BR>
+
 ## 差分の内容を知りたい場合
 
-差分が見つかった場合、pythonスクリプトを直接叩いて、何が変更になったのかを表示します。
+経路情報に差分が見つかった場合、pythonスクリプトを直接叩いて、何が変更になったのかを表示します。
 pythonスクリプトは`files`ディレクトリにあります。
 
 何も差分がない場合。
@@ -203,6 +211,7 @@ iida@FCCLS0008993-00:~/git/ansible-on-wsl/roles/aci_show_ip_route_vrf_all/tests$
 ```
 
 ログファイルを編集して、意図的に差分を作った場合。
+（作られた日付が）最新のファイルに対して、その他のファイルとの差分を取り、経路情報が増えていれば'+'を、減っていれば'-'で表示します。
 
 ```bash
 iida@FCCLS0008993-00:~/git/ansible-on-wsl/roles/aci_show_ip_route_vrf_all/tests$ ../files/aci_show_ip_route_vrf_all.py -d ./log -p leaf1 -v
@@ -224,16 +233,15 @@ diff: 4   +: 2   -: 2     leaf1_aci_show_ip_route_vrf_all_20210704_150226.txt
 iida@FCCLS0008993-00:~/git/ansible-on-wsl/roles/aci_show_ip_route_vrf_all/tests$
 ```
 
-（作られた日付が）最新のファイルに対して、その他のファイルとの差分を取り、経路情報が増えていれば'+'を、減っていれば'-'で表示します。
+<BR>
+<BR>
 
-
-
-License
--------
+# License
 
 BSD
 
-Author Information
-------------------
+<BR>
+
+# Author Information
 
 takamitsu-iida
