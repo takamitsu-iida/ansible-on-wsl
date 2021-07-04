@@ -502,6 +502,7 @@ if __name__ == "__main__":
     parser.add_argument('-d', '--directory', dest='directory', default='.', help='Directory to search log files')
     parser.add_argument('-p', '--prefix', dest='prefix', default='', help='Prefix of log file')
     parser.add_argument('-t', '--textfsm', dest='textfsm', default='', help='Path to textfsm')
+    parser.add_argument('-v', '--verbose', action='store_true', default=False, help='Verbose output')
     parser.add_argument('--debug', action='store_true', default=False, help='Debug to develop script')
     args = parser.parse_args()
 
@@ -517,8 +518,8 @@ if __name__ == "__main__":
         print("newest file: {}".format(os.path.basename(src_path)))
         parser = TextfsmRouteParser(textfsm_path)
         src_route_entries = parser.parse_file(src_path)
-        parser.print_statistics()
-        print("")
+        # parser.print_statistics()
+        # print("")
         # for entry in src_route_entries:
         #   print(entry)
         # print("")
@@ -537,6 +538,11 @@ if __name__ == "__main__":
           num_diff = len(diff_list)
           str_diff = str(num_diff).ljust(3)
           print("diff: {} +: {} -: {}   {}".format(str_diff, str_plus, str_minus, os.path.basename(dst_path)))
+          if args.verbose:
+            print("")
+            for entry in diff_list:
+              print(entry)
+            print("")
 
     return 0
 
