@@ -105,6 +105,7 @@ sudo apt-get install ansible
 ```
 
 <BR>
+
 ## SSHの設定
 
 `~/.ssh/config` に接続先の情報を記述します。
@@ -141,6 +142,7 @@ Host x.x.x.x
 ```
 
 <BR>
+
 ## アンチウィルスソフトの設定追加
 
 WSLを導入するとWindowsの中に独立したネットワークが作られ、NATして外部と通信するようになります。
@@ -156,17 +158,19 @@ HTTP系の通信は対処不要でした。
 WSLから外部にでる通信がうまくいかない場合、まずはアンチウィルスソフトのファイアウォール・ルールを疑ってみましょう。
 
 <BR>
+
 ## Visual Studio Code
 
 WindowsにVisual Studio Codeを導入します。
 
 <BR>
+
 ### 拡張機能 WSL
 
-<BR>
 拡張機能WSLを導入すると、Windows上のVisual Studio Codeから直接WSLのシェルを利用できます。
 
 <BR>
+
 ## Windows Terminal
 
 【おすすめ】WSLのターミナルはデフォルトのままだと使いづらいので、Windows Terminalを別途導入します。
@@ -178,6 +182,7 @@ Windows Terminalを開いたときに開くシェルをWSLにするには、JSON
 <https://qiita.com/hotaru51/items/8a5904301e2427862fb8>
 
 <BR>
+
 ## ntc-templates
 
 <https://github.com/networktocode/ntc-templates>
@@ -200,8 +205,8 @@ Resolving deltas: 100% (5151/5151), done.
 Updating files: 100% (1832/1832), done.
 ```
 
-
 <BR><BR>
+
 # EVE-NG関連
 
 ネットワーク機器をansibleで操作することを想定して、仮想のネットワーク環境をEVE-NGで整えます。
@@ -211,12 +216,12 @@ Updating files: 100% (1832/1832), done.
 ＜追記予定＞
 
 
-
-
 <BR><BR>
+
 # Ansible関連
 
-<BR>
+WSLに特化した留意事項は特にありません。普通に動きます。
+
 ## ansible.cfgの場所
 
 ansible.cfgファイルの場所は以下の順番で読み込まれます。共通的な設定がほとんどなので`~/.ansible.cfg`で設定しています。
