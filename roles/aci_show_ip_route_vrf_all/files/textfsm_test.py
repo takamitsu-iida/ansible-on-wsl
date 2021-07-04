@@ -88,8 +88,8 @@ if __name__ == '__main__':
       int -- 正常終了は0、異常時はそれ以外を返却
     """
 
-    LOGFILE1 = 'show_ip_route_vrf_all.1.log'
-    LOGFILE2 = 'show_ip_route_vrf_all.2.log'
+    LOGFILE1 = 'show_ip_route_vrf_all.1.txt'
+    LOGFILE2 = 'show_ip_route_vrf_all.2.txt'
 
     TEXTFSM = 'aci_show_ip_route_vrf_all.textfsm'
 

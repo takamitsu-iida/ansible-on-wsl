@@ -1,6 +1,6 @@
 #!/usr/bin/python3
 # -*- coding: utf-8 -*-
-"""Cisco ACIのスイッチにSSH接続してshow ip route vrf allを実行し、結果をパースします
+"""Cisco ACIのスイッチにSSH接続して実行したshow ip route vrf allの結果をパースします
 
 2016/07/03 初版
 """
@@ -481,8 +481,8 @@ if __name__ == "__main__":
 
 
   def debug() -> None:
-    filename1 = "show_ip_route_vrf_all.1.log"
-    filename2 = "show_ip_route_vrf_all.2.log"
+    filename1 = "show_ip_route_vrf_all.1.txt"
+    filename2 = "show_ip_route_vrf_all.2.txt"
     test_parse(filename1)
     # test_parse(filename2)
     # test_filter(filename1)

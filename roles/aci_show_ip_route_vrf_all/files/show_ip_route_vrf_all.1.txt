@@ -1,0 +1,834 @@
+nw-01-01-16-00# show ip route vrf all
+IP Route Table for VRF "black-hole"
+'*' denotes best ucast next-hop
+'**' denotes best mcast next-hop
+'[x/y]' denotes [preference/metric]
+'%<string>' in via output denotes VRF <string>
+
+
+IP Route Table for VRF "overlay-1"
+'*' denotes best ucast next-hop
+'**' denotes best mcast next-hop
+'[x/y]' denotes [preference/metric]
+'%<string>' in via output denotes VRF <string>
+
+10.0.0.1/32, ubest/mbest: 3/0
+    *via 10.0.64.92, eth1/51.9, [115/12], 06w00d, isis-isis_infra, L1
+    *via 10.0.40.80, eth1/49.7, [115/12], 06w00d, isis-isis_infra, L1
+    *via 10.0.40.67, eth1/53.8, [115/12], 03w04d, isis-isis_infra, L1
+10.0.0.2/32, ubest/mbest: 3/0
+    *via 10.0.64.92, eth1/51.9, [115/12], 06w00d, isis-isis_infra, L1
+    *via 10.0.40.80, eth1/49.7, [115/12], 06w00d, isis-isis_infra, L1
+    *via 10.0.40.67, eth1/53.8, [115/12], 03w04d, isis-isis_infra, L1
+10.0.0.3/32, ubest/mbest: 3/0
+    *via 10.0.64.92, eth1/51.9, [115/12], 06w00d, isis-isis_infra, L1
+    *via 10.0.40.80, eth1/49.7, [115/12], 06w00d, isis-isis_infra, L1
+    *via 10.0.40.67, eth1/53.8, [115/12], 03w04d, isis-isis_infra, L1
+10.0.0.4/32, ubest/mbest: 3/0
+    *via 10.0.64.92, eth1/51.9, [115/12], 06w00d, isis-isis_infra, L1
+    *via 10.0.40.80, eth1/49.7, [115/12], 06w00d, isis-isis_infra, L1
+    *via 10.0.40.67, eth1/53.8, [115/12], 03w04d, isis-isis_infra, L1
+10.0.0.5/32, ubest/mbest: 3/0
+    *via 10.0.64.92, eth1/51.9, [115/12], 06w00d, isis-isis_infra, L1
+    *via 10.0.40.80, eth1/49.7, [115/12], 06w00d, isis-isis_infra, L1
+    *via 10.0.40.67, eth1/53.8, [115/12], 03w04d, isis-isis_infra, L1
+10.0.0.32/32, ubest/mbest: 2/0, attached, direct
+    *via 10.0.0.32, lo1023, [1/0], 07w04d, local, local
+    *via 10.0.0.32, lo1023, [1/0], 07w04d, direct
+10.0.0.33/32, ubest/mbest: 3/0
+    *via 10.0.64.92, eth1/51.9, [115/2], 06w00d, isis-isis_infra, L1
+    *via 10.0.40.67, eth1/53.8, [115/2], 06w00d, isis-isis_infra, L1
+    *via 10.0.40.80, eth1/49.7, [115/2], 06w00d, isis-isis_infra, L1
+10.0.0.34/32, ubest/mbest: 3/0
+    *via 10.0.64.92, eth1/51.9, [115/2], 06w00d, isis-isis_infra, L1
+    *via 10.0.40.67, eth1/53.8, [115/2], 06w00d, isis-isis_infra, L1
+    *via 10.0.40.80, eth1/49.7, [115/2], 06w00d, isis-isis_infra, L1
+10.0.0.35/32, ubest/mbest: 3/0
+    *via 10.0.64.92, eth1/51.9, [115/2], 06w00d, isis-isis_infra, L1
+    *via 10.0.40.67, eth1/53.8, [115/2], 06w00d, isis-isis_infra, L1
+    *via 10.0.40.80, eth1/49.7, [115/2], 06w00d, isis-isis_infra, L1
+10.0.16.64/32, ubest/mbest: 3/0
+    *via 10.0.64.92, eth1/51.9, [115/3], 06w00d, isis-isis_infra, L1
+    *via 10.0.40.67, eth1/53.8, [115/3], 06w00d, isis-isis_infra, L1
+    *via 10.0.40.80, eth1/49.7, [115/3], 06w00d, isis-isis_infra, L1
+10.0.16.65/32, ubest/mbest: 3/0
+    *via 10.0.40.67, eth1/53.8, [115/3], 06w00d, isis-isis_infra, L1
+    *via 10.0.64.92, eth1/51.9, [115/3], 06w00d, isis-isis_infra, L1
+    *via 10.0.40.80, eth1/49.7, [115/3], 06w00d, isis-isis_infra, L1
+10.0.16.66/32, ubest/mbest: 3/0
+    *via 10.0.64.92, eth1/51.9, [115/3], 06w00d, isis-isis_infra, L1
+    *via 10.0.40.67, eth1/53.8, [115/3], 06w00d, isis-isis_infra, L1
+    *via 10.0.40.80, eth1/49.7, [115/3], 06w00d, isis-isis_infra, L1
+10.0.16.67/32, ubest/mbest: 3/0
+    *via 10.0.64.92, eth1/51.9, [115/3], 06w00d, isis-isis_infra, L1
+    *via 10.0.40.67, eth1/53.8, [115/3], 06w00d, isis-isis_infra, L1
+    *via 10.0.40.80, eth1/49.7, [115/3], 06w00d, isis-isis_infra, L1
+10.0.16.68/32, ubest/mbest: 3/0
+    *via 10.0.64.92, eth1/51.9, [115/3], 06w00d, isis-isis_infra, L1
+    *via 10.0.40.67, eth1/53.8, [115/3], 06w00d, isis-isis_infra, L1
+    *via 10.0.40.80, eth1/49.7, [115/3], 06w00d, isis-isis_infra, L1
+10.0.16.69/32, ubest/mbest: 3/0
+    *via 10.0.64.92, eth1/51.9, [115/3], 06w00d, isis-isis_infra, L1
+    *via 10.0.40.67, eth1/53.8, [115/3], 06w00d, isis-isis_infra, L1
+    *via 10.0.40.80, eth1/49.7, [115/3], 06w00d, isis-isis_infra, L1
+10.0.16.70/32, ubest/mbest: 3/0
+    *via 10.0.40.67, eth1/53.8, [115/3], 06w00d, isis-isis_infra, L1
+    *via 10.0.64.92, eth1/51.9, [115/3], 06w00d, isis-isis_infra, L1
+    *via 10.0.40.80, eth1/49.7, [115/3], 06w00d, isis-isis_infra, L1
+10.0.16.71/32, ubest/mbest: 3/0
+    *via 10.0.64.92, eth1/51.9, [115/3], 06w00d, isis-isis_infra, L1
+    *via 10.0.40.67, eth1/53.8, [115/3], 06w00d, isis-isis_infra, L1
+    *via 10.0.40.80, eth1/49.7, [115/3], 06w00d, isis-isis_infra, L1
+10.0.16.72/32, ubest/mbest: 3/0
+    *via 10.0.64.92, eth1/51.9, [115/3], 06w00d, isis-isis_infra, L1
+    *via 10.0.40.67, eth1/53.8, [115/3], 06w00d, isis-isis_infra, L1
+    *via 10.0.40.80, eth1/49.7, [115/3], 06w00d, isis-isis_infra, L1
+10.0.16.85/32, ubest/mbest: 3/0
+    *via 10.0.40.67, eth1/53.8, [115/3], 06w00d, isis-isis_infra, L1
+    *via 10.0.64.92, eth1/51.9, [115/3], 06w00d, isis-isis_infra, L1
+    *via 10.0.40.80, eth1/49.7, [115/3], 06w00d, isis-isis_infra, L1
+10.0.16.90/32, ubest/mbest: 3/0
+    *via 10.0.40.67, eth1/53.8, [115/3], 05w04d, isis-isis_infra, L1
+    *via 10.0.40.80, eth1/49.7, [115/3], 05w04d, isis-isis_infra, L1
+    *via 10.0.64.92, eth1/51.9, [115/3], 05w04d, isis-isis_infra, L1
+10.0.16.92/32, ubest/mbest: 3/0
+    *via 10.0.64.92, eth1/51.9, [115/3], 06w00d, isis-isis_infra, L1
+    *via 10.0.40.67, eth1/53.8, [115/3], 06w00d, isis-isis_infra, L1
+    *via 10.0.40.80, eth1/49.7, [115/3], 06w00d, isis-isis_infra, L1
+10.0.40.64/32, ubest/mbest: 3/0
+    *via 10.0.40.80, eth1/49.7, [115/3], 04w01d, isis-isis_infra, L1
+    *via 10.0.64.92, eth1/51.9, [115/3], 04w01d, isis-isis_infra, L1
+    *via 10.0.40.67, eth1/53.8, [115/3], 04w01d, isis-isis_infra, L1
+10.0.40.65/32, ubest/mbest: 3/0
+    *via 10.0.40.80, eth1/49.7, [115/3], 04w01d, isis-isis_infra, L1
+    *via 10.0.40.67, eth1/53.8, [115/3], 04w01d, isis-isis_infra, L1
+    *via 10.0.64.92, eth1/51.9, [115/3], 04w01d, isis-isis_infra, L1
+10.0.40.66/32, ubest/mbest: 3/0
+    *via 10.0.64.92, eth1/51.9, [115/3], 06w00d, isis-isis_infra, L1
+    *via 10.0.40.67, eth1/53.8, [115/3], 06w00d, isis-isis_infra, L1
+    *via 10.0.40.80, eth1/49.7, [115/3], 06w00d, isis-isis_infra, L1
+10.0.40.67/32, ubest/mbest: 1/0
+    *via 10.0.40.67, eth1/53.8, [115/2], 06w00d, isis-isis_infra, L1
+10.0.40.68/32, ubest/mbest: 3/0
+    *via 10.0.64.92, eth1/51.9, [115/3], 06w00d, isis-isis_infra, L1
+    *via 10.0.40.67, eth1/53.8, [115/3], 06w00d, isis-isis_infra, L1
+    *via 10.0.40.80, eth1/49.7, [115/3], 06w00d, isis-isis_infra, L1
+10.0.40.69/32, ubest/mbest: 3/0
+    *via 10.0.64.92, eth1/51.9, [115/3], 06w00d, isis-isis_infra, L1
+    *via 10.0.40.67, eth1/53.8, [115/3], 06w00d, isis-isis_infra, L1
+    *via 10.0.40.80, eth1/49.7, [115/3], 06w00d, isis-isis_infra, L1
+10.0.40.70/32, ubest/mbest: 3/0
+    *via 10.0.64.92, eth1/51.9, [115/3], 06w00d, isis-isis_infra, L1
+    *via 10.0.40.67, eth1/53.8, [115/3], 06w00d, isis-isis_infra, L1
+    *via 10.0.40.80, eth1/49.7, [115/3], 06w00d, isis-isis_infra, L1
+10.0.40.71/32, ubest/mbest: 3/0
+    *via 10.0.40.67, eth1/53.8, [115/3], 06w00d, isis-isis_infra, L1
+    *via 10.0.64.92, eth1/51.9, [115/3], 06w00d, isis-isis_infra, L1
+    *via 10.0.40.80, eth1/49.7, [115/3], 06w00d, isis-isis_infra, L1
+10.0.40.72/32, ubest/mbest: 3/0
+    *via 10.0.40.67, eth1/53.8, [115/3], 06w00d, isis-isis_infra, L1
+    *via 10.0.64.92, eth1/51.9, [115/3], 06w00d, isis-isis_infra, L1
+    *via 10.0.40.80, eth1/49.7, [115/3], 06w00d, isis-isis_infra, L1
+10.0.40.73/32, ubest/mbest: 3/0
+    *via 10.0.64.92, eth1/51.9, [115/3], 06w00d, isis-isis_infra, L1
+    *via 10.0.40.67, eth1/53.8, [115/3], 06w00d, isis-isis_infra, L1
+    *via 10.0.40.80, eth1/49.7, [115/3], 06w00d, isis-isis_infra, L1
+10.0.40.74/32, ubest/mbest: 3/0
+    *via 10.0.64.92, eth1/51.9, [115/3], 06w00d, isis-isis_infra, L1
+    *via 10.0.40.67, eth1/53.8, [115/3], 06w00d, isis-isis_infra, L1
+    *via 10.0.40.80, eth1/49.7, [115/3], 06w00d, isis-isis_infra, L1
+10.0.40.75/32, ubest/mbest: 3/0
+    *via 10.0.64.92, eth1/51.9, [115/3], 06w00d, isis-isis_infra, L1
+    *via 10.0.40.67, eth1/53.8, [115/3], 06w00d, isis-isis_infra, L1
+    *via 10.0.40.80, eth1/49.7, [115/3], 06w00d, isis-isis_infra, L1
+10.0.40.76/32, ubest/mbest: 3/0
+    *via 10.0.64.92, eth1/51.9, [115/3], 06w00d, isis-isis_infra, L1
+    *via 10.0.40.67, eth1/53.8, [115/3], 06w00d, isis-isis_infra, L1
+    *via 10.0.40.80, eth1/49.7, [115/3], 06w00d, isis-isis_infra, L1
+10.0.40.77/32, ubest/mbest: 3/0
+    *via 10.0.40.67, eth1/53.8, [115/3], 06w00d, isis-isis_infra, L1
+    *via 10.0.64.92, eth1/51.9, [115/3], 06w00d, isis-isis_infra, L1
+    *via 10.0.40.80, eth1/49.7, [115/3], 06w00d, isis-isis_infra, L1
+10.0.40.78/32, ubest/mbest: 3/0
+    *via 10.0.64.92, eth1/51.9, [115/3], 06w00d, isis-isis_infra, L1
+    *via 10.0.40.67, eth1/53.8, [115/3], 06w00d, isis-isis_infra, L1
+    *via 10.0.40.80, eth1/49.7, [115/3], 06w00d, isis-isis_infra, L1
+10.0.40.79/32, ubest/mbest: 3/0
+    *via 10.0.64.92, eth1/51.9, [115/3], 06w00d, isis-isis_infra, L1
+    *via 10.0.40.67, eth1/53.8, [115/3], 06w00d, isis-isis_infra, L1
+    *via 10.0.40.80, eth1/49.7, [115/3], 06w00d, isis-isis_infra, L1
+10.0.40.80/32, ubest/mbest: 1/0
+    *via 10.0.40.80, eth1/49.7, [115/2], 06w00d, isis-isis_infra, L1
+10.0.40.81/32, ubest/mbest: 3/0
+    *via 10.0.64.92, eth1/51.9, [115/3], 06w00d, isis-isis_infra, L1
+    *via 10.0.40.67, eth1/53.8, [115/3], 06w00d, isis-isis_infra, L1
+    *via 10.0.40.80, eth1/49.7, [115/3], 06w00d, isis-isis_infra, L1
+10.0.40.82/32, ubest/mbest: 3/0
+    *via 10.0.64.92, eth1/51.9, [115/3], 06w00d, isis-isis_infra, L1
+    *via 10.0.40.67, eth1/53.8, [115/3], 06w00d, isis-isis_infra, L1
+    *via 10.0.40.80, eth1/49.7, [115/3], 06w00d, isis-isis_infra, L1
+10.0.40.87/32, ubest/mbest: 2/0, attached, direct
+    *via 10.0.40.87, lo0, [1/0], 07w04d, local, local
+    *via 10.0.40.87, lo0, [1/0], 07w04d, direct
+10.0.40.95/32, ubest/mbest: 3/0
+    *via 10.0.64.92, eth1/51.9, [115/3], 06w00d, isis-isis_infra, L1
+    *via 10.0.40.80, eth1/49.7, [115/3], 06w00d, isis-isis_infra, L1
+    *via 10.0.40.67, eth1/53.8, [115/3], 03w04d, isis-isis_infra, L1
+10.0.64.64/32, ubest/mbest: 3/0
+    *via 10.0.64.92, eth1/51.9, [115/3], 06w00d, isis-isis_infra, L1
+    *via 10.0.40.67, eth1/53.8, [115/3], 06w00d, isis-isis_infra, L1
+    *via 10.0.40.80, eth1/49.7, [115/3], 06w00d, isis-isis_infra, L1
+10.0.64.65/32, ubest/mbest: 3/0
+    *via 10.0.64.92, eth1/51.9, [115/3], 06w00d, isis-isis_infra, L1
+    *via 10.0.40.67, eth1/53.8, [115/3], 06w00d, isis-isis_infra, L1
+    *via 10.0.40.80, eth1/49.7, [115/3], 06w00d, isis-isis_infra, L1
+10.0.64.68/32, ubest/mbest: 3/0
+    *via 10.0.64.92, eth1/51.9, [115/3], 06w00d, isis-isis_infra, L1
+    *via 10.0.40.67, eth1/53.8, [115/3], 06w00d, isis-isis_infra, L1
+    *via 10.0.40.80, eth1/49.7, [115/3], 06w00d, isis-isis_infra, L1
+10.0.64.75/32, ubest/mbest: 3/0
+    *via 10.0.64.92, eth1/51.9, [115/3], 06w00d, isis-isis_infra, L1
+    *via 10.0.40.67, eth1/53.8, [115/3], 06w00d, isis-isis_infra, L1
+    *via 10.0.40.80, eth1/49.7, [115/3], 06w00d, isis-isis_infra, L1
+10.0.64.83/32, ubest/mbest: 3/0
+    *via 10.0.64.92, eth1/51.9, [115/3], 06w00d, isis-isis_infra, L1
+    *via 10.0.40.67, eth1/53.8, [115/3], 06w00d, isis-isis_infra, L1
+    *via 10.0.40.80, eth1/49.7, [115/3], 06w00d, isis-isis_infra, L1
+10.0.64.88/32, ubest/mbest: 3/0
+    *via 10.0.64.92, eth1/51.9, [115/3], 05w04d, isis-isis_infra, L1
+    *via 10.0.40.67, eth1/53.8, [115/3], 05w04d, isis-isis_infra, L1
+    *via 10.0.40.80, eth1/49.7, [115/3], 05w04d, isis-isis_infra, L1
+10.0.64.89/32, ubest/mbest: 3/0
+    *via 10.0.40.67, eth1/53.8, [115/3], 05w04d, isis-isis_infra, L1
+    *via 10.0.40.80, eth1/49.7, [115/3], 05w04d, isis-isis_infra, L1
+    *via 10.0.64.92, eth1/51.9, [115/3], 05w04d, isis-isis_infra, L1
+10.0.64.90/32, ubest/mbest: 3/0
+    *via 10.0.40.67, eth1/53.8, [115/3], 05w04d, isis-isis_infra, L1
+    *via 10.0.64.92, eth1/51.9, [115/3], 05w04d, isis-isis_infra, L1
+    *via 10.0.40.80, eth1/49.7, [115/3], 05w04d, isis-isis_infra, L1
+10.0.64.92/32, ubest/mbest: 1/0
+    *via 10.0.64.92, eth1/51.9, [115/2], 06w00d, isis-isis_infra, L1
+10.0.104.94/32, ubest/mbest: 3/0
+    *via 10.0.64.92, eth1/51.9, [115/3], 06w00d, isis-isis_infra, L1
+    *via 10.0.40.67, eth1/53.8, [115/3], 06w00d, isis-isis_infra, L1
+    *via 10.0.40.80, eth1/49.7, [115/3], 06w00d, isis-isis_infra, L1
+10.0.176.65/32, ubest/mbest: 1/0
+    *via 10.0.40.80, eth1/49.7, [115/2], 06w00d, isis-isis_infra, L1
+10.0.176.66/32, ubest/mbest: 1/0
+    *via 10.0.40.80, eth1/49.7, [115/2], 06w00d, isis-isis_infra, L1
+10.0.176.67/32, ubest/mbest: 1/0
+    *via 10.0.40.80, eth1/49.7, [115/2], 06w00d, isis-isis_infra, L1
+10.0.176.69/32, ubest/mbest: 1/0
+    *via 10.0.64.92, eth1/51.9, [115/2], 06w00d, isis-isis_infra, L1
+10.0.176.70/32, ubest/mbest: 1/0
+    *via 10.0.64.92, eth1/51.9, [115/2], 06w00d, isis-isis_infra, L1
+10.0.176.71/32, ubest/mbest: 1/0
+    *via 10.0.64.92, eth1/51.9, [115/2], 06w00d, isis-isis_infra, L1
+10.0.176.73/32, ubest/mbest: 1/0
+    *via 10.0.40.67, eth1/53.8, [115/2], 06w00d, isis-isis_infra, L1
+10.0.176.74/32, ubest/mbest: 1/0
+    *via 10.0.40.67, eth1/53.8, [115/2], 06w00d, isis-isis_infra, L1
+10.0.176.75/32, ubest/mbest: 1/0
+    *via 10.0.40.67, eth1/53.8, [115/2], 06w00d, isis-isis_infra, L1
+10.0.200.64/32, ubest/mbest: 3/0
+    *via 10.0.64.92, eth1/51.9, [115/2], 06w00d, isis-isis_infra, L1
+    *via 10.0.40.67, eth1/53.8, [115/2], 06w00d, isis-isis_infra, L1
+    *via 10.0.40.80, eth1/49.7, [115/2], 06w00d, isis-isis_infra, L1
+10.0.200.65/32, ubest/mbest: 3/0
+    *via 10.0.64.92, eth1/51.9, [115/2], 06w00d, isis-isis_infra, L1
+    *via 10.0.40.67, eth1/53.8, [115/2], 06w00d, isis-isis_infra, L1
+    *via 10.0.40.80, eth1/49.7, [115/2], 06w00d, isis-isis_infra, L1
+10.0.200.66/32, ubest/mbest: 3/0
+    *via 10.0.64.92, eth1/51.9, [115/2], 06w00d, isis-isis_infra, L1
+    *via 10.0.40.67, eth1/53.8, [115/2], 06w00d, isis-isis_infra, L1
+    *via 10.0.40.80, eth1/49.7, [115/2], 06w00d, isis-isis_infra, L1
+10.0.224.64/32, ubest/mbest: 3/0
+    *via 10.0.64.92, eth1/51.9, [115/3], 06w00d, isis-isis_infra, L1
+    *via 10.0.40.67, eth1/53.8, [115/3], 06w00d, isis-isis_infra, L1
+    *via 10.0.40.80, eth1/49.7, [115/3], 06w00d, isis-isis_infra, L1
+10.0.224.65/32, ubest/mbest: 3/0
+    *via 10.0.64.92, eth1/51.9, [115/3], 06w00d, isis-isis_infra, L1
+    *via 10.0.40.67, eth1/53.8, [115/3], 06w00d, isis-isis_infra, L1
+    *via 10.0.40.80, eth1/49.7, [115/3], 06w00d, isis-isis_infra, L1
+10.0.224.66/32, ubest/mbest: 3/0
+    *via 10.0.64.92, eth1/51.9, [115/3], 06w00d, isis-isis_infra, L1
+    *via 10.0.40.67, eth1/53.8, [115/3], 06w00d, isis-isis_infra, L1
+    *via 10.0.40.80, eth1/49.7, [115/3], 06w00d, isis-isis_infra, L1
+10.0.224.67/32, ubest/mbest: 3/0
+    *via 10.0.64.92, eth1/51.9, [115/3], 06w00d, isis-isis_infra, L1
+    *via 10.0.40.67, eth1/53.8, [115/3], 06w00d, isis-isis_infra, L1
+    *via 10.0.40.80, eth1/49.7, [115/3], 06w00d, isis-isis_infra, L1
+10.0.224.68/32, ubest/mbest: 3/0
+    *via 10.0.64.92, eth1/51.9, [115/3], 06w00d, isis-isis_infra, L1
+    *via 10.0.40.67, eth1/53.8, [115/3], 06w00d, isis-isis_infra, L1
+    *via 10.0.40.80, eth1/49.7, [115/3], 06w00d, isis-isis_infra, L1
+10.0.224.69/32, ubest/mbest: 2/0, attached, direct
+    *via 10.0.224.69, lo1, [1/0], 07w04d, local, local
+    *via 10.0.224.69, lo1, [1/0], 07w04d, direct
+10.0.224.70/32, ubest/mbest: 3/0
+    *via 10.0.64.92, eth1/51.9, [115/3], 06w00d, isis-isis_infra, L1
+    *via 10.0.40.67, eth1/53.8, [115/3], 06w00d, isis-isis_infra, L1
+    *via 10.0.40.80, eth1/49.7, [115/3], 06w00d, isis-isis_infra, L1
+10.0.224.71/32, ubest/mbest: 3/0
+    *via 10.0.64.92, eth1/51.9, [115/3], 06w00d, isis-isis_infra, L1
+    *via 10.0.40.67, eth1/53.8, [115/3], 06w00d, isis-isis_infra, L1
+    *via 10.0.40.80, eth1/49.7, [115/3], 06w00d, isis-isis_infra, L1
+10.0.224.72/32, ubest/mbest: 3/0
+    *via 10.0.64.92, eth1/51.9, [115/3], 06w00d, isis-isis_infra, L1
+    *via 10.0.40.67, eth1/53.8, [115/3], 06w00d, isis-isis_infra, L1
+    *via 10.0.40.80, eth1/49.7, [115/3], 06w00d, isis-isis_infra, L1
+10.0.224.73/32, ubest/mbest: 3/0
+    *via 10.0.64.92, eth1/51.9, [115/3], 06w00d, isis-isis_infra, L1
+    *via 10.0.40.67, eth1/53.8, [115/3], 06w00d, isis-isis_infra, L1
+    *via 10.0.40.80, eth1/49.7, [115/3], 06w00d, isis-isis_infra, L1
+10.0.224.74/32, ubest/mbest: 3/0
+    *via 10.0.64.92, eth1/51.9, [115/3], 06w00d, isis-isis_infra, L1
+    *via 10.0.40.67, eth1/53.8, [115/3], 06w00d, isis-isis_infra, L1
+    *via 10.0.40.80, eth1/49.7, [115/3], 06w00d, isis-isis_infra, L1
+10.0.224.75/32, ubest/mbest: 3/0
+    *via 10.0.64.92, eth1/51.9, [115/3], 06w00d, isis-isis_infra, L1
+    *via 10.0.40.67, eth1/53.8, [115/3], 06w00d, isis-isis_infra, L1
+    *via 10.0.40.80, eth1/49.7, [115/3], 06w00d, isis-isis_infra, L1
+10.0.224.76/32, ubest/mbest: 3/0
+    *via 10.0.64.92, eth1/51.9, [115/3], 06w00d, isis-isis_infra, L1
+    *via 10.0.40.67, eth1/53.8, [115/3], 06w00d, isis-isis_infra, L1
+    *via 10.0.40.80, eth1/49.7, [115/3], 06w00d, isis-isis_infra, L1
+10.0.224.77/32, ubest/mbest: 3/0
+    *via 10.0.64.92, eth1/51.9, [115/3], 06w00d, isis-isis_infra, L1
+    *via 10.0.40.67, eth1/53.8, [115/3], 06w00d, isis-isis_infra, L1
+    *via 10.0.40.80, eth1/49.7, [115/3], 06w00d, isis-isis_infra, L1
+10.0.224.78/32, ubest/mbest: 3/0
+    *via 10.0.64.92, eth1/51.9, [115/3], 06w00d, isis-isis_infra, L1
+    *via 10.0.40.67, eth1/53.8, [115/3], 06w00d, isis-isis_infra, L1
+    *via 10.0.40.80, eth1/49.7, [115/3], 06w00d, isis-isis_infra, L1
+10.0.224.79/32, ubest/mbest: 3/0
+    *via 10.0.64.92, eth1/51.9, [115/3], 06w00d, isis-isis_infra, L1
+    *via 10.0.40.67, eth1/53.8, [115/3], 06w00d, isis-isis_infra, L1
+    *via 10.0.40.80, eth1/49.7, [115/3], 06w00d, isis-isis_infra, L1
+10.0.224.80/32, ubest/mbest: 3/0
+    *via 10.0.40.67, eth1/53.8, [115/3], 06w00d, isis-isis_infra, L1
+    *via 10.0.64.92, eth1/51.9, [115/3], 06w00d, isis-isis_infra, L1
+    *via 10.0.40.80, eth1/49.7, [115/3], 06w00d, isis-isis_infra, L1
+10.0.224.81/32, ubest/mbest: 3/0
+    *via 10.0.64.92, eth1/51.9, [115/3], 06w00d, isis-isis_infra, L1
+    *via 10.0.40.67, eth1/53.8, [115/3], 06w00d, isis-isis_infra, L1
+    *via 10.0.40.80, eth1/49.7, [115/3], 06w00d, isis-isis_infra, L1
+10.0.224.82/32, ubest/mbest: 3/0
+    *via 10.0.64.92, eth1/51.9, [115/3], 06w00d, isis-isis_infra, L1
+    *via 10.0.40.67, eth1/53.8, [115/3], 06w00d, isis-isis_infra, L1
+    *via 10.0.40.80, eth1/49.7, [115/3], 06w00d, isis-isis_infra, L1
+10.0.224.83/32, ubest/mbest: 3/0
+    *via 10.0.64.92, eth1/51.9, [115/3], 06w00d, isis-isis_infra, L1
+    *via 10.0.40.67, eth1/53.8, [115/3], 06w00d, isis-isis_infra, L1
+    *via 10.0.40.80, eth1/49.7, [115/3], 06w00d, isis-isis_infra, L1
+
+IP Route Table for VRF "K5_2nd:VRF_104_Guest_Data"
+'*' denotes best ucast next-hop
+'**' denotes best mcast next-hop
+'[x/y]' denotes [preference/metric]
+'%<string>' in via output denotes VRF <string>
+
+10.104.0.0/21, ubest/mbest: 1/0, attached, direct, pervasive
+    *via 10.0.200.66%overlay-1, [1/0], 06w00d, static
+10.104.8.0/21, ubest/mbest: 1/0, attached, direct, pervasive
+    *via 10.0.200.66%overlay-1, [1/0], 06w00d, static
+10.104.15.254/32, ubest/mbest: 1/0, attached, pervasive
+    *via 10.104.15.254, vlan12, [1/0], 07w04d, local, local
+10.104.248.0/21, ubest/mbest: 1/0, attached, direct, pervasive
+    *via 10.0.200.66%overlay-1, [1/0], 06w00d, static
+10.255.1.1/32, ubest/mbest: 2/0
+    *via 10.0.40.64%overlay-1, [200/4], 04w01d, bgp-65000, internal, tag 65000
+    *via 10.0.40.65%overlay-1, [200/4], 04w01d, bgp-65000, internal, tag 65000
+10.255.1.2/32, ubest/mbest: 2/0
+    *via 10.0.40.64%overlay-1, [200/4], 04w01d, bgp-65000, internal, tag 65000
+    *via 10.0.40.65%overlay-1, [200/4], 04w01d, bgp-65000, internal, tag 65000
+10.255.1.3/32, ubest/mbest: 2/0
+    *via 10.0.40.66%overlay-1, [200/4], 06w00d, bgp-65000, internal, tag 65000
+    *via 10.0.64.83%overlay-1, [200/4], 06w00d, bgp-65000, internal, tag 65000
+10.255.1.4/32, ubest/mbest: 2/0
+    *via 10.0.40.66%overlay-1, [200/4], 06w00d, bgp-65000, internal, tag 65000
+    *via 10.0.64.83%overlay-1, [200/4], 06w00d, bgp-65000, internal, tag 65000
+10.255.1.9/32, ubest/mbest: 2/0
+    *via 10.0.40.66%overlay-1, [200/4], 06w00d, bgp-65000, internal, tag 65000
+    *via 10.0.64.83%overlay-1, [200/4], 06w00d, bgp-65000, internal, tag 65000
+10.255.1.10/32, ubest/mbest: 2/0
+    *via 10.0.40.64%overlay-1, [200/4], 04w01d, bgp-65000, internal, tag 65000
+    *via 10.0.40.65%overlay-1, [200/4], 04w01d, bgp-65000, internal, tag 65000
+10.255.1.11/32, ubest/mbest: 2/0
+    *via 10.0.40.64%overlay-1, [200/4], 04w01d, bgp-65000, internal, tag 65000
+    *via 10.0.40.65%overlay-1, [200/4], 04w01d, bgp-65000, internal, tag 65000
+10.255.1.21/32, ubest/mbest: 2/0
+    *via 10.0.16.68%overlay-1, [200/4], 06w00d, bgp-65000, internal, tag 65000
+    *via 10.0.64.68%overlay-1, [200/4], 06w00d, bgp-65000, internal, tag 65000
+10.255.1.22/32, ubest/mbest: 2/0
+    *via 10.0.16.68%overlay-1, [200/4], 06w00d, bgp-65000, internal, tag 65000
+    *via 10.0.64.68%overlay-1, [200/4], 06w00d, bgp-65000, internal, tag 65000
+10.255.1.23/32, ubest/mbest: 2/0
+    *via 10.0.16.68%overlay-1, [200/4], 06w00d, bgp-65000, internal, tag 65000
+    *via 10.0.64.68%overlay-1, [200/4], 06w00d, bgp-65000, internal, tag 65000
+10.255.1.24/32, ubest/mbest: 2/0
+    *via 10.0.16.68%overlay-1, [200/4], 06w00d, bgp-65000, internal, tag 65000
+    *via 10.0.64.68%overlay-1, [200/4], 06w00d, bgp-65000, internal, tag 65000
+10.255.1.25/32, ubest/mbest: 2/0
+    *via 10.0.40.64%overlay-1, [200/4], 04w01d, bgp-65000, internal, tag 65000
+    *via 10.0.40.65%overlay-1, [200/4], 04w01d, bgp-65000, internal, tag 65000
+10.255.1.26/32, ubest/mbest: 2/0
+    *via 10.0.40.64%overlay-1, [200/4], 04w01d, bgp-65000, internal, tag 65000
+    *via 10.0.40.65%overlay-1, [200/4], 04w01d, bgp-65000, internal, tag 65000
+10.255.1.31/32, ubest/mbest: 2/0
+    *via 10.0.16.67%overlay-1, [200/4], 06w00d, bgp-65000, internal, tag 65000
+    *via 10.0.40.69%overlay-1, [200/4], 06w00d, bgp-65000, internal, tag 65000
+10.255.1.32/32, ubest/mbest: 2/0
+    *via 10.0.16.67%overlay-1, [200/4], 06w00d, bgp-65000, internal, tag 65000
+    *via 10.0.40.69%overlay-1, [200/4], 06w00d, bgp-65000, internal, tag 65000
+10.255.1.47/32, ubest/mbest: 2/0
+    *via 10.0.16.64%overlay-1, [200/4], 1d13h, bgp-65000, internal, tag 65000
+    *via 10.0.40.70%overlay-1, [200/4], 1d13h, bgp-65000, internal, tag 65000
+10.255.1.48/32, ubest/mbest: 2/0
+    *via 10.0.16.64%overlay-1, [200/4], 1d13h, bgp-65000, internal, tag 65000
+    *via 10.0.40.70%overlay-1, [200/4], 1d13h, bgp-65000, internal, tag 65000
+10.255.1.49/32, ubest/mbest: 2/0
+    *via 10.0.40.70%overlay-1, [200/4], 06w00d, bgp-65000, internal, tag 65000
+    *via 10.0.16.64%overlay-1, [200/4], 06w00d, bgp-65000, internal, tag 65000
+10.255.1.50/32, ubest/mbest: 2/0
+    *via 10.0.40.70%overlay-1, [200/4], 06w00d, bgp-65000, internal, tag 65000
+    *via 10.0.16.64%overlay-1, [200/4], 06w00d, bgp-65000, internal, tag 65000
+10.255.1.55/32, ubest/mbest: 2/0
+    *via 10.0.16.67%overlay-1, [200/4], 06w00d, bgp-65000, internal, tag 65000
+    *via 10.0.40.69%overlay-1, [200/4], 06w00d, bgp-65000, internal, tag 65000
+10.255.1.59/32, ubest/mbest: 2/0
+    *via 10.0.40.70%overlay-1, [200/4], 06w00d, bgp-65000, internal, tag 65000
+    *via 10.0.16.64%overlay-1, [200/4], 06w00d, bgp-65000, internal, tag 65000
+10.255.1.60/32, ubest/mbest: 2/0
+    *via 10.0.40.70%overlay-1, [200/4], 06w00d, bgp-65000, internal, tag 65000
+    *via 10.0.16.64%overlay-1, [200/4], 06w00d, bgp-65000, internal, tag 65000
+10.255.1.61/32, ubest/mbest: 2/0
+    *via 10.0.40.78%overlay-1, [200/4], 06w00d, bgp-65000, internal, tag 65000
+    *via 10.0.64.65%overlay-1, [200/4], 06w00d, bgp-65000, internal, tag 65000
+10.255.1.62/32, ubest/mbest: 2/0
+    *via 10.0.40.78%overlay-1, [200/4], 06w00d, bgp-65000, internal, tag 65000
+    *via 10.0.64.65%overlay-1, [200/4], 06w00d, bgp-65000, internal, tag 65000
+10.255.1.136/32, ubest/mbest: 2/0
+    *via 10.0.104.94%overlay-1, [200/4], 06w00d, bgp-65000, internal, tag 65000
+    *via 10.0.40.79%overlay-1, [200/4], 06w00d, bgp-65000, internal, tag 65000
+10.255.1.137/32, ubest/mbest: 2/0
+    *via 10.0.104.94%overlay-1, [200/4], 06w00d, bgp-65000, internal, tag 65000
+    *via 10.0.40.79%overlay-1, [200/4], 06w00d, bgp-65000, internal, tag 65000
+10.255.1.138/32, ubest/mbest: 2/0
+    *via 10.0.40.82%overlay-1, [200/4], 06w00d, bgp-65000, internal, tag 65000
+    *via 10.0.40.81%overlay-1, [200/4], 06w00d, bgp-65000, internal, tag 65000
+10.255.1.139/32, ubest/mbest: 2/0
+    *via 10.0.40.82%overlay-1, [200/4], 06w00d, bgp-65000, internal, tag 65000
+    *via 10.0.40.81%overlay-1, [200/4], 06w00d, bgp-65000, internal, tag 65000
+10.255.2.3/32, ubest/mbest: 2/0
+    *via 10.0.40.70%overlay-1, [200/4], 06w00d, bgp-65000, internal, tag 65000
+    *via 10.0.16.64%overlay-1, [200/4], 06w00d, bgp-65000, internal, tag 65000
+10.255.2.18/32, ubest/mbest: 2/0
+    *via 10.0.40.70%overlay-1, [200/4], 02w01d, bgp-65000, internal, tag 65000
+    *via 10.0.16.64%overlay-1, [200/4], 02w01d, bgp-65000, internal, tag 65000
+10.255.2.24/32, ubest/mbest: 2/0
+    *via 10.0.16.67%overlay-1, [200/4], 06w00d, bgp-65000, internal, tag 65000
+    *via 10.0.40.69%overlay-1, [200/4], 06w00d, bgp-65000, internal, tag 65000
+10.255.2.25/32, ubest/mbest: 2/0
+    *via 10.0.40.64%overlay-1, [200/4], 04w01d, bgp-65000, internal, tag 65000
+    *via 10.0.40.65%overlay-1, [200/4], 04w01d, bgp-65000, internal, tag 65000
+10.255.2.26/32, ubest/mbest: 2/0
+    *via 10.0.40.78%overlay-1, [200/4], 06w00d, bgp-65000, internal, tag 65000
+    *via 10.0.64.65%overlay-1, [200/4], 06w00d, bgp-65000, internal, tag 65000
+10.255.2.41/32, ubest/mbest: 2/0
+    *via 10.0.104.94%overlay-1, [200/4], 06w00d, bgp-65000, internal, tag 65000
+    *via 10.0.40.79%overlay-1, [200/4], 06w00d, bgp-65000, internal, tag 65000
+10.255.2.42/32, ubest/mbest: 2/0
+    *via 10.0.40.82%overlay-1, [200/4], 06w00d, bgp-65000, internal, tag 65000
+    *via 10.0.40.81%overlay-1, [200/4], 06w00d, bgp-65000, internal, tag 65000
+10.255.15.0/29, ubest/mbest: 2/0
+    *via 10.0.40.64%overlay-1, [200/0], 04w01d, bgp-65000, internal, tag 65000
+    *via 10.0.40.65%overlay-1, [200/0], 04w01d, bgp-65000, internal, tag 65000
+10.255.15.8/29, ubest/mbest: 2/0
+    *via 10.0.40.64%overlay-1, [200/0], 04w01d, bgp-65000, internal, tag 65000
+    *via 10.0.40.65%overlay-1, [200/0], 04w01d, bgp-65000, internal, tag 65000
+10.255.15.16/29, ubest/mbest: 2/0
+    *via 10.0.40.64%overlay-1, [200/0], 04w01d, bgp-65000, internal, tag 65000
+    *via 10.0.40.65%overlay-1, [200/0], 04w01d, bgp-65000, internal, tag 65000
+10.255.15.24/29, ubest/mbest: 2/0
+    *via 10.0.40.64%overlay-1, [200/0], 04w01d, bgp-65000, internal, tag 65000
+    *via 10.0.40.65%overlay-1, [200/0], 04w01d, bgp-65000, internal, tag 65000
+10.255.15.32/29, ubest/mbest: 2/0
+    *via 10.0.40.66%overlay-1, [200/0], 06w00d, bgp-65000, internal, tag 65000
+    *via 10.0.64.83%overlay-1, [200/0], 06w00d, bgp-65000, internal, tag 65000
+10.255.15.40/29, ubest/mbest: 2/0
+    *via 10.0.40.64%overlay-1, [200/0], 04w01d, bgp-65000, internal, tag 65000
+    *via 10.0.40.65%overlay-1, [200/0], 04w01d, bgp-65000, internal, tag 65000
+10.255.15.48/29, ubest/mbest: 2/0
+    *via 10.0.40.64%overlay-1, [200/0], 04w01d, bgp-65000, internal, tag 65000
+    *via 10.0.40.65%overlay-1, [200/0], 04w01d, bgp-65000, internal, tag 65000
+10.255.15.56/29, ubest/mbest: 2/0
+    *via 10.0.40.70%overlay-1, [200/0], 06w00d, bgp-65000, internal, tag 65000
+    *via 10.0.16.64%overlay-1, [200/0], 06w00d, bgp-65000, internal, tag 65000
+10.255.15.64/29, ubest/mbest: 2/0
+    *via 10.0.40.64%overlay-1, [200/0], 04w01d, bgp-65000, internal, tag 65000
+    *via 10.0.40.65%overlay-1, [200/0], 04w01d, bgp-65000, internal, tag 65000
+10.255.15.72/29, ubest/mbest: 2/0
+    *via 10.0.16.90%overlay-1, [200/0], 05w04d, bgp-65000, internal, tag 65000
+    *via 10.0.64.90%overlay-1, [200/0], 05w04d, bgp-65000, internal, tag 65000
+10.255.15.88/29, ubest/mbest: 2/0
+    *via 10.0.16.67%overlay-1, [200/0], 06w00d, bgp-65000, internal, tag 65000
+    *via 10.0.40.69%overlay-1, [200/0], 06w00d, bgp-65000, internal, tag 65000
+10.255.15.104/29, ubest/mbest: 2/0
+    *via 10.0.16.67%overlay-1, [200/0], 06w00d, bgp-65000, internal, tag 65000
+    *via 10.0.40.69%overlay-1, [200/0], 06w00d, bgp-65000, internal, tag 65000
+10.255.15.112/29, ubest/mbest: 2/0
+    *via 10.0.40.78%overlay-1, [200/0], 06w00d, bgp-65000, internal, tag 65000
+    *via 10.0.64.65%overlay-1, [200/0], 06w00d, bgp-65000, internal, tag 65000
+10.255.15.168/29, ubest/mbest: 2/0
+    *via 10.0.16.68%overlay-1, [200/0], 06w00d, bgp-65000, internal, tag 65000
+    *via 10.0.64.68%overlay-1, [200/0], 06w00d, bgp-65000, internal, tag 65000
+10.255.15.176/29, ubest/mbest: 2/0
+    *via 10.0.16.68%overlay-1, [200/0], 06w00d, bgp-65000, internal, tag 65000
+    *via 10.0.64.68%overlay-1, [200/0], 06w00d, bgp-65000, internal, tag 65000
+10.255.15.232/29, ubest/mbest: 2/0
+    *via 10.0.40.70%overlay-1, [200/0], 06w00d, bgp-65000, internal, tag 65000
+    *via 10.0.16.64%overlay-1, [200/0], 06w00d, bgp-65000, internal, tag 65000
+10.255.15.240/29, ubest/mbest: 2/0
+    *via 10.0.40.70%overlay-1, [200/0], 06w00d, bgp-65000, internal, tag 65000
+    *via 10.0.16.64%overlay-1, [200/0], 06w00d, bgp-65000, internal, tag 65000
+10.255.16.0/29, ubest/mbest: 2/0
+    *via 10.0.40.66%overlay-1, [200/0], 06w00d, bgp-65000, internal, tag 65000
+    *via 10.0.64.83%overlay-1, [200/0], 06w00d, bgp-65000, internal, tag 65000
+10.255.16.8/29, ubest/mbest: 2/0
+    *via 10.0.40.66%overlay-1, [200/0], 06w00d, bgp-65000, internal, tag 65000
+    *via 10.0.64.83%overlay-1, [200/0], 06w00d, bgp-65000, internal, tag 65000
+10.255.16.16/29, ubest/mbest: 2/0
+    *via 10.0.40.66%overlay-1, [200/0], 06w00d, bgp-65000, internal, tag 65000
+    *via 10.0.64.83%overlay-1, [200/0], 06w00d, bgp-65000, internal, tag 65000
+10.255.16.24/29, ubest/mbest: 2/0
+    *via 10.0.40.66%overlay-1, [200/0], 06w00d, bgp-65000, internal, tag 65000
+    *via 10.0.64.83%overlay-1, [200/0], 06w00d, bgp-65000, internal, tag 65000
+10.255.16.32/29, ubest/mbest: 2/0
+    *via 10.0.40.64%overlay-1, [200/0], 04w01d, bgp-65000, internal, tag 65000
+    *via 10.0.40.65%overlay-1, [200/0], 04w01d, bgp-65000, internal, tag 65000
+10.255.16.40/29, ubest/mbest: 2/0
+    *via 10.0.40.64%overlay-1, [200/0], 04w01d, bgp-65000, internal, tag 65000
+    *via 10.0.40.65%overlay-1, [200/0], 04w01d, bgp-65000, internal, tag 65000
+10.255.16.48/29, ubest/mbest: 2/0
+    *via 10.0.40.66%overlay-1, [200/0], 06w00d, bgp-65000, internal, tag 65000
+    *via 10.0.64.83%overlay-1, [200/0], 06w00d, bgp-65000, internal, tag 65000
+10.255.16.56/29, ubest/mbest: 2/0
+    *via 10.0.40.70%overlay-1, [200/0], 06w00d, bgp-65000, internal, tag 65000
+    *via 10.0.16.64%overlay-1, [200/0], 06w00d, bgp-65000, internal, tag 65000
+10.255.16.64/29, ubest/mbest: 2/0
+    *via 10.0.40.66%overlay-1, [200/0], 06w00d, bgp-65000, internal, tag 65000
+    *via 10.0.64.83%overlay-1, [200/0], 06w00d, bgp-65000, internal, tag 65000
+10.255.16.72/29, ubest/mbest: 2/0
+    *via 10.0.16.90%overlay-1, [200/0], 05w04d, bgp-65000, internal, tag 65000
+    *via 10.0.64.90%overlay-1, [200/0], 05w04d, bgp-65000, internal, tag 65000
+10.255.16.88/29, ubest/mbest: 2/0
+    *via 10.0.16.67%overlay-1, [200/0], 06w00d, bgp-65000, internal, tag 65000
+    *via 10.0.40.69%overlay-1, [200/0], 06w00d, bgp-65000, internal, tag 65000
+10.255.16.104/29, ubest/mbest: 2/0
+    *via 10.0.16.67%overlay-1, [200/0], 06w00d, bgp-65000, internal, tag 65000
+    *via 10.0.40.69%overlay-1, [200/0], 06w00d, bgp-65000, internal, tag 65000
+10.255.16.112/29, ubest/mbest: 2/0
+    *via 10.0.40.78%overlay-1, [200/0], 06w00d, bgp-65000, internal, tag 65000
+    *via 10.0.64.65%overlay-1, [200/0], 06w00d, bgp-65000, internal, tag 65000
+10.255.16.168/29, ubest/mbest: 2/0
+    *via 10.0.16.68%overlay-1, [200/0], 06w00d, bgp-65000, internal, tag 65000
+    *via 10.0.64.68%overlay-1, [200/0], 06w00d, bgp-65000, internal, tag 65000
+10.255.16.176/29, ubest/mbest: 2/0
+    *via 10.0.16.68%overlay-1, [200/0], 06w00d, bgp-65000, internal, tag 65000
+    *via 10.0.64.68%overlay-1, [200/0], 06w00d, bgp-65000, internal, tag 65000
+10.255.16.232/29, ubest/mbest: 2/0
+    *via 10.0.40.70%overlay-1, [200/0], 06w00d, bgp-65000, internal, tag 65000
+    *via 10.0.16.64%overlay-1, [200/0], 06w00d, bgp-65000, internal, tag 65000
+10.255.16.240/29, ubest/mbest: 2/0
+    *via 10.0.40.70%overlay-1, [200/0], 06w00d, bgp-65000, internal, tag 65000
+    *via 10.0.16.64%overlay-1, [200/0], 06w00d, bgp-65000, internal, tag 65000
+10.255.25.0/29, ubest/mbest: 2/0
+    *via 10.0.104.94%overlay-1, [200/0], 06w00d, bgp-65000, internal, tag 65000
+    *via 10.0.40.79%overlay-1, [200/0], 06w00d, bgp-65000, internal, tag 65000
+10.255.25.8/29, ubest/mbest: 2/0
+    *via 10.0.40.82%overlay-1, [200/0], 06w00d, bgp-65000, internal, tag 65000
+    *via 10.0.40.81%overlay-1, [200/0], 06w00d, bgp-65000, internal, tag 65000
+10.255.26.0/29, ubest/mbest: 2/0
+    *via 10.0.104.94%overlay-1, [200/0], 06w00d, bgp-65000, internal, tag 65000
+    *via 10.0.40.79%overlay-1, [200/0], 06w00d, bgp-65000, internal, tag 65000
+10.255.26.8/29, ubest/mbest: 2/0
+    *via 10.0.40.82%overlay-1, [200/0], 06w00d, bgp-65000, internal, tag 65000
+    *via 10.0.40.81%overlay-1, [200/0], 06w00d, bgp-65000, internal, tag 65000
+10.255.34.0/30, ubest/mbest: 1/0, attached, direct, pervasive
+    *via 10.0.200.66%overlay-1, [1/0], 06w00d, static
+10.255.35.0/30, ubest/mbest: 1/0, attached, direct, pervasive
+    *via 10.0.200.66%overlay-1, [1/0], 06w00d, static
+
+IP Route Table for VRF "K5_2nd:VRF_109_Device"
+'*' denotes best ucast next-hop
+'**' denotes best mcast next-hop
+'[x/y]' denotes [preference/metric]
+'%<string>' in via output denotes VRF <string>
+
+10.101.0.0/21, ubest/mbest: 1/0, attached, direct, pervasive
+    *via 10.0.200.66%overlay-1, [1/0], 06w00d, static, tag 4294967295
+10.101.8.0/21, ubest/mbest: 1/0, attached, direct, pervasive
+    *via 10.0.200.66%overlay-1, [1/0], 06w00d, static, tag 4294967295
+10.101.248.0/21, ubest/mbest: 1/0, attached, direct, pervasive
+    *via 10.0.200.66%overlay-1, [1/0], 06w00d, static, tag 4294967295
+10.109.0.0/21, ubest/mbest: 1/0, attached, direct, pervasive
+    *via 10.0.200.66%overlay-1, [1/0], 06w00d, static, tag 4294967295
+10.109.8.0/21, ubest/mbest: 1/0, attached, direct, pervasive
+    *via 10.0.200.66%overlay-1, [1/0], 06w00d, static, tag 4294967295
+10.109.15.254/32, ubest/mbest: 1/0, attached, pervasive
+    *via 10.109.15.254, vlan10, [1/0], 07w04d, local, local
+
+IP Route Table for VRF "K5_2nd:VRF_101_Management"
+'*' denotes best ucast next-hop
+'**' denotes best mcast next-hop
+'[x/y]' denotes [preference/metric]
+'%<string>' in via output denotes VRF <string>
+
+0.0.0.0/0, ubest/mbest: 1/0
+    *via 10.0.40.95%overlay-1, [1/0], 03w04d, bgp-65000, internal, tag 65000
+10.3.0.115/32, ubest/mbest: 2/0
+    *via 10.0.16.92%overlay-1, [1/0], 06w00d, bgp-65000, internal, tag 65000
+    *via 10.0.40.95%overlay-1, [1/0], 03w04d, bgp-65000, internal, tag 65000
+10.3.0.116/32, ubest/mbest: 2/0
+    *via 10.0.16.92%overlay-1, [1/0], 06w00d, bgp-65000, internal, tag 65000
+    *via 10.0.40.95%overlay-1, [1/0], 03w04d, bgp-65000, internal, tag 65000
+10.3.0.131/32, ubest/mbest: 1/0
+    *via 10.0.16.92%overlay-1, [1/0], 06w00d, bgp-65000, internal, tag 65000
+10.3.0.132/32, ubest/mbest: 1/0
+    *via 10.0.16.92%overlay-1, [1/0], 06w00d, bgp-65000, internal, tag 65000
+10.7.0.115/32, ubest/mbest: 2/0
+    *via 10.0.16.92%overlay-1, [1/0], 06w00d, bgp-65000, internal, tag 65000
+    *via 10.0.40.95%overlay-1, [1/0], 03w04d, bgp-65000, internal, tag 65000
+10.7.0.116/32, ubest/mbest: 2/0
+    *via 10.0.16.92%overlay-1, [1/0], 06w00d, bgp-65000, internal, tag 65000
+    *via 10.0.40.95%overlay-1, [1/0], 03w04d, bgp-65000, internal, tag 65000
+10.27.0.115/32, ubest/mbest: 2/0
+    *via 10.0.16.92%overlay-1, [1/0], 06w00d, bgp-65000, internal, tag 65000
+    *via 10.0.40.95%overlay-1, [1/0], 03w04d, bgp-65000, internal, tag 65000
+10.27.0.116/32, ubest/mbest: 2/0
+    *via 10.0.16.92%overlay-1, [1/0], 06w00d, bgp-65000, internal, tag 65000
+    *via 10.0.40.95%overlay-1, [1/0], 03w04d, bgp-65000, internal, tag 65000
+10.31.0.115/32, ubest/mbest: 2/0
+    *via 10.0.16.92%overlay-1, [1/0], 06w00d, bgp-65000, internal, tag 65000
+    *via 10.0.40.95%overlay-1, [1/0], 03w04d, bgp-65000, internal, tag 65000
+10.31.0.116/32, ubest/mbest: 2/0
+    *via 10.0.16.92%overlay-1, [1/0], 06w00d, bgp-65000, internal, tag 65000
+    *via 10.0.40.95%overlay-1, [1/0], 03w04d, bgp-65000, internal, tag 65000
+10.101.0.0/21, ubest/mbest: 1/0, attached, direct, pervasive
+    *via 10.0.200.66%overlay-1, [1/0], 06w00d, static, tag 4294967295
+10.101.8.0/21, ubest/mbest: 1/0, attached, direct, pervasive
+    *via 10.0.200.66%overlay-1, [1/0], 06w00d, static, tag 4294967295
+10.101.15.254/32, ubest/mbest: 1/0, attached, pervasive
+    *via 10.101.15.254, vlan14, [1/0], 07w04d, local, local
+10.101.184.0/21, ubest/mbest: 2/0
+    *via 10.0.16.92%overlay-1, [1/0], 06w00d, bgp-65000, internal, tag 65000
+    *via 10.0.40.95%overlay-1, [1/0], 03w04d, bgp-65000, internal, tag 65000
+10.101.200.0/21, ubest/mbest: 1/0, attached, direct, pervasive
+    *via 10.0.200.66%overlay-1, [1/0], 06w00d, static, tag 4294967295
+10.101.248.0/21, ubest/mbest: 1/0, attached, direct, pervasive
+    *via 10.0.200.66%overlay-1, [1/0], 06w00d, static, tag 4294967295
+10.102.0.0/21, ubest/mbest: 1/0, attached, direct, pervasive
+    *via 10.0.200.66%overlay-1, [1/0], 06w00d, static, tag 4294967295
+10.102.8.0/21, ubest/mbest: 1/0, attached, direct, pervasive
+    *via 10.0.200.66%overlay-1, [1/0], 06w00d, static, tag 4294967295
+10.102.248.0/21, ubest/mbest: 1/0, attached, direct, pervasive
+    *via 10.0.200.66%overlay-1, [1/0], 06w00d, static, tag 4294967295
+10.106.0.0/21, ubest/mbest: 1/0, attached, direct, pervasive
+    *via 10.0.200.66%overlay-1, [1/0], 06w00d, static, tag 4294967295
+10.106.8.0/21, ubest/mbest: 1/0, attached, direct, pervasive
+    *via 10.0.200.66%overlay-1, [1/0], 06w00d, static, tag 4294967295
+10.109.0.0/21, ubest/mbest: 1/0, attached, direct, pervasive
+    *via 10.0.200.66%overlay-1, [1/0], 06w00d, static, tag 4294967295
+10.109.8.0/21, ubest/mbest: 1/0, attached, direct, pervasive
+    *via 10.0.200.66%overlay-1, [1/0], 06w00d, static, tag 4294967295
+10.135.0.0/21, ubest/mbest: 1/0, attached, direct, pervasive
+    *via 10.0.200.66%overlay-1, [1/0], 06w00d, static, tag 4294967295
+10.145.248.0/21, ubest/mbest: 1/0, attached, direct, pervasive
+    *via 10.0.200.66%overlay-1, [1/0], 06w00d, static, tag 4294967295
+10.146.0.0/16, ubest/mbest: 2/0
+    *via 10.0.16.92%overlay-1, [1/0], 06w00d, bgp-65000, internal, tag 65000
+    *via 10.0.40.95%overlay-1, [1/0], 03w04d, bgp-65000, internal, tag 65000
+10.179.200.0/21, ubest/mbest: 1/0, attached, direct, pervasive
+    *via 10.0.200.66%overlay-1, [1/0], 06w00d, static, tag 4294967295
+10.254.0.0/16, ubest/mbest: 1/0
+    *via 10.0.16.92%overlay-1, [1/0], 06w00d, bgp-65000, internal, tag 65000
+10.255.11.0/25, ubest/mbest: 2/0
+    *via 10.0.64.89%overlay-1, [1/0], 05w04d, bgp-65000, internal, tag 65000
+    *via 10.0.64.88%overlay-1, [1/0], 05w04d, bgp-65000, internal, tag 65000
+10.255.12.0/24, ubest/mbest: 2/0
+    *via 10.0.64.89%overlay-1, [1/0], 05w04d, bgp-65000, internal, tag 65000
+    *via 10.0.64.88%overlay-1, [1/0], 05w04d, bgp-65000, internal, tag 65000
+10.255.13.0/28, ubest/mbest: 2/0
+    *via 10.0.64.89%overlay-1, [200/0], 05w04d, bgp-65000, internal, tag 65000
+    *via 10.0.64.88%overlay-1, [200/0], 05w04d, bgp-65000, internal, tag 65000
+10.255.13.16/28, ubest/mbest: 2/0
+    *via 10.0.64.89%overlay-1, [200/0], 05w04d, bgp-65000, internal, tag 65000
+    *via 10.0.64.88%overlay-1, [200/0], 05w04d, bgp-65000, internal, tag 65000
+10.255.22.0/25, ubest/mbest: 1/0
+    *via 10.0.40.95%overlay-1, [1/0], 03w04d, bgp-65000, internal, tag 65000
+10.255.22.128/30, ubest/mbest: 1/0
+    *via 10.0.16.92%overlay-1, [1/0], 06w00d, bgp-65000, internal, tag 65000
+10.255.22.132/30, ubest/mbest: 2/0
+    *via 10.0.16.92%overlay-1, [1/0], 06w00d, bgp-65000, internal, tag 65000
+    *via 10.0.40.95%overlay-1, [1/0], 03w04d, bgp-65000, internal, tag 65000
+10.255.22.248/29, ubest/mbest: 2/0
+    *via 10.0.16.92%overlay-1, [200/0], 06w00d, bgp-65000, internal, tag 65000
+    *via 10.0.40.95%overlay-1, [200/0], 03w04d, bgp-65000, internal, tag 65000
+10.255.32.0/24, ubest/mbest: 2/0
+    *via 10.0.16.92%overlay-1, [1/0], 06w00d, bgp-65000, internal, tag 65000
+    *via 10.0.40.95%overlay-1, [1/0], 03w04d, bgp-65000, internal, tag 65000
+10.255.33.0/24, ubest/mbest: 2/0
+    *via 10.0.16.92%overlay-1, [1/0], 06w00d, bgp-65000, internal, tag 65000
+    *via 10.0.40.95%overlay-1, [1/0], 03w04d, bgp-65000, internal, tag 65000
+10.255.254.0/24, ubest/mbest: 1/0
+    *via 10.0.40.95%overlay-1, [200/0], 03w04d, bgp-65000, internal, tag 65000
+20.20.30.0/24, ubest/mbest: 2/0
+    *via 10.0.64.89%overlay-1, [1/0], 05w04d, bgp-65000, internal, tag 65000
+    *via 10.0.64.88%overlay-1, [1/0], 05w04d, bgp-65000, internal, tag 65000
+100.126.103.254/32, ubest/mbest: 2/0
+    *via 10.0.16.92%overlay-1, [1/0], 06w00d, bgp-65000, internal, tag 65000
+    *via 10.0.40.95%overlay-1, [1/0], 03w04d, bgp-65000, internal, tag 65000
+172.16.0.0/15, ubest/mbest: 2/0
+    *via 10.0.16.92%overlay-1, [1/0], 06w00d, bgp-65000, internal, tag 65000
+    *via 10.0.40.95%overlay-1, [1/0], 03w04d, bgp-65000, internal, tag 65000
+172.16.31.0/24, ubest/mbest: 1/0
+    *via 10.0.16.92%overlay-1, [1/0], 06w00d, bgp-65000, internal, tag 65000
+172.22.0.0/15, ubest/mbest: 2/0
+    *via 10.0.16.92%overlay-1, [1/0], 06w00d, bgp-65000, internal, tag 65000
+    *via 10.0.40.95%overlay-1, [1/0], 03w04d, bgp-65000, internal, tag 65000
+192.168.0.0/23, ubest/mbest: 1/0
+    *via 10.0.16.92%overlay-1, [1/0], 06w00d, bgp-65000, internal, tag 65000
+192.168.3.0/24, ubest/mbest: 2/0
+    *via 10.0.16.92%overlay-1, [1/0], 06w00d, bgp-65000, internal, tag 65000
+    *via 10.0.40.95%overlay-1, [1/0], 03w04d, bgp-65000, internal, tag 65000
+
+IP Route Table for VRF "K5_2nd:VRF_103_Live_Migration"
+'*' denotes best ucast next-hop
+'**' denotes best mcast next-hop
+'[x/y]' denotes [preference/metric]
+'%<string>' in via output denotes VRF <string>
+
+10.103.0.0/21, ubest/mbest: 1/0, attached, direct, pervasive
+    *via 10.0.200.66%overlay-1, [1/0], 06w00d, static, tag 4294967295
+10.103.8.0/21, ubest/mbest: 1/0, attached, direct, pervasive
+    *via 10.0.200.66%overlay-1, [1/0], 06w00d, static, tag 4294967295
+10.103.15.254/32, ubest/mbest: 1/0, attached, pervasive
+    *via 10.103.15.254, vlan16, [1/0], 07w04d, local, local
+
+IP Route Table for VRF "management"
+'*' denotes best ucast next-hop
+'**' denotes best mcast next-hop
+'[x/y]' denotes [preference/metric]
+'%<string>' in via output denotes VRF <string>
+
+0.0.0.0/0, ubest/mbest: 1/0
+    *via 10.254.15.254/32, mgmt0, [0], 07w04d, local
+
+IP Route Table for VRF "K5_2nd:VRF_111_FIP_Carry_for_Pod_01"
+'*' denotes best ucast next-hop
+'**' denotes best mcast next-hop
+'[x/y]' denotes [preference/metric]
+'%<string>' in via output denotes VRF <string>
+
+
+IP Route Table for VRF "K5_2nd:VRF_105_Console"
+'*' denotes best ucast next-hop
+'**' denotes best mcast next-hop
+'[x/y]' denotes [preference/metric]
+'%<string>' in via output denotes VRF <string>
+
+10.105.0.0/21, ubest/mbest: 1/0, attached, direct, pervasive
+    *via 10.0.200.66%overlay-1, [1/0], 06w00d, static, tag 4294967295
+10.105.8.0/21, ubest/mbest: 1/0, attached, direct, pervasive
+    *via 10.0.200.66%overlay-1, [1/0], 06w00d, static, tag 4294967295
+10.105.15.254/32, ubest/mbest: 1/0, attached, pervasive
+    *via 10.105.15.254, vlan22, [1/0], 07w04d, local, local
+10.255.11.0/25, ubest/mbest: 2/0
+    *via 10.0.64.89%overlay-1, [1/0], 05w04d, bgp-65000, internal, tag 65000
+    *via 10.0.64.88%overlay-1, [1/0], 05w04d, bgp-65000, internal, tag 65000
+10.255.13.32/29, ubest/mbest: 2/0
+    *via 10.0.64.89%overlay-1, [200/0], 05w04d, bgp-65000, internal, tag 65000
+    *via 10.0.64.88%overlay-1, [200/0], 05w04d, bgp-65000, internal, tag 65000
+
+IP Route Table for VRF "K5_2nd:VRF_102_Log"
+'*' denotes best ucast next-hop
+'**' denotes best mcast next-hop
+'[x/y]' denotes [preference/metric]
+'%<string>' in via output denotes VRF <string>
+
+10.3.0.131/32, ubest/mbest: 1/0
+    *via 10.0.16.92%overlay-1, [1/0], 06w00d, bgp-65000, internal, tag 65000
+10.3.0.132/32, ubest/mbest: 1/0
+    *via 10.0.16.92%overlay-1, [1/0], 06w00d, bgp-65000, internal, tag 65000
+10.101.0.0/21, ubest/mbest: 1/0, attached, direct, pervasive
+    *via 10.0.200.66%overlay-1, [1/0], 06w00d, static, tag 4294967295
+10.101.8.0/21, ubest/mbest: 1/0, attached, direct, pervasive
+    *via 10.0.200.66%overlay-1, [1/0], 06w00d, static, tag 4294967295
+10.101.248.0/21, ubest/mbest: 1/0, attached, direct, pervasive
+    *via 10.0.200.66%overlay-1, [1/0], 06w00d, static, tag 4294967295
+10.102.0.0/21, ubest/mbest: 1/0, attached, direct, pervasive
+    *via 10.0.200.66%overlay-1, [1/0], 06w00d, static, tag 4294967295
+10.102.8.0/21, ubest/mbest: 1/0, attached, direct, pervasive
+    *via 10.0.200.66%overlay-1, [1/0], 06w00d, static, tag 4294967295
+10.102.15.254/32, ubest/mbest: 1/0, attached, pervasive
+    *via 10.102.15.254, vlan24, [1/0], 07w04d, local, local
+10.102.248.0/21, ubest/mbest: 1/0, attached, direct, pervasive
+    *via 10.0.200.66%overlay-1, [1/0], 06w00d, static, tag 4294967295
+10.146.0.0/16, ubest/mbest: 2/0
+    *via 10.0.16.92%overlay-1, [1/0], 06w00d, bgp-65000, internal, tag 65000
+    *via 10.0.40.95%overlay-1, [1/0], 03w04d, bgp-65000, internal, tag 65000
+10.254.0.0/16, ubest/mbest: 1/0
+    *via 10.0.16.92%overlay-1, [1/0], 06w00d, bgp-65000, internal, tag 65000
+10.255.22.0/25, ubest/mbest: 1/0
+    *via 10.0.40.95%overlay-1, [1/0], 03w04d, bgp-65000, internal, tag 65000
+10.255.22.248/29, ubest/mbest: 2/0
+    *via 10.0.16.92%overlay-1, [200/0], 06w00d, bgp-65000, internal, tag 65000
+    *via 10.0.40.95%overlay-1, [200/0], 03w04d, bgp-65000, internal, tag 65000
+10.255.32.0/24, ubest/mbest: 2/0
+    *via 10.0.16.92%overlay-1, [1/0], 06w00d, bgp-65000, internal, tag 65000
+    *via 10.0.40.95%overlay-1, [1/0], 03w04d, bgp-65000, internal, tag 65000
+10.255.33.0/24, ubest/mbest: 2/0
+    *via 10.0.16.92%overlay-1, [1/0], 06w00d, bgp-65000, internal, tag 65000
+    *via 10.0.40.95%overlay-1, [1/0], 03w04d, bgp-65000, internal, tag 65000
+192.168.0.0/23, ubest/mbest: 1/0
+    *via 10.0.16.92%overlay-1, [1/0], 06w00d, bgp-65000, internal, tag 65000
+
+IP Route Table for VRF "mgmt:inb"
+'*' denotes best ucast next-hop
+'**' denotes best mcast next-hop
+'[x/y]' denotes [preference/metric]
+'%<string>' in via output denotes VRF <string>
+
+10.1.0.0/16, ubest/mbest: 1/0, attached, direct, pervasive
+    *via 10.0.200.66%overlay-1, [1/0], 06w00d, static, tag 4294967295
+10.1.85.100/32, ubest/mbest: 1/0, attached
+    *via 10.1.85.100, vlan26, [1/0], 07w04d, local, local
+10.1.255.254/32, ubest/mbest: 1/0, attached, pervasive
+    *via 10.1.255.254, vlan26, [1/0], 07w04d, local, local
+
+IP Route Table for VRF "K5_2nd:VRF_106_Pod01_Storage"
+'*' denotes best ucast next-hop
+'**' denotes best mcast next-hop
+'[x/y]' denotes [preference/metric]
+'%<string>' in via output denotes VRF <string>
+
+0.0.0.0/0, ubest/mbest: 1/0
+    *via 10.0.40.95%overlay-1, [1/0], 03w04d, bgp-65000, internal, tag 65000
+10.101.0.0/21, ubest/mbest: 1/0, attached, direct, pervasive
+    *via 10.0.200.66%overlay-1, [1/0], 05w03d, static, tag 4294967295
+10.101.8.0/21, ubest/mbest: 1/0, attached, direct, pervasive
+    *via 10.0.200.66%overlay-1, [1/0], 06w00d, static, tag 4294967295
+10.101.248.0/21, ubest/mbest: 1/0, attached, direct, pervasive
+    *via 10.0.200.66%overlay-1, [1/0], 06w00d, static, tag 4294967295
+10.106.0.0/21, ubest/mbest: 1/0, attached, direct, pervasive
+    *via 10.0.200.66%overlay-1, [1/0], 05w03d, static, tag 4294967295
+10.106.8.0/21, ubest/mbest: 1/0, attached, direct, pervasive
+    *via 10.0.200.66%overlay-1, [1/0], 06w00d, static, tag 4294967295
+10.106.15.254/32, ubest/mbest: 1/0, attached, pervasive
+    *via 10.106.15.254, vlan18, [1/0], 07w04d, local, local
+10.106.200.0/21, ubest/mbest: 1/0, attached, direct, pervasive
+    *via 10.0.200.66%overlay-1, [1/0], 06w00d, static, tag 4294967295
+10.180.200.0/21, ubest/mbest: 1/0, attached, direct, pervasive
+    *via 10.0.200.66%overlay-1, [1/0], 06w00d, static, tag 4294967295
+nw-01-01-16-00#

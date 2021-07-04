@@ -1,0 +1,380 @@
+nw-00-03-06-00# show ip route vrf all
+IP Route Table for VRF "black-hole"
+'*' denotes best ucast next-hop
+'**' denotes best mcast next-hop
+'[x/y]' denotes [preference/metric]
+'%<string>' in via output denotes VRF <string>
+
+
+IP Route Table for VRF "overlay-1"
+'*' denotes best ucast next-hop
+'**' denotes best mcast next-hop
+'[x/y]' denotes [preference/metric]
+'%<string>' in via output denotes VRF <string>
+
+10.0.0.0/16, ubest/mbest: 1/0
+    *via , null0, [1/0], 06w00d, static
+10.0.0.1/32, ubest/mbest: 1/0
+    *via 10.0.40.95, eth1/2.26, [115/11], 05w04d, isis-isis_infra, L1
+10.0.0.2/32, ubest/mbest: 1/0
+    *via 10.0.40.95, eth1/2.26, [115/11], 05w04d, isis-isis_infra, L1
+10.0.0.3/32, ubest/mbest: 1/0
+    *via 10.0.40.95, eth1/2.26, [115/11], 05w04d, isis-isis_infra, L1
+10.0.0.4/32, ubest/mbest: 1/0
+    *via 10.0.40.95, eth1/2.26, [115/11], 05w04d, isis-isis_infra, L1
+10.0.0.5/32, ubest/mbest: 1/0
+    *via 10.0.40.95, eth1/2.26, [115/11], 05w04d, isis-isis_infra, L1
+10.0.0.33/32, ubest/mbest: 2/0, attached, direct
+    *via 10.0.0.33, lo7, [1/0], 06w00d, local, local
+    *via 10.0.0.33, lo7, [1/0], 06w00d, direct
+10.0.0.34/32, ubest/mbest: 2/0, attached, direct
+    *via 10.0.0.34, lo8, [1/0], 06w00d, local, local
+    *via 10.0.0.34, lo8, [1/0], 06w00d, direct
+10.0.0.35/32, ubest/mbest: 2/0, attached, direct
+    *via 10.0.0.35, lo9, [1/0], 06w00d, local, local
+    *via 10.0.0.35, lo9, [1/0], 06w00d, direct
+10.0.16.64/32, ubest/mbest: 1/0
+    *via 10.0.16.64, eth1/31.30, [115/2], 05w04d, isis-isis_infra, L1
+10.0.16.65/32, ubest/mbest: 1/0
+    *via 10.0.16.65, eth2/3.33, [115/2], 05w04d, isis-isis_infra, L1
+10.0.16.66/32, ubest/mbest: 2/0
+    *via 10.0.16.66, eth2/10.43, [115/2], 05w04d, isis-isis_infra, L1
+    *via 10.0.16.66, eth2/9.16, [115/2], 05w04d, isis-isis_infra, L1
+10.0.16.67/32, ubest/mbest: 1/0
+    *via 10.0.16.67, eth1/12.48, [115/2], 05w04d, isis-isis_infra, L1
+10.0.16.68/32, ubest/mbest: 1/0
+    *via 10.0.16.68, eth1/10.39, [115/2], 05w04d, isis-isis_infra, L1
+10.0.16.69/32, ubest/mbest: 2/0
+    *via 10.0.16.69, eth2/5.9, [115/2], 05w04d, isis-isis_infra, L1
+    *via 10.0.16.69, eth2/6.25, [115/2], 05w04d, isis-isis_infra, L1
+10.0.16.70/32, ubest/mbest: 1/0
+    *via 10.0.16.70, eth1/19.5, [115/2], 05w04d, isis-isis_infra, L1
+10.0.16.71/32, ubest/mbest: 1/0
+    *via 10.0.16.71, eth1/18.7, [115/2], 05w04d, isis-isis_infra, L1
+10.0.16.72/32, ubest/mbest: 1/0
+    *via 10.0.16.72, eth2/1.69, [115/2], 05w04d, isis-isis_infra, L1
+10.0.16.85/32, ubest/mbest: 1/0
+    *via 10.0.16.85, eth1/8.27, [115/2], 05w04d, isis-isis_infra, L1
+10.0.16.90/32, ubest/mbest: 1/0
+    *via 10.0.16.90, eth1/3.34, [115/2], 05w04d, isis-isis_infra, L1
+10.0.16.92/32, ubest/mbest: 1/0
+    *via 10.0.16.92, eth1/1.65, [115/2], 05w04d, isis-isis_infra, L1
+10.0.40.64/32, ubest/mbest: 1/0
+    *via 10.0.40.64, eth1/13.46, [115/2], 04w02d, isis-isis_infra, L1
+10.0.40.65/32, ubest/mbest: 1/0
+    *via 10.0.40.65, eth1/14.21, [115/2], 04w02d, isis-isis_infra, L1
+10.0.40.66/32, ubest/mbest: 1/0
+    *via 10.0.40.66, eth1/15.70, [115/2], 05w04d, isis-isis_infra, L1
+10.0.40.67/32, ubest/mbest: 18/0
+    *via 10.0.64.64, eth1/29.23, [115/3], 05w04d, isis-isis_infra, L1
+    *via 10.0.40.66, eth1/15.70, [115/3], 05w04d, isis-isis_infra, L1
+    *via 10.0.16.68, eth1/10.39, [115/3], 05w04d, isis-isis_infra, L1
+    *via 10.0.40.69, eth1/11.68, [115/3], 05w04d, isis-isis_infra, L1
+    *via 10.0.40.68, eth1/30.36, [115/3], 05w04d, isis-isis_infra, L1
+    *via 10.0.16.69, eth2/5.9, [115/3], 05w04d, isis-isis_infra, L1
+    *via 10.0.16.64, eth1/31.30, [115/3], 05w04d, isis-isis_infra, L1
+    *via 10.0.16.65, eth2/3.33, [115/3], 05w04d, isis-isis_infra, L1
+    *via 10.0.64.65, eth2/13.47, [115/3], 05w04d, isis-isis_infra, L1
+    *via 10.0.64.65, eth2/14.10, [115/3], 05w04d, isis-isis_infra, L1
+    *via 10.0.16.66, eth2/10.43, [115/3], 05w04d, isis-isis_infra, L1
+    *via 10.0.16.67, eth1/12.48, [115/3], 05w04d, isis-isis_infra, L1
+    *via 10.0.64.68, eth1/9.67, [115/3], 05w04d, isis-isis_infra, L1
+    *via 10.0.16.69, eth2/6.25, [115/3], 05w04d, isis-isis_infra, L1
+    *via 10.0.16.70, eth1/19.5, [115/3], 05w04d, isis-isis_infra, L1
+    *via 10.0.16.66, eth2/9.16, [115/3], 05w04d, isis-isis_infra, L1
+    *via 10.0.40.64, eth1/13.46, [115/3], 04w02d, isis-isis_infra, L1
+    *via 10.0.40.65, eth1/14.21, [115/3], 04w02d, isis-isis_infra, L1
+10.0.40.68/32, ubest/mbest: 1/0
+    *via 10.0.40.68, eth1/30.36, [115/2], 05w04d, isis-isis_infra, L1
+10.0.40.69/32, ubest/mbest: 1/0
+    *via 10.0.40.69, eth1/11.68, [115/2], 05w04d, isis-isis_infra, L1
+10.0.40.70/32, ubest/mbest: 1/0
+    *via 10.0.40.70, eth1/32.44, [115/2], 05w04d, isis-isis_infra, L1
+10.0.40.71/32, ubest/mbest: 1/0
+    *via 10.0.40.71, eth2/4.38, [115/2], 05w04d, isis-isis_infra, L1
+10.0.40.72/32, ubest/mbest: 2/0
+    *via 10.0.40.72, eth2/11.20, [115/2], 05w04d, isis-isis_infra, L1
+    *via 10.0.40.72, eth2/12.45, [115/2], 05w04d, isis-isis_infra, L1
+10.0.40.73/32, ubest/mbest: 2/0
+    *via 10.0.40.73, eth2/7.37, [115/2], 05w04d, isis-isis_infra, L1
+    *via 10.0.40.73, eth2/8.6, [115/2], 05w04d, isis-isis_infra, L1
+10.0.40.74/32, ubest/mbest: 1/0
+    *via 10.0.40.74, eth2/2.19, [115/2], 05w04d, isis-isis_infra, L1
+10.0.40.75/32, ubest/mbest: 1/0
+    *via 10.0.40.75, eth1/20.12, [115/2], 05w04d, isis-isis_infra, L1
+10.0.40.76/32, ubest/mbest: 1/0
+    *via 10.0.40.76, eth1/21.13, [115/2], 05w04d, isis-isis_infra, L1
+10.0.40.77/32, ubest/mbest: 1/0
+    *via 10.0.40.77, eth1/22.31, [115/2], 05w04d, isis-isis_infra, L1
+10.0.40.78/32, ubest/mbest: 2/0
+    *via 10.0.40.78, eth2/15.1, [115/2], 05w04d, isis-isis_infra, L1
+    *via 10.0.40.78, eth2/16.29, [115/2], 05w04d, isis-isis_infra, L1
+10.0.40.79/32, ubest/mbest: 1/0
+    *via 10.0.40.79, eth1/25.15, [115/2], 05w04d, isis-isis_infra, L1
+10.0.40.80/32, ubest/mbest: 2/0, attached, direct
+    *via 10.0.40.80, lo0, [1/0], 06w00d, local, local
+    *via 10.0.40.80, lo0, [1/0], 06w00d, direct
+10.0.40.81/32, ubest/mbest: 1/0
+    *via 10.0.40.81, eth1/27.18, [115/2], 05w04d, isis-isis_infra, L1
+10.0.40.82/32, ubest/mbest: 1/0
+    *via 10.0.40.82, eth1/28.42, [115/2], 05w04d, isis-isis_infra, L1
+10.0.40.87/32, ubest/mbest: 1/0
+    *via 10.0.40.87, eth1/7.4, [115/2], 05w04d, isis-isis_infra, L1
+10.0.40.95/32, ubest/mbest: 1/0
+    *via 10.0.40.95, eth1/2.26, [115/2], 05w04d, isis-isis_infra, L1
+10.0.64.64/32, ubest/mbest: 1/0
+    *via 10.0.64.64, eth1/29.23, [115/2], 05w04d, isis-isis_infra, L1
+10.0.64.65/32, ubest/mbest: 2/0
+    *via 10.0.64.65, eth2/13.47, [115/2], 05w04d, isis-isis_infra, L1
+    *via 10.0.64.65, eth2/14.10, [115/2], 05w04d, isis-isis_infra, L1
+10.0.64.68/32, ubest/mbest: 1/0
+    *via 10.0.64.68, eth1/9.67, [115/2], 05w04d, isis-isis_infra, L1
+10.0.64.75/32, ubest/mbest: 1/0
+    *via 10.0.64.75, eth1/23.11, [115/2], 05w04d, isis-isis_infra, L1
+10.0.64.83/32, ubest/mbest: 1/0
+    *via 10.0.64.83, eth1/16.3, [115/2], 05w04d, isis-isis_infra, L1
+10.0.64.88/32, ubest/mbest: 1/0
+    *via 10.0.64.88, eth1/6.35, [115/2], 05w04d, isis-isis_infra, L1
+10.0.64.89/32, ubest/mbest: 1/0
+    *via 10.0.64.89, eth1/5.66, [115/2], 05w04d, isis-isis_infra, L1
+10.0.64.90/32, ubest/mbest: 1/0
+    *via 10.0.64.90, eth1/4.41, [115/2], 05w04d, isis-isis_infra, L1
+10.0.64.92/32, ubest/mbest: 18/0
+    *via 10.0.64.64, eth1/29.23, [115/3], 05w04d, isis-isis_infra, L1
+    *via 10.0.40.66, eth1/15.70, [115/3], 05w04d, isis-isis_infra, L1
+    *via 10.0.16.68, eth1/10.39, [115/3], 05w04d, isis-isis_infra, L1
+    *via 10.0.40.69, eth1/11.68, [115/3], 05w04d, isis-isis_infra, L1
+    *via 10.0.40.68, eth1/30.36, [115/3], 05w04d, isis-isis_infra, L1
+    *via 10.0.16.69, eth2/5.9, [115/3], 05w04d, isis-isis_infra, L1
+    *via 10.0.16.64, eth1/31.30, [115/3], 05w04d, isis-isis_infra, L1
+    *via 10.0.16.65, eth2/3.33, [115/3], 05w04d, isis-isis_infra, L1
+    *via 10.0.64.65, eth2/13.47, [115/3], 05w04d, isis-isis_infra, L1
+    *via 10.0.64.65, eth2/14.10, [115/3], 05w04d, isis-isis_infra, L1
+    *via 10.0.16.66, eth2/10.43, [115/3], 05w04d, isis-isis_infra, L1
+    *via 10.0.16.67, eth1/12.48, [115/3], 05w04d, isis-isis_infra, L1
+    *via 10.0.64.68, eth1/9.67, [115/3], 05w04d, isis-isis_infra, L1
+    *via 10.0.16.69, eth2/6.25, [115/3], 05w04d, isis-isis_infra, L1
+    *via 10.0.16.70, eth1/19.5, [115/3], 05w04d, isis-isis_infra, L1
+    *via 10.0.16.66, eth2/9.16, [115/3], 05w04d, isis-isis_infra, L1
+    *via 10.0.40.64, eth1/13.46, [115/3], 04w02d, isis-isis_infra, L1
+    *via 10.0.40.65, eth1/14.21, [115/3], 04w02d, isis-isis_infra, L1
+10.0.104.94/32, ubest/mbest: 1/0
+    *via 10.0.104.94, eth1/26.40, [115/2], 05w04d, isis-isis_infra, L1
+10.0.176.65/32, ubest/mbest: 2/0, attached, direct
+    *via 10.0.176.65, lo5, [1/0], 06w00d, local, local
+    *via 10.0.176.65, lo5, [1/0], 06w00d, direct
+10.0.176.66/32, ubest/mbest: 2/0, attached, direct
+    *via 10.0.176.66, lo6, [1/0], 06w00d, local, local
+    *via 10.0.176.66, lo6, [1/0], 06w00d, direct
+10.0.176.67/32, ubest/mbest: 2/0, attached, direct
+    *via 10.0.176.67, lo4, [1/0], 06w00d, local, local
+    *via 10.0.176.67, lo4, [1/0], 06w00d, direct
+10.0.176.69/32, ubest/mbest: 18/0
+    *via 10.0.64.64, eth1/29.23, [115/3], 05w04d, isis-isis_infra, L1
+    *via 10.0.40.66, eth1/15.70, [115/3], 05w04d, isis-isis_infra, L1
+    *via 10.0.16.68, eth1/10.39, [115/3], 05w04d, isis-isis_infra, L1
+    *via 10.0.40.69, eth1/11.68, [115/3], 05w04d, isis-isis_infra, L1
+    *via 10.0.40.68, eth1/30.36, [115/3], 05w04d, isis-isis_infra, L1
+    *via 10.0.16.69, eth2/5.9, [115/3], 05w04d, isis-isis_infra, L1
+    *via 10.0.16.64, eth1/31.30, [115/3], 05w04d, isis-isis_infra, L1
+    *via 10.0.16.65, eth2/3.33, [115/3], 05w04d, isis-isis_infra, L1
+    *via 10.0.64.65, eth2/13.47, [115/3], 05w04d, isis-isis_infra, L1
+    *via 10.0.64.65, eth2/14.10, [115/3], 05w04d, isis-isis_infra, L1
+    *via 10.0.16.66, eth2/10.43, [115/3], 05w04d, isis-isis_infra, L1
+    *via 10.0.16.67, eth1/12.48, [115/3], 05w04d, isis-isis_infra, L1
+    *via 10.0.64.68, eth1/9.67, [115/3], 05w04d, isis-isis_infra, L1
+    *via 10.0.16.69, eth2/6.25, [115/3], 05w04d, isis-isis_infra, L1
+    *via 10.0.16.70, eth1/19.5, [115/3], 05w04d, isis-isis_infra, L1
+    *via 10.0.16.66, eth2/9.16, [115/3], 05w04d, isis-isis_infra, L1
+    *via 10.0.40.64, eth1/13.46, [115/3], 04w02d, isis-isis_infra, L1
+    *via 10.0.40.65, eth1/14.21, [115/3], 04w02d, isis-isis_infra, L1
+10.0.176.70/32, ubest/mbest: 18/0
+    *via 10.0.64.64, eth1/29.23, [115/3], 05w04d, isis-isis_infra, L1
+    *via 10.0.40.66, eth1/15.70, [115/3], 05w04d, isis-isis_infra, L1
+    *via 10.0.16.68, eth1/10.39, [115/3], 05w04d, isis-isis_infra, L1
+    *via 10.0.40.69, eth1/11.68, [115/3], 05w04d, isis-isis_infra, L1
+    *via 10.0.40.68, eth1/30.36, [115/3], 05w04d, isis-isis_infra, L1
+    *via 10.0.16.69, eth2/5.9, [115/3], 05w04d, isis-isis_infra, L1
+    *via 10.0.16.64, eth1/31.30, [115/3], 05w04d, isis-isis_infra, L1
+    *via 10.0.16.65, eth2/3.33, [115/3], 05w04d, isis-isis_infra, L1
+    *via 10.0.64.65, eth2/13.47, [115/3], 05w04d, isis-isis_infra, L1
+    *via 10.0.64.65, eth2/14.10, [115/3], 05w04d, isis-isis_infra, L1
+    *via 10.0.16.66, eth2/10.43, [115/3], 05w04d, isis-isis_infra, L1
+    *via 10.0.16.67, eth1/12.48, [115/3], 05w04d, isis-isis_infra, L1
+    *via 10.0.64.68, eth1/9.67, [115/3], 05w04d, isis-isis_infra, L1
+    *via 10.0.16.69, eth2/6.25, [115/3], 05w04d, isis-isis_infra, L1
+    *via 10.0.16.70, eth1/19.5, [115/3], 05w04d, isis-isis_infra, L1
+    *via 10.0.16.66, eth2/9.16, [115/3], 05w04d, isis-isis_infra, L1
+    *via 10.0.40.64, eth1/13.46, [115/3], 04w02d, isis-isis_infra, L1
+    *via 10.0.40.65, eth1/14.21, [115/3], 04w02d, isis-isis_infra, L1
+10.0.176.71/32, ubest/mbest: 18/0
+    *via 10.0.64.64, eth1/29.23, [115/3], 05w04d, isis-isis_infra, L1
+    *via 10.0.40.66, eth1/15.70, [115/3], 05w04d, isis-isis_infra, L1
+    *via 10.0.16.68, eth1/10.39, [115/3], 05w04d, isis-isis_infra, L1
+    *via 10.0.40.69, eth1/11.68, [115/3], 05w04d, isis-isis_infra, L1
+    *via 10.0.40.68, eth1/30.36, [115/3], 05w04d, isis-isis_infra, L1
+    *via 10.0.16.69, eth2/5.9, [115/3], 05w04d, isis-isis_infra, L1
+    *via 10.0.16.64, eth1/31.30, [115/3], 05w04d, isis-isis_infra, L1
+    *via 10.0.16.65, eth2/3.33, [115/3], 05w04d, isis-isis_infra, L1
+    *via 10.0.64.65, eth2/13.47, [115/3], 05w04d, isis-isis_infra, L1
+    *via 10.0.64.65, eth2/14.10, [115/3], 05w04d, isis-isis_infra, L1
+    *via 10.0.16.66, eth2/10.43, [115/3], 05w04d, isis-isis_infra, L1
+    *via 10.0.16.67, eth1/12.48, [115/3], 05w04d, isis-isis_infra, L1
+    *via 10.0.64.68, eth1/9.67, [115/3], 05w04d, isis-isis_infra, L1
+    *via 10.0.16.69, eth2/6.25, [115/3], 05w04d, isis-isis_infra, L1
+    *via 10.0.16.70, eth1/19.5, [115/3], 05w04d, isis-isis_infra, L1
+    *via 10.0.16.66, eth2/9.16, [115/3], 05w04d, isis-isis_infra, L1
+    *via 10.0.40.64, eth1/13.46, [115/3], 04w02d, isis-isis_infra, L1
+    *via 10.0.40.65, eth1/14.21, [115/3], 04w02d, isis-isis_infra, L1
+10.0.176.73/32, ubest/mbest: 18/0
+    *via 10.0.64.64, eth1/29.23, [115/3], 05w04d, isis-isis_infra, L1
+    *via 10.0.40.66, eth1/15.70, [115/3], 05w04d, isis-isis_infra, L1
+    *via 10.0.16.68, eth1/10.39, [115/3], 05w04d, isis-isis_infra, L1
+    *via 10.0.40.69, eth1/11.68, [115/3], 05w04d, isis-isis_infra, L1
+    *via 10.0.40.68, eth1/30.36, [115/3], 05w04d, isis-isis_infra, L1
+    *via 10.0.16.69, eth2/5.9, [115/3], 05w04d, isis-isis_infra, L1
+    *via 10.0.16.64, eth1/31.30, [115/3], 05w04d, isis-isis_infra, L1
+    *via 10.0.16.65, eth2/3.33, [115/3], 05w04d, isis-isis_infra, L1
+    *via 10.0.64.65, eth2/13.47, [115/3], 05w04d, isis-isis_infra, L1
+    *via 10.0.64.65, eth2/14.10, [115/3], 05w04d, isis-isis_infra, L1
+    *via 10.0.16.66, eth2/10.43, [115/3], 05w04d, isis-isis_infra, L1
+    *via 10.0.16.67, eth1/12.48, [115/3], 05w04d, isis-isis_infra, L1
+    *via 10.0.64.68, eth1/9.67, [115/3], 05w04d, isis-isis_infra, L1
+    *via 10.0.16.69, eth2/6.25, [115/3], 05w04d, isis-isis_infra, L1
+    *via 10.0.16.70, eth1/19.5, [115/3], 05w04d, isis-isis_infra, L1
+    *via 10.0.16.66, eth2/9.16, [115/3], 05w04d, isis-isis_infra, L1
+    *via 10.0.40.64, eth1/13.46, [115/3], 04w02d, isis-isis_infra, L1
+    *via 10.0.40.65, eth1/14.21, [115/3], 04w02d, isis-isis_infra, L1
+10.0.176.74/32, ubest/mbest: 18/0
+    *via 10.0.64.64, eth1/29.23, [115/3], 05w04d, isis-isis_infra, L1
+    *via 10.0.40.66, eth1/15.70, [115/3], 05w04d, isis-isis_infra, L1
+    *via 10.0.16.68, eth1/10.39, [115/3], 05w04d, isis-isis_infra, L1
+    *via 10.0.40.69, eth1/11.68, [115/3], 05w04d, isis-isis_infra, L1
+    *via 10.0.40.68, eth1/30.36, [115/3], 05w04d, isis-isis_infra, L1
+    *via 10.0.16.69, eth2/5.9, [115/3], 05w04d, isis-isis_infra, L1
+    *via 10.0.16.64, eth1/31.30, [115/3], 05w04d, isis-isis_infra, L1
+    *via 10.0.16.65, eth2/3.33, [115/3], 05w04d, isis-isis_infra, L1
+    *via 10.0.64.65, eth2/13.47, [115/3], 05w04d, isis-isis_infra, L1
+    *via 10.0.64.65, eth2/14.10, [115/3], 05w04d, isis-isis_infra, L1
+    *via 10.0.16.66, eth2/10.43, [115/3], 05w04d, isis-isis_infra, L1
+    *via 10.0.16.67, eth1/12.48, [115/3], 05w04d, isis-isis_infra, L1
+    *via 10.0.64.68, eth1/9.67, [115/3], 05w04d, isis-isis_infra, L1
+    *via 10.0.16.69, eth2/6.25, [115/3], 05w04d, isis-isis_infra, L1
+    *via 10.0.16.70, eth1/19.5, [115/3], 05w04d, isis-isis_infra, L1
+    *via 10.0.16.66, eth2/9.16, [115/3], 05w04d, isis-isis_infra, L1
+    *via 10.0.40.64, eth1/13.46, [115/3], 04w02d, isis-isis_infra, L1
+    *via 10.0.40.65, eth1/14.21, [115/3], 04w02d, isis-isis_infra, L1
+10.0.176.75/32, ubest/mbest: 18/0
+    *via 10.0.64.64, eth1/29.23, [115/3], 05w04d, isis-isis_infra, L1
+    *via 10.0.40.66, eth1/15.70, [115/3], 05w04d, isis-isis_infra, L1
+    *via 10.0.16.68, eth1/10.39, [115/3], 05w04d, isis-isis_infra, L1
+    *via 10.0.40.69, eth1/11.68, [115/3], 05w04d, isis-isis_infra, L1
+    *via 10.0.40.68, eth1/30.36, [115/3], 05w04d, isis-isis_infra, L1
+    *via 10.0.16.69, eth2/5.9, [115/3], 05w04d, isis-isis_infra, L1
+    *via 10.0.16.64, eth1/31.30, [115/3], 05w04d, isis-isis_infra, L1
+    *via 10.0.16.65, eth2/3.33, [115/3], 05w04d, isis-isis_infra, L1
+    *via 10.0.64.65, eth2/13.47, [115/3], 05w04d, isis-isis_infra, L1
+    *via 10.0.64.65, eth2/14.10, [115/3], 05w04d, isis-isis_infra, L1
+    *via 10.0.16.66, eth2/10.43, [115/3], 05w04d, isis-isis_infra, L1
+    *via 10.0.16.67, eth1/12.48, [115/3], 05w04d, isis-isis_infra, L1
+    *via 10.0.64.68, eth1/9.67, [115/3], 05w04d, isis-isis_infra, L1
+    *via 10.0.16.69, eth2/6.25, [115/3], 05w04d, isis-isis_infra, L1
+    *via 10.0.16.70, eth1/19.5, [115/3], 05w04d, isis-isis_infra, L1
+    *via 10.0.16.66, eth2/9.16, [115/3], 05w04d, isis-isis_infra, L1
+    *via 10.0.40.64, eth1/13.46, [115/3], 04w02d, isis-isis_infra, L1
+    *via 10.0.40.65, eth1/14.21, [115/3], 04w02d, isis-isis_infra, L1
+10.0.200.64/32, ubest/mbest: 2/0, attached, direct
+    *via 10.0.200.64, lo3, [1/0], 06w00d, local, local
+    *via 10.0.200.64, lo3, [1/0], 06w00d, direct
+10.0.200.65/32, ubest/mbest: 2/0, attached, direct
+    *via 10.0.200.65, lo1, [1/0], 06w00d, local, local
+    *via 10.0.200.65, lo1, [1/0], 06w00d, direct
+10.0.200.66/32, ubest/mbest: 2/0, attached, direct
+    *via 10.0.200.66, lo2, [1/0], 06w00d, local, local
+    *via 10.0.200.66, lo2, [1/0], 06w00d, direct
+10.0.224.64/32, ubest/mbest: 2/0
+    *via 10.0.40.64, eth1/13.46, [115/2], 04w02d, isis-isis_infra, L1
+    *via 10.0.40.65, eth1/14.21, [115/2], 04w02d, isis-isis_infra, L1
+10.0.224.65/32, ubest/mbest: 2/0
+    *via 10.0.16.90, eth1/3.34, [115/2], 05w04d, isis-isis_infra, L1
+    *via 10.0.64.90, eth1/4.41, [115/2], 05w04d, isis-isis_infra, L1
+10.0.224.66/32, ubest/mbest: 2/0
+    *via 10.0.16.92, eth1/1.65, [115/2], 05w04d, isis-isis_infra, L1
+    *via 10.0.40.95, eth1/2.26, [115/2], 05w04d, isis-isis_infra, L1
+10.0.224.67/32, ubest/mbest: 2/0
+    *via 10.0.40.66, eth1/15.70, [115/2], 05w04d, isis-isis_infra, L1
+    *via 10.0.64.83, eth1/16.3, [115/2], 05w04d, isis-isis_infra, L1
+10.0.224.68/32, ubest/mbest: 2/0
+    *via 10.0.64.89, eth1/5.66, [115/2], 05w04d, isis-isis_infra, L1
+    *via 10.0.64.88, eth1/6.35, [115/2], 05w04d, isis-isis_infra, L1
+10.0.224.69/32, ubest/mbest: 2/0
+    *via 10.0.16.85, eth1/8.27, [115/2], 05w04d, isis-isis_infra, L1
+    *via 10.0.40.87, eth1/7.4, [115/2], 05w04d, isis-isis_infra, L1
+10.0.224.70/32, ubest/mbest: 2/0
+    *via 10.0.16.64, eth1/31.30, [115/2], 05w04d, isis-isis_infra, L1
+    *via 10.0.40.70, eth1/32.44, [115/2], 05w04d, isis-isis_infra, L1
+10.0.224.71/32, ubest/mbest: 2/0
+    *via 10.0.16.65, eth2/3.33, [115/2], 05w04d, isis-isis_infra, L1
+    *via 10.0.40.71, eth2/4.38, [115/2], 05w04d, isis-isis_infra, L1
+10.0.224.72/32, ubest/mbest: 2/0
+    *via 10.0.40.75, eth1/20.12, [115/2], 05w04d, isis-isis_infra, L1
+    *via 10.0.40.76, eth1/21.13, [115/2], 05w04d, isis-isis_infra, L1
+10.0.224.73/32, ubest/mbest: 2/0
+    *via 10.0.16.70, eth1/19.5, [115/2], 05w04d, isis-isis_infra, L1
+    *via 10.0.16.71, eth1/18.7, [115/2], 05w04d, isis-isis_infra, L1
+10.0.224.74/32, ubest/mbest: 2/0
+    *via 10.0.16.68, eth1/10.39, [115/2], 05w04d, isis-isis_infra, L1
+    *via 10.0.64.68, eth1/9.67, [115/2], 05w04d, isis-isis_infra, L1
+10.0.224.75/32, ubest/mbest: 2/0
+    *via 10.0.40.69, eth1/11.68, [115/2], 05w04d, isis-isis_infra, L1
+    *via 10.0.16.67, eth1/12.48, [115/2], 05w04d, isis-isis_infra, L1
+10.0.224.76/32, ubest/mbest: 2/0
+    *via 10.0.64.75, eth1/23.11, [115/2], 05w04d, isis-isis_infra, L1
+    *via 10.0.40.77, eth1/22.31, [115/2], 05w04d, isis-isis_infra, L1
+10.0.224.77/32, ubest/mbest: 2/0
+    *via 10.0.40.79, eth1/25.15, [115/2], 05w04d, isis-isis_infra, L1
+    *via 10.0.104.94, eth1/26.40, [115/2], 05w04d, isis-isis_infra, L1
+10.0.224.78/32, ubest/mbest: 2/0
+    *via 10.0.40.81, eth1/27.18, [115/2], 05w04d, isis-isis_infra, L1
+    *via 10.0.40.82, eth1/28.42, [115/2], 05w04d, isis-isis_infra, L1
+10.0.224.79/32, ubest/mbest: 2/0
+    *via 10.0.64.64, eth1/29.23, [115/2], 05w04d, isis-isis_infra, L1
+    *via 10.0.40.68, eth1/30.36, [115/2], 05w04d, isis-isis_infra, L1
+10.0.224.80/32, ubest/mbest: 4/0
+    *via 10.0.16.66, eth2/10.43, [115/2], 05w04d, isis-isis_infra, L1
+    *via 10.0.40.72, eth2/11.20, [115/2], 05w04d, isis-isis_infra, L1
+    *via 10.0.40.72, eth2/12.45, [115/2], 05w04d, isis-isis_infra, L1
+    *via 10.0.16.66, eth2/9.16, [115/2], 05w04d, isis-isis_infra, L1
+10.0.224.81/32, ubest/mbest: 4/0
+    *via 10.0.40.73, eth2/7.37, [115/2], 05w04d, isis-isis_infra, L1
+    *via 10.0.40.73, eth2/8.6, [115/2], 05w04d, isis-isis_infra, L1
+    *via 10.0.16.69, eth2/5.9, [115/2], 05w04d, isis-isis_infra, L1
+    *via 10.0.16.69, eth2/6.25, [115/2], 05w04d, isis-isis_infra, L1
+10.0.224.82/32, ubest/mbest: 2/0
+    *via 10.0.16.72, eth2/1.69, [115/2], 05w04d, isis-isis_infra, L1
+    *via 10.0.40.74, eth2/2.19, [115/2], 05w04d, isis-isis_infra, L1
+10.0.224.83/32, ubest/mbest: 4/0
+    *via 10.0.40.78, eth2/15.1, [115/2], 05w04d, isis-isis_infra, L1
+    *via 10.0.64.65, eth2/13.47, [115/2], 05w04d, isis-isis_infra, L1
+    *via 10.0.64.65, eth2/14.10, [115/2], 05w04d, isis-isis_infra, L1
+    *via 10.0.40.78, eth2/16.29, [115/2], 05w04d, isis-isis_infra, L1
+
+IP Route Table for VRF "mgmt:inb"
+'*' denotes best ucast next-hop
+'**' denotes best mcast next-hop
+'[x/y]' denotes [preference/metric]
+'%<string>' in via output denotes VRF <string>
+
+10.1.170.185/32, ubest/mbest: 2/0, attached, direct
+    *via 10.1.170.185, lo10, [1/0], 06w00d, local, local
+    *via 10.1.170.185, lo10, [1/0], 06w00d, direct
+
+IP Route Table for VRF "management"
+'*' denotes best ucast next-hop
+'**' denotes best mcast next-hop
+'[x/y]' denotes [preference/metric]
+'%<string>' in via output denotes VRF <string>
+
+0.0.0.0/0, ubest/mbest: 1/0
+    *via 10.254.7.254/32, mgmt0, [0], 06w00d, local
+nw-00-03-06-00#
