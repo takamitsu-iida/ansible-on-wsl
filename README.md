@@ -1,3 +1,4 @@
+<BR>
 # WSL上でAnsibleを動かす
 
 Windows端末でAnsibleのプレイブック作成を快適に行うためにはWSLを利用すると便利です。
@@ -5,8 +6,10 @@ WSL内の環境をどれだけいじってもWindowsそのものが汚れるこ�
 
 しかしながら、つまづきやすいポイントもありますので、環境作りや制限事項といったノウハウをまとめます。
 
+<BR><BR>
 # ツール群
 
+<BR>
 ## WSL Ubuntu 20.04
 
 【重要】WSL2ではなく、WSLを利用します。
@@ -100,6 +103,7 @@ sudo apt-get update
 sudo apt-get install ansible
 ```
 
+<BR>
 ## SSHの設定
 
 `~/.ssh/config` に接続先の情報を記述します。
@@ -135,6 +139,7 @@ Host x.x.x.x
   Ciphers aes128-cbc,3des-cbc,aes192-cbc,aes256-cbc
 ```
 
+<BR>
 ## アンチウィルスソフトの設定追加
 
 WSLを導入するとWindowsの中に独立したネットワークが作られ、NATして外部と通信するようになります。
@@ -149,14 +154,18 @@ Symantec Endpoint Protectionの場合、「不一致IPトラフィックの設�
 HTTP系の通信は対処不要でした。
 WSLから外部にでる通信がうまくいかない場合、まずはアンチウィルスソフトのファイアウォール・ルールを疑ってみましょう。
 
+<BR>
 ## Visual Studio Code
 
 WindowsにVisual Studio Codeを導入します。
 
+<BR>
 ### 拡張機能 WSL
 
+<BR>
 拡張機能WSLを導入すると、Windows上のVisual Studio Codeから直接WSLのシェルを利用できます。
 
+<BR>
 ## Windows Terminal
 
 【おすすめ】WSLのターミナルはデフォルトのままだと使いづらいので、Windows Terminalを別途導入します。
@@ -167,6 +176,7 @@ Windows Terminalを開いたときに開くシェルをWSLにするには、JSON
 
 <https://qiita.com/hotaru51/items/8a5904301e2427862fb8>
 
+<BR>
 ## ntc-templates
 
 <https://github.com/networktocode/ntc-templates>
@@ -175,7 +185,7 @@ pipでインストールすることもできますが、
 肝心のtextfsmファイルがどこに配置されたのか分かりづらいので`git clone`するかzipでダウンロードして必要なテンプレートだけを利用します。
 
 といっても、簡単なものはそのまま利用できますが、
-`show bgp neighbors`コマンドの出力のように複雑な構造のものは自前で作る方がよいかもしれません。
+`show bgp neighbors`コマンドの出力のように複雑な構造のものは自前で作ることが多いです。
 
 ```bash
 git clone https://github.com/networktocode/ntc-templates.git
@@ -189,8 +199,8 @@ Resolving deltas: 100% (5151/5151), done.
 Updating files: 100% (1832/1832), done.
 ```
 
-- - -
 
+<BR><BR>
 # EVE-NG関連
 
 ネットワーク機器をansibleで操作することを想定して、仮想のネットワーク環境をEVE-NGで整えます。
@@ -201,22 +211,19 @@ Updating files: 100% (1832/1832), done.
 
 
 
-- - -
 
+<BR><BR>
 # Ansible関連
 
+<BR>
 ## ansible.cfgの場所
 
-ansible.cfgファイルの場所は以下の順番で読み込まれます。共通的な設定がほとんどなので`~/.ansible.cfg`で設定するのがよいでしょう。
+ansible.cfgファイルの場所は以下の順番で読み込まれます。共通的な設定がほとんどなので`~/.ansible.cfg`で設定しています。
 
 - ANSIBLE_CONFIG (環境変数が設定されている場合)
 - ansible.cfg (現在のディレクトリー)
 - ~/.ansible.cfg (ホームディレクトリー)
 - /etc/ansible/ansible.cfg
-
-相対パスには注意が必要です。
-明示的にいまいる場所からの相対パスを指定したい場合は`{{CWD}}`というマクロを使います。
-ですが、セキュリティの観点から利用は推奨はされません。
 
 現時点のansible.cfgは以下の通り。
 
@@ -326,66 +333,3 @@ network_cli_retries = 3
 # ansible2.9では既定値30秒
 # command_timeout = 10
 ```
-
-<BR>
-
-## role
-
-プレイブックを作成するときにはロールを積極的に活用します。
-ロールのディレクトリ構造は`ansible-galaxy init`コマンドで作成できます。
-
-```bash
-iida@FCCLS0008993-00:~/git/ansible-in-wsl/roles$ ansible-galaxy init bgp_neighbors
-- Role bgp_neighbors was created successfully
-
-iida@FCCLS0008993-00:~/git/ansible-in-wsl/roles$ tree .
-.
-└── bgp_neighbors
-    ├── README.md
-    ├── defaults
-    │   └── main.yml
-    ├── files
-    ├── handlers
-    │   └── main.yml
-    ├── meta
-    │   └── main.yml
-    ├── tasks
-    │   └── main.yml
-    ├── templates
-    ├── tests
-    │   ├── inventory
-    │   └── test.yml
-    └── vars
-        └── main.yml
-
-9 directories, 9 files
-iida@FCCLS0008993-00:~/git/ansible-in-wsl/roles$
-```
-
-### defaultsディレクトリ
-
-このロールのタスクで使う変数を定義します。
-ロール実行時に上書き可能です。
-例えば使いたいntc-templatesのtextfsmファイルをfilesに格納したとして、そこへのパスはdefaults/main.pyで定義します。
-
-defaults/main.py
-
-```yaml
-# ntc-templatesのtextfsmファイル
-NTC_PATH: "{{ role_path + 'files/cisco_xr_show_bgp_neighbors.textfsm' }}"
-```
-
-ロールが正しく機能するために必要な変数ですので、利用者が変更する必要はないものをここに定義します。
-
-### filesディレクトリ
-
-filesディレクトリにファイルを置いたからと言って何か起こるわけではありません。
-ntc-templatesのtextfsmファイルであったり、ロールのタスク実行時に必要となるファイル群をここに格納します。
-
-### varsディレクトリ
-
-私は使いません。
-
-### handlersディレクトリ
-
-私は使いません。
