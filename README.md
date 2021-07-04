@@ -324,15 +324,15 @@ network_cli_retries = 3
 #
 # 古いバージョンのansibleでは既定値10秒
 # ansible2.9では既定値30秒
-command_timeout = 10
+# command_timeout = 10
 ```
 
-
+<BR>
 
 ## role
 
-プレイブックを作るときにはロールを積極的に活用した方がよいと思います。
-ディレクトリ構造は`ansible-galaxy init`コマンドで作成できます。
+プレイブックを作成するときにはロールを積極的に活用します。
+ロールのディレクトリ構造は`ansible-galaxy init`コマンドで作成できます。
 
 ```bash
 iida@FCCLS0008993-00:~/git/ansible-in-wsl/roles$ ansible-galaxy init bgp_neighbors
@@ -365,7 +365,7 @@ iida@FCCLS0008993-00:~/git/ansible-in-wsl/roles$
 ### defaultsディレクトリ
 
 このロールのタスクで使う変数を定義します。
-ロール実行時に上書き可能ですが、上書きされることを想定したものではありません。
+ロール実行時に上書き可能です。
 例えば使いたいntc-templatesのtextfsmファイルをfilesに格納したとして、そこへのパスはdefaults/main.pyで定義します。
 
 defaults/main.py
@@ -384,32 +384,8 @@ ntc-templatesのtextfsmファイルであったり、ロールのタスク実行
 
 ### varsディレクトリ
 
-ロール実行時に参照する変数を定義します。
-ロール実行時にロールに引き渡す引数の役割を担います。
+私は使いません。
 
+### handlersディレクトリ
 
-# 準備しておきたいロール
-
-## pre_flight
-
-最低限必要なAnsibleのバージョン、必要なPythonモジュールの有無を事前にチェックするためのロールです。
-
-`pre_flight\vars\main.yml`では以下のように定義しているので、このファイルを直接編集するか、ロールの実行時に変数を上書き定義して実行してください。
-
-```yaml
-# Ansibleバージョン
-required_ansible_version: 2.7
-
-# Pythonモジュール
-pip_module_list:
-  - textfsm
-  - jinja2
-  - tabulate
-```
-
-
-## check_connection
-
-接続確認を行います。
-
-パラメータ類は`defaults/main.yml`に記述しています。
+私は使いません。
