@@ -1,4 +1,3 @@
-<BR>
 # WSL上でAnsibleを動かす
 
 Windows端末でAnsibleのプレイブック作成を快適に行うためにはWSLを利用すると便利です。
