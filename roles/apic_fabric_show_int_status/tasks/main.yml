@@ -1,0 +1,50 @@
+---
+
+- assert:
+    that:
+      - FABRICS is defined
+      - "{{ FABRICS | length  > 0 }}"
+    fail_msg: "FABRICS is not defined"
+    success_msg: "target fabric is {{ FABRICS }}"
+
+
+- name: Create log directory if not exists
+  local_action:
+    module: file
+    path: "{{ LOG_DIR }}"
+    state: directory
+    recurse: true
+  changed_when: false
+  run_once: true
+
+
+-
+  block:
+
+    - name: fabric show interface status
+      cli_command:
+        command: "fabric {{ item }} show interface status"
+      register: cli_result
+      loop: "{{ FABRICS }}"
+
+    # - debug:
+    #     msg: "{{ cli_result.results[idx].stdout }}"
+    #   loop: "{{ FABRICS }}"
+    #   loop_control:
+    #     index_var: idx
+    #   when:
+    #     - ansible_verbosity > 0
+
+    - name: Save command output
+      local_action:
+        module: copy
+        content: |-
+          {% for item in cli_result.results %}
+          {{ item.stdout }}
+          {% endfor %}
+        dest: "{{ LOG_DIR }}/{{ filename }}"
+
+
+  vars:
+    date: "{{ lookup('pipe', 'date +%Y%m%d_%H%M%S') }}"
+    filename: "{{ inventory_hostname }}_{{ role_name|basename }}_{{ date }}.txt"

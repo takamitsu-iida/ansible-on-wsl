@@ -1,0 +1,16 @@
+---
+
+- name: test
+  hosts: apic1
+  gather_facts: false
+  strategy: linear
+  serial: 0
+
+  tasks:
+    - import_role:
+        name: ../../apic_fabric_show_int_status
+      vars:
+        EXCLUDE_HOSTS: []
+        LOG_DIR: "{{ lookup('env', 'PWD') + '/log' }}"
+        FABRICS:
+          - 101
