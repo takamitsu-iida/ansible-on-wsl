@@ -1,2 +1,10 @@
 ---
-# defaults file for pre_flight
+
+# Ansibleバージョン
+required_ansible_version: 2.7
+
+# Pythonモジュール
+pip_module_list:
+  - textfsm
+  - jinja2
+  - tabulate
