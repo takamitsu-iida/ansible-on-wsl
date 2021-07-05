@@ -435,10 +435,10 @@ if __name__ == "__main__":
 
     f1 = IPv4RouteEntry.filter_addr(r'^10\.')       # 10.x.x.xで始まるIPアドレス
     f2 = IPv4RouteEntry.filter_mask(29, 'gt')       # マスク長が29ビットより大きい
-    f3 = IPv4RouteEntry.filter_gw_if(r'eth1/.*') # インタフェースがvlan102
+    f3 = IPv4RouteEntry.filter_gw_if(r'eth1/.*')    # インタフェースがeth1/で始まる
     # f4 = IPv4RouteEntry.filter_gw('10.245.2.2')
     # f3 = IPv4RouteEntry.filter_proto('L')
-    f4 = IPv4RouteEntry.filter_vrf(r'K5_2n.*')
+    f4 = IPv4RouteEntry.filter_vrf(r'K5_2n.*')      # VRF名がK52nで始まる
 
     # funcs = [f1, f2, f3]
     funcs = [f4]
