@@ -1,5 +1,4 @@
 # apic_fabric_show_int_status
-=============================
 
 Cisco ACIのAPICにSSH接続して`fabric xx show interface status`コマンドを実行し、その結果をパースしてHTMLファイルにします。
 
@@ -12,7 +11,6 @@ Cisco ACIのAPICにSSH接続して`fabric xx show interface status`コマンド�
 <BR><BR>
 
 # Role Variables
-----------------
 
 `defaults/main.yml`に記載の変数を利用します。
 
@@ -26,31 +24,28 @@ LOG_DIR: "{{ lookup('env', 'PWD') + '/log' }}"
 <BR><BR>
 
 # Dependencies
---------------
 
 他のロールへの依存はありません。
 
 <BR><BR>
 
 # Example Playbook
-------------------
 
 実行すると指定したログディレクトリにテキストファイルとHTMLファイルが生成されます。
 HTMLファイルはこのようなイメージで表示します。
 
 ![fig_fabric_show_int_status](https://user-images.githubusercontent.com/21165341/124449324-4e2c8f80-ddbe-11eb-8c23-182289e2cb5b.PNG)
 
+緑は`connected`、黒は`notconnect`、グレーはそれ以外です。
 
 <BR><BR>
 
 # License
----------
 
 BSD
 
 <BR><BR>
 
 # Author Information
---------------------
 
 takamitsu-iida
