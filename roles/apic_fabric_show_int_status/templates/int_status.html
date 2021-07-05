@@ -2,7 +2,7 @@
 <html>
 
 <head>
-  <title>Example</title>
+  <title>show interface status</title>
   <meta charset="utf-8">
   <style>
 
@@ -17,16 +17,18 @@
 
     .wrapper {
       display: grid;
+      padding: 10px;
       column-gap: 10px;
       row-gap: 10px;
       grid-template-columns: repeat(24, 45px);
+      width: 1320px;  /* 24*(45px+10px)=1320px */
       background-color:silver;
     }
 
     .box {
       background-color:grey;
       color: #fff;
-      border-radius: 5px;
+      border-radius: 4px;
       padding: 4px;
       margin: 0px;
       font-size: 1.0rem;
@@ -43,8 +45,12 @@
     pre {
       margin: 1em 0;
       padding: 1em;
+      font-size: 120%;
+      max-width: 1320px;  /* same as .wrapper */
+      color: #2F4F4F;
+      background-color: #F5F5F5;
+      overflow: auto;
     }
-
 
   </style>
 

@@ -15,4 +15,6 @@
         FABRICS:
           - 101
           - 102
-        DEBUG: true
+          - 103
+          - 104
+        DEBUG: false
