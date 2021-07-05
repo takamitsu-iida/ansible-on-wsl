@@ -2,7 +2,7 @@
 # -*- coding: utf-8 -*-
 """Cisco ACIのスイッチにSSH接続して実行したshow ip route vrf allの結果をパースします
 
-2016/07/03 初版
+2021/07/03 初版
 """
 
 __author__ = 'Takamitsu IIDA'
