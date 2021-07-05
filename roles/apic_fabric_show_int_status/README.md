@@ -1,38 +1,56 @@
-Role Name
-=========
+# apic_fabric_show_int_status
+=============================
 
-A brief description of the role goes here.
+Cisco ACIのAPICにSSH接続して`fabric xx show interface status`コマンドを実行し、その結果をパースしてHTMLファイルにします。
 
-Requirements
-------------
+<BR><BR>
 
-Any pre-requisites that may not be covered by Ansible itself or the role should be mentioned here. For instance, if the role uses the EC2 module, it may be a good idea to mention in this section that the boto package is required.
+# Requirements
 
-Role Variables
---------------
+制御ノード上にPythonのTextFSMモジュールが必要です。
 
-A description of the settable variables for this role should go here, including any variables that are in defaults/main.yml, vars/main.yml, and any variables that can/should be set via parameters to the role. Any variables that are read from other roles and/or the global scope (ie. hostvars, group vars, etc.) should be mentioned here as well.
+<BR><BR>
 
-Dependencies
-------------
-
-A list of other roles hosted on Galaxy should go here, plus any details in regards to parameters that may need to be set for other roles, or variables that are used from other roles.
-
-Example Playbook
+# Role Variables
 ----------------
 
-Including an example of how to use your role (for instance, with variables passed in as parameters) is always nice for users too:
+`defaults/main.yml`に記載の変数を利用します。
 
-    - hosts: servers
-      roles:
-         - { role: username.rolename, x: 42 }
+下記の設定では実行した場所に`log`ディレクトリを作成し、そこに実行結果のログを作成します。
 
-License
--------
+
+```yml
+LOG_DIR: "{{ lookup('env', 'PWD') + '/log' }}"
+```
+
+<BR><BR>
+
+# Dependencies
+--------------
+
+他のロールへの依存はありません。
+
+<BR><BR>
+
+# Example Playbook
+------------------
+
+実行すると指定したログディレクトリにテキストファイルとHTMLファイルが生成されます。
+HTMLファイルはこのようなイメージで表示します。
+
+![fig_fabric_show_int_status](https://user-images.githubusercontent.com/21165341/124449324-4e2c8f80-ddbe-11eb-8c23-182289e2cb5b.PNG)
+
+
+<BR><BR>
+
+# License
+---------
 
 BSD
 
-Author Information
-------------------
+<BR><BR>
 
-An optional section for the role authors to include contact information, or a website (HTML is not allowed).
+# Author Information
+--------------------
+
+takamitsu-iida
