@@ -1,0 +1,30 @@
+# 2021.07.05
+# takamitsu-iida
+# APIC 3.10
+# fabric [fabric] show interface status
+#
+# NOTE:
+#  - this template captures only Ethernet port
+#
+# ----------------------------------------------------------------
+#  Node 101 (nw-01-01-16-00)
+# ----------------------------------------------------------------
+# ----------------------------------------------------------------------------------------------
+#  Port           Name                Status     Vlan       Duplex   Speed    Type
+# ----------------------------------------------------------------------------------------------
+#  mgmt0          --                  connected  routed     full     1G       --
+#  Eth1/1         --                  connected  trunk      full     10G      10g
+#  Eth1/2         --                  connected  trunk      full     10G      10g
+#
+Value Filldown NODE (\d+)
+Value PORT (Eth\d/\d+)
+Value STATUS (\S+)
+Value DUPLEX (full|auto)
+Value SPEED (--|auto|inherit|\d+G)
+Value TYPE (\S+)
+
+Start
+  ^\s+Node\s+${NODE}\s+\(.*\)
+  ^\s+${PORT}\s+\S+\s+${STATUS}\s+\S+\s+${DUPLEX}\s+${SPEED}\s+${TYPE} -> Record
+
+EOF

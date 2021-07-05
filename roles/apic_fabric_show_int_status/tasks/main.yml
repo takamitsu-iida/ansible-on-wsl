@@ -35,16 +35,51 @@
     #   when:
     #     - ansible_verbosity > 0
 
-    - name: Save command output
-      local_action:
-        module: copy
-        content: |-
+    - set_fact:
+        filename: "{{ inventory_hostname }}_{{ role_name|basename }}_{{ date }}.txt"
+        cli_output: |-
           {% for item in cli_result.results %}
           {{ item.stdout }}
           {% endfor %}
+
+    - name: Save command output
+      local_action:
+        module: copy
+        content: "{{ cli_output }}"
         dest: "{{ LOG_DIR }}/{{ filename }}"
 
+    - set_fact:
+        cli_parsed: "{{ cli_output | parse_cli_textfsm(TEXTFSM) | split_by_node }}"
 
   vars:
     date: "{{ lookup('pipe', 'date +%Y%m%d_%H%M%S') }}"
-    filename: "{{ inventory_hostname }}_{{ role_name|basename }}_{{ date }}.txt"
+  when:
+    - not DEBUG
+
+
+-
+  block:
+  - set_fact:
+      cli_output: "{{ lookup('file', log_file) }}"
+
+  - set_fact:
+      cli_parsed: "{{ cli_output | parse_cli_textfsm(TEXTFSM) | split_by_node }}"
+
+  - set_fact:
+      filename: "{{ log_file|basename }}"
+
+  vars:
+    search_path: "{{ LOG_DIR }}/{{ inventory_hostname }}_{{ role_name|basename }}_*.txt"
+    log_files: "{{ lookup('fileglob', search_path).split(',') }}"
+    log_file: "{{ log_files[0] if log_files }}"
+  when:
+    - DEBUG
+
+
+- name: save result
+  local_action:
+    module: template
+    src: "{{ INT_STATUS_HTML }}"
+    dest: "{{ LOG_DIR }}/{{ filename }}.html"
+  changed_when: false
+  ignore_errors: true

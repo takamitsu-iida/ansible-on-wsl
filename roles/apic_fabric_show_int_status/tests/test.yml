@@ -14,3 +14,5 @@
         LOG_DIR: "{{ lookup('env', 'PWD') + '/log' }}"
         FABRICS:
           - 101
+          - 102
+        DEBUG: true

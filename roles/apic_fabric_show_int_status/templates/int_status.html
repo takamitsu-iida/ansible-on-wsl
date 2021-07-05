@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title>Example</title>
+  <meta charset="utf-8">
+  <style>
+
+    html {
+      font-size: 62.5%;
+    }
+
+    body {
+      margin: 40px;
+      font-size: 1.4em;
+    }
+
+    .wrapper {
+      display: grid;
+      column-gap: 10px;
+      row-gap: 10px;
+      grid-template-columns: repeat(24, 45px);
+      background-color:silver;
+    }
+
+    .box {
+      background-color:grey;
+      color: #fff;
+      border-radius: 5px;
+      padding: 4px;
+      margin: 0px;
+      font-size: 1.0rem;
+    }
+
+    .down {
+      background-color: black;
+    }
+
+    .up {
+      background-color:green;
+    }
+
+    pre {
+      margin: 1em 0;
+      padding: 1em;
+    }
+
+
+  </style>
+
+</head>
+
+<body>
+
+  {% for node_list in cli_parsed %}
+  <h1>NODE {{ node_list[0]["NODE"] if node_list }}</h1>
+  <div class="wrapper">
+    {% for item in node_list %}
+      <div class="box {% if item['STATUS'] == 'connected' %}up{% elif item['STATUS'] == 'notconnect' %}down{% endif %} ">{{ item["PORT"]|d('') }}</div>
+    {% endfor %}
+  </div>
+  {% endfor %}
+
+  <BR>
+
+  <h1>command output</h1>
+
+  <pre>
+    <code>
+
+{{ cli_output }}
+
+    </code>
+  </pre>
+
+</body>
+
+</html>
