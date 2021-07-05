@@ -34,7 +34,7 @@ LOG_DIR: "{{ lookup('env', 'PWD') + '/log' }}"
 実行すると指定したログディレクトリにテキストファイルとHTMLファイルが生成されます。
 HTMLファイルはこのようなイメージで表示します。
 
-![fig_fabric_show_int_status](https://user-images.githubusercontent.com/21165341/124449324-4e2c8f80-ddbe-11eb-8c23-182289e2cb5b.PNG)
+![fig_fabric_show_int_status](https://user-images.githubusercontent.com/21165341/124450535-7f598f80-ddbf-11eb-8adc-af7f81aea576.PNG)
 
 緑は`connected`、黒は`notconnect`、グレーはそれ以外です。
 
