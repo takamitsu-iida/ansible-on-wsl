@@ -396,8 +396,6 @@ class TextfsmRouteParser(RouteParser):
 
 if __name__ == "__main__":
 
-  # python -m doctest show_ip_route.py
-
   from pathlib import Path
   import argparse
 

@@ -1,0 +1,58 @@
+---
+
+- name: module test
+  aci_show_vpc_brief:
+    dir: "{{ LOG_DIR }}"
+    prefix: leaf1
+  register: r
+
+- debug: var=r
+
+- meta: end_play
+
+- name: Create log directory if not exists
+  local_action:
+    module: file
+    path: "{{ LOG_DIR }}"
+    state: directory
+    recurse: true
+  changed_when: false
+  run_once: false  # ログディレクトリは対象ホストごとに違う可能性があるのでfalseを指定
+
+-
+  block: # showコマンドを実行してファイルに保存するブロック
+
+    - name: show vpc brief
+      cli_command:
+        command: show vpc brief
+      register: cli_result
+
+    - debug:
+        msg: "{{ cli_result.stdout }}"
+      when:
+        - ansible_verbosity > 0
+
+    - name: Save command output
+      local_action:
+        module: copy
+        content: "{{ cli_result.stdout }}"
+        dest: "{{ LOG_DIR }}/{{ filename }}"
+
+  vars:
+    date: "{{ lookup('pipe', 'date +%Y%m%d_%H%M%S') }}"
+    filename: "{{ inventory_hostname }}_{{ role_name|basename }}_{{ date }}.txt"
+
+-
+  block: # 分析するブロック
+
+    - name: run log analizer script
+      command: "{{ SCRIPT }} -d {{ LOG_DIR }} -p {{ inventory_hostname }}"
+      # args:
+      #   chdir: "{{ role_path }}/files"
+      delegate_to: localhost
+      register: script_result
+
+    - debug: msg="{{ script_result.stdout }}"
+
+  tags:
+    - analizer

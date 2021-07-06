@@ -4,7 +4,7 @@
 EXCLUDE_HOSTS: []
 
 # ログファイルのディレクトリ
-LOG_DIR: "{{ lookup('env', 'PWD') + '/log' }}"
+LOG_DIR: "{{ lookup('env', 'PWD') }}/log"
 
 # 利用するtextfsm
 TEXTFSM: "{{ role_path }}/files/apic_fabric_show_interface_status.textfsm"

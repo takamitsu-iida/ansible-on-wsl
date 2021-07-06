@@ -4,4 +4,4 @@
 EXCLUDE_HOSTS: []
 
 # ログファイルのディレクトリ
-LOG_DIR: "{{ lookup('env', 'PWD') + '/log' }}"
+LOG_DIR: "{{ lookup('env', 'PWD') }}/log"
