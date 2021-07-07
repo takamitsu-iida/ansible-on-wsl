@@ -17,10 +17,8 @@
         command: show vpc brief
       register: cli_result
 
-    - debug:
-        msg: "{{ cli_result.stdout }}"
-      when:
-        - ansible_verbosity > 0
+    - set_fact:
+        cli_output: "{{ cli_result.stdout }}"
 
     - name: Save command output
       local_action:
@@ -35,17 +33,19 @@
 -
   block: # 分析するブロック
 
+    # 独自モジュールによるログ分析
     - name: analyze log
-      aci_show_vpc_brief:
+      local_action:
+        module: aci_show_vpc_brief
         log_dir: "{{ LOG_DIR }}"
-        file_prefix: leaf1
+        file_prefix: "{{ inventory_hostname}}"
       register: r
 
     - set_fact:
         result_list: "{{ r.result_list }}"
         filenames: "{{ r.filenames }}"
 
-    # - debug: var=filenames
+    # - debug: var=result_list
 
     - name: save result
       local_action:

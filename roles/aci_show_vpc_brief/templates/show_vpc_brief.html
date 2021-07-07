@@ -21,7 +21,7 @@
       margin: 10px;
       column-gap: 10px;
       row-gap: 10px;
-      grid-template-columns: repeat(5, 50px) 50px 60px 60px 100px 100px 1fr;
+      grid-template-columns: repeat(5, 50px) 50px 60px 60px 100px 200px 1fr;
       background-color:#F5F5F5;
     }
 
@@ -63,7 +63,7 @@
   <h1>Parsed files</h1>
 
   {% for filename in filenames %}
-  <li>{{ filename }}</li>
+  <p>{{ filename }}</p>
   {% endfor %}
 
   <h1>Port status history</h1>
@@ -86,6 +86,16 @@
     <div>ActiveVlans<br>{{ port_list[0]['ActiveVlans']|d('') }}</div>
   </div>
   {% endfor %}
+
+  <h1>Command output</h1>
+
+  <h2>{{ filenames[0]|d('') }}</h2>
+
+  <pre>
+    <code>
+{{ cli_output|d('') }}
+    </code>
+  </pre>
 
 </body>
 </html>

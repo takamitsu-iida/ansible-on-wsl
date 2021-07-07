@@ -68,6 +68,9 @@ class ActionModule(ActionBase):
         # 先頭の分析結果を取り出す
         first_parsed = next(iter(d.values()))
 
+        # idごとのリストにする
+        # 先頭が新しいファイルの情報
+        # [ {id: xxx}, {id: xxx}, {id: xxx}]
         result_list = []
         for item in first_parsed:
             port_id = item.get("id")
@@ -98,22 +101,23 @@ class ShowVpcBriefParser:
     #
     # クラス変数
     #
+
     # 処理開始となる行
     start_string = "id   Port   Status Consistency Reason                     Active vlans"
 
     def parse_buffers(self, lines):
         """複数行の塊をパースする
-    1         2          3        4         5         6         7         8
-    012345678901234567890123456789012345678901234567890123456789012345678901234567890
-    ----------+---------+----------+--------+---------+---------+---------+---------+
-    vPC status
-    ----------------------------------------------------------------------
-    id   Port   Status Consistency Reason                     Active vlans
-    --   ----   ------ ----------- ------                     ------------
-    1    Po40   up     success     success                    101-106,109
-                                                              ,111
-    [0:5][5:12] [12:19][19:31]     [31:58]                    [58:]
-    """
+        1         2          3        4         5         6         7         8
+        012345678901234567890123456789012345678901234567890123456789012345678901234567890
+        ----------+---------+----------+--------+---------+---------+---------+---------+
+        vPC status
+        ----------------------------------------------------------------------
+        id   Port   Status Consistency Reason                     Active vlans
+        --   ----   ------ ----------- ------                     ------------
+        1    Po40   up     success     success                    101-106,109
+                                                                ,111
+        [0:5][5:12] [12:19][19:31]     [31:58]                    [58:]
+        """
 
         if not lines:
             return None
@@ -121,18 +125,13 @@ class ShowVpcBriefParser:
         for line in lines:
             if len(line) < 58:
                 continue
-            k = 'id'
-            d[k] = d.get(k, '') + line[0:5].strip()
-            k = 'Port'
-            d[k] = d.get(k, '') + line[5:12].strip()
-            k = 'Status'
-            d[k] = d.get(k, '') + line[12:19].strip()
-            k = 'Consistency'
-            d[k] = d.get(k, '') + line[19:31].strip()
-            k = 'Reason'
-            d[k] = d.get(k, '') + line[31:58].strip()
-            k = 'ActiveVlans'
-            d[k] = d.get(k, '') + line[58:].strip()
+            d['id'] = d.get('id', '') + line[0:5].strip()
+            d['Port'] = d.get('Port', '') + line[5:12].strip()
+            d['Status'] = d.get('Status', '') + line[12:19].strip()
+            d['Consistency'] = d.get('Consistency', '') + line[19:31].strip()
+            d['Reason'] = d.get('Reason', '') + line[31:58].strip()
+            d['ActiveVlans'] = d.get('ActiveVlans', '') + line[58:].strip()
+
         if len(d) == 0:
             return None
         return d
@@ -150,22 +149,26 @@ class ShowVpcBriefParser:
 
     def parse_lines(self, lines):
         results = []
+
         # 複数行表示の塊
         buffer_lines = []
+
         # 処理対象の先頭を見つけたか
         is_started = False
+
         for line in lines:
-            # 改行コードを含む右端の余白を削除
-            line = line.rstrip()
             # 開始行を見つけるまで読み飛ばす
             if line.startswith(ShowVpcBriefParser.start_string):
                 is_started = True
                 continue
+
             if not is_started:
                 continue
-            # 読み飛ばす
+
+            # --で始まっている行は読み飛ばす
             if len(line) == 0 or line.startswith("--"):
                 continue
+
             # 数字で始まっていれば塊を発見
             if line[0].isdigit():
                 # 古い塊をパース
@@ -176,13 +179,16 @@ class ShowVpcBriefParser:
                 buffer_lines = []
                 buffer_lines.append(line)
                 continue
+
             # 空白で始まっていれば塊の一部
             if line[0].isspace():
                 buffer_lines.append(line)
+
         # 最後の塊
         data = self.parse_buffers(buffer_lines)
         if data:
             results.append(data)
+
         return results
 
 

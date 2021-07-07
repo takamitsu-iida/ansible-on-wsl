@@ -1,38 +1,44 @@
-Role Name
-=========
+# aci_show_vpc_brief
 
-A brief description of the role goes here.
+Cisco ACIのスイッチにログインしてiShell上のコマンド `show vpc brief` を実行し、ログに保存します。
 
-Requirements
-------------
+過去に採取したログと共に分析してポートの状態を可視化します。
 
-Any pre-requisites that may not be covered by Ansible itself or the role should be mentioned here. For instance, if the role uses the EC2 module, it may be a good idea to mention in this section that the boto package is required.
+<BR>
 
-Role Variables
---------------
+# Requirements
 
-A description of the settable variables for this role should go here, including any variables that are in defaults/main.yml, vars/main.yml, and any variables that can/should be set via parameters to the role. Any variables that are read from other roles and/or the global scope (ie. hostvars, group vars, etc.) should be mentioned here as well.
+特別な要件はありません。
 
-Dependencies
-------------
+<BR>
 
-A list of other roles hosted on Galaxy should go here, plus any details in regards to parameters that may need to be set for other roles, or variables that are used from other roles.
+# Role Variables
 
-Example Playbook
-----------------
+`defaults/main.yml` に記載の変数を利用します。
 
-Including an example of how to use your role (for instance, with variables passed in as parameters) is always nice for users too:
+<BR>
 
-    - hosts: servers
-      roles:
-         - { role: username.rolename, x: 42 }
+# Dependencies
 
-License
--------
+依存する他のロールはありません。
+
+<BR>
+
+# Example Playbook
+
+プレイブックを実行するたびに`show vpc brief`の実行結果を記録したログファイルが残ります。
+過去５世代までのログファイルをまとめて分析して、いつの時点でPortChannelの状態が変化したのかを可視化します。
+
+![fig]](https://user-images.githubusercontent.com/21165341/124754895-ae116a80-df65-11eb-95b8-0a4a65f215bb.PNG)
+
+<BR>
+
+# License
 
 BSD
 
-Author Information
-------------------
+<BR>
 
-An optional section for the role authors to include contact information, or a website (HTML is not allowed).
+# Author Information
+
+takamitsu-iida
