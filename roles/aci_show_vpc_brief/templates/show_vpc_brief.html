@@ -28,7 +28,7 @@
     .box {
       width: 35px;
       height: 35px;
-      background-color:grey;
+      background-color:#F5F5F5;
       color: #fff;
       border-radius: 4px;
       padding: 4px;
@@ -42,6 +42,10 @@
 
     .up {
       background-color:green;
+    }
+
+    .other {
+      background-color: #F5F5F5;
     }
 
     pre {
@@ -76,7 +80,7 @@
     {% for i in range(5) -%}
       {% set status = port_list[i]['Status']|d('') %}
       {% set port = port_list[i]['Port']|d('') %}
-      <div class="box {% if status == 'up' %}up{% elif status.startswith('down') %}down{% endif %} ">{{ port }}</div>
+      <div class="box {% if status == 'up' %}up{% elif status.startswith('down') %}down{% else %}other{% endif %} ">{{ port }}</div>
     {% endfor -%}
     <div>id<br>{{ port_list[0]['id']|d('') }}</div>
     <div>Port<br>{{ port_list[0]['Port']|d('') }}</div>
