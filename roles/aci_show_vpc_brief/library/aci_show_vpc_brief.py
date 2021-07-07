@@ -1,13 +1,12 @@
 #!/usr/bin/python
 # -*- coding: utf-8 -*-
 
-# Copyright: (c) 2021, takamitsu-iida
-# GNU General Public License v3.0+ (see COPYING or https://www.gnu.org/licenses/gpl-3.0.txt)
+# takamitsu-iida
 
 ANSIBLE_METADATA = {
-  'metadata_version': '1.1',
-  'status': ['preview'],
-  'supported_by': 'community'
+    'metadata_version': '1.1',
+    'status': ['preview'],
+    'supported_by': 'community'
 }
 
 DOCUMENTATION = '''
@@ -39,30 +38,41 @@ EXAMPLES = '''
 '''
 
 RETURN = '''
+filenames:
+    description: filenames to be parsed
+    type: list
+    returned: always
+result_list:
+    description: list of dict which contains parsed info, id, Port, Status, Consistency, Reason, ActiveVlans, and filename
+    type: list
+    returned: always
 '''
 
 from ansible.module_utils.basic import AnsibleModule
 
-
+#
+# this module does nothing but define module_args
+# see ActionPlugin
+#
 def run_module():
-  # define available arguments/parameters a user can pass to the module
-  module_args = dict(
-    log_dir=dict(type='str', required=True),
-    file_prefix=dict(type='str', required=True))
 
-  result = dict(changed=False, original_message='', message='')
 
-  module = AnsibleModule(argument_spec=module_args, supports_check_mode=True)
+    module_args = dict(log_dir=dict(type='str', required=True),
+                       file_prefix=dict(type='str', required=True))
 
-  if module.check_mode:
+    result = dict(changed=False, original_message='', message='')
+
+    module = AnsibleModule(argument_spec=module_args, supports_check_mode=True)
+
+    if module.check_mode:
+        module.exit_json(**result)
+
     module.exit_json(**result)
-
-  module.exit_json(**result)
 
 
 def main():
-  run_module()
+    run_module()
 
 
 if __name__ == '__main__':
-  main()
+    main()

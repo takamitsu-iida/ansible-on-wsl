@@ -2,7 +2,7 @@
 <html>
 
 <head>
-  <title>show interface status</title>
+  <title>aci show vpc brief</title>
   <meta charset="utf-8">
   <style>
 
@@ -18,14 +18,16 @@
     .wrapper {
       display: grid;
       padding: 10px;
+      margin: 10px;
       column-gap: 10px;
       row-gap: 10px;
-      grid-template-columns: repeat(24, 45px);
-      width: 1320px;  /* 24*(45px+10px)=1320px */
-      background-color:silver;
+      grid-template-columns: repeat(5, 50px) 50px 60px 60px 100px 100px 1fr;
+      background-color:#F5F5F5;
     }
 
     .box {
+      width: 35px;
+      height: 35px;
       background-color:grey;
       color: #fff;
       border-radius: 4px;
@@ -46,7 +48,7 @@
       margin: 1em 0;
       padding: 1em;
       font-size: 120%;
-      max-width: 1320px;  /* same as .wrapper */
+      max-width: 1320px;
       color: #2F4F4F;
       background-color:#F5F5F5;
       overflow: auto;
@@ -58,27 +60,32 @@
 
 <body>
 
-  {% for node_list in cli_parsed %}
-  <h1>NODE {{ node_list[0]["NODE"] if node_list }}</h1>
+  <h1>Parsed files</h1>
+
+  {% for filename in filenames %}
+  <li>{{ filename }}</li>
+  {% endfor %}
+
+  <h1>Port status history</h1>
+
+  show vpc briefコマンドのログ・ファイルを分析してポートチャネルの状態を表示します（最大で５世代）。
+  左から順に新しいログ・ファイルのポート状態です。
+
+  {% for port_list in result_list %}
   <div class="wrapper">
-    {% for item in node_list %}
-      <div class="box {% if item['STATUS'] == 'connected' %}up{% elif item['STATUS'] == 'notconnect' %}down{% endif %} ">{{ item["PORT"]|d('') }}</div>
-    {% endfor %}
+    {% for i in range(5) -%}
+      {% set status = port_list[i]['Status']|d('') %}
+      {% set port = port_list[i]['Port']|d('') %}
+      <div class="box {% if status == 'up' %}up{% elif status.startswith('down') %}down{% endif %} ">{{ port }}</div>
+    {% endfor -%}
+    <div>id<br>{{ port_list[0]['id']|d('') }}</div>
+    <div>Port<br>{{ port_list[0]['Port']|d('') }}</div>
+    <div>Status<br>{{ port_list[0]['Status']|d('') }}</div>
+    <div>Consistency<br>{{ port_list[0]['Consistency']|d('') }}</div>
+    <div>Reason<br>{{ port_list[0]['Reason']|d('') }}</div>
+    <div>ActiveVlans<br>{{ port_list[0]['ActiveVlans']|d('') }}</div>
   </div>
   {% endfor %}
 
-  <BR>
-
-  <h1>command output</h1>
-
-  <pre>
-    <code>
-
-{{ cli_output }}
-
-    </code>
-  </pre>
-
 </body>
-
 </html>

@@ -45,4 +45,4 @@
     - debug: msg="{{ script_result.stdout }}"
 
   tags:
-    - analizer
+    - analyzer

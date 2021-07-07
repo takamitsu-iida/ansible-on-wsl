@@ -6,5 +6,5 @@ EXCLUDE_HOSTS: []
 # ログファイルのディレクトリ
 LOG_DIR: "{{ lookup('env', 'PWD') }}/log"
 
-# 実行後に処理するスクリプト
-SCRIPT: "{{ role_path }}/files/aci_show_vpc_brief.py"
+# HTMLテンプレート
+HTML: "show_vpc_brief.html"

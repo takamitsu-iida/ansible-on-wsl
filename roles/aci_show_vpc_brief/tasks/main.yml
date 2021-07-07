@@ -1,15 +1,5 @@
 ---
 
-- name: module test
-  aci_show_vpc_brief:
-    dir: "{{ LOG_DIR }}"
-    prefix: leaf1
-  register: r
-
-- debug: var=r
-
-- meta: end_play
-
 - name: Create log directory if not exists
   local_action:
     module: file
@@ -45,14 +35,25 @@
 -
   block: # 分析するブロック
 
-    - name: run log analizer script
-      command: "{{ SCRIPT }} -d {{ LOG_DIR }} -p {{ inventory_hostname }}"
-      # args:
-      #   chdir: "{{ role_path }}/files"
-      delegate_to: localhost
-      register: script_result
+    - name: analyze log
+      aci_show_vpc_brief:
+        log_dir: "{{ LOG_DIR }}"
+        file_prefix: leaf1
+      register: r
 
-    - debug: msg="{{ script_result.stdout }}"
+    - set_fact:
+        result_list: "{{ r.result_list }}"
+        filenames: "{{ r.filenames }}"
+
+    # - debug: var=filenames
+
+    - name: save result
+      local_action:
+        module: template
+        src: "{{ HTML }}"
+        dest: "{{ LOG_DIR }}/{{ filenames[0] }}.html"
+      changed_when: false
+      ignore_errors: true
 
   tags:
-    - analizer
+    - analyzer
