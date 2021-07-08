@@ -38,7 +38,7 @@
       local_action:
         module: aci_show_int_status
         log_dir: "{{ LOG_DIR }}"
-        file_prefix: "{{ inventory_hostname}}"
+        file_prefix: "{{ inventory_hostname }}"
       register: r
 
     - set_fact:
