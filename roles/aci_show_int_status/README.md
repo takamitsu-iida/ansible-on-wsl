@@ -1,38 +1,43 @@
-Role Name
-=========
+# aci_show_int_status
 
-A brief description of the role goes here.
+Cisco ACIのスイッチにSSH接続してiShell上のコマンドshow interface statusを実行します。
 
-Requirements
-------------
+<br>
 
-Any pre-requisites that may not be covered by Ansible itself or the role should be mentioned here. For instance, if the role uses the EC2 module, it may be a good idea to mention in this section that the boto package is required.
+# Requirements
 
-Role Variables
---------------
+Cisco ACIのスイッチにSSH接続できる環境が必要です。
 
-A description of the settable variables for this role should go here, including any variables that are in defaults/main.yml, vars/main.yml, and any variables that can/should be set via parameters to the role. Any variables that are read from other roles and/or the global scope (ie. hostvars, group vars, etc.) should be mentioned here as well.
+制御ノード上にPythonのTextFSMモジュールが必要です。
 
-Dependencies
-------------
+<br>
 
-A list of other roles hosted on Galaxy should go here, plus any details in regards to parameters that may need to be set for other roles, or variables that are used from other roles.
+# Role Variables
 
-Example Playbook
-----------------
+`defaults/main.py`に記載の変数を利用します。
 
-Including an example of how to use your role (for instance, with variables passed in as parameters) is always nice for users too:
+<br>
 
-    - hosts: servers
-      roles:
-         - { role: username.rolename, x: 42 }
+# Dependencies
 
-License
--------
+他のロールへの依存はありません。
+
+<br>
+
+# Example Playbook
+
+`show interface status`コマンドを実行した結果をログ・ファイルとして残します。
+
+過去のログも含めて分析し、HTMLファイルで可視化します。
+
+![キャプチャ](https://user-images.githubusercontent.com/21165341/124870226-5292bb80-dffd-11eb-8445-6ad8dc945389.PNG)
+
+<br>
+
+# License
 
 BSD
 
-Author Information
-------------------
+# Author Information
 
-An optional section for the role authors to include contact information, or a website (HTML is not allowed).
+takamitsu-iida
