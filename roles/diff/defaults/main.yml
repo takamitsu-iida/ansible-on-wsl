@@ -1,0 +1,18 @@
+---
+
+# 実行対象としないホストの配列
+EXCLUDE_HOSTS: []
+
+# ログファイルのディレクトリ
+LOG_DIR: "{{ lookup('env', 'PWD') }}/log"
+
+# コマンド
+COMMANDS:
+  - show inventory
+  - show lldp neighbors
+  - show hardware
+  - show module
+  - show cores
+
+# HTMLテンプレート
+HTML: "diff.html"

@@ -2,11 +2,10 @@
 # -*- coding: utf-8 -*-
 from __future__ import absolute_import, division, print_function
 
-from re import TEMPLATE
-
 __metaclass__ = type
+
 '''
-Cisco ACIのスイッチにSSHで接続してiShell上のコマンドshow int statusの出力を加工します。
+Cisco ACIのスイッチのiShellで実行したshow int statusコマンドの出力を加工します。
 '''
 __author__ = 'takamitsu-iida'
 __version__ = '0.1'

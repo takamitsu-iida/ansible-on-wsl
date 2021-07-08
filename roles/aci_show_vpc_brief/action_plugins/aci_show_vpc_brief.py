@@ -3,9 +3,11 @@
 from __future__ import absolute_import, division, print_function
 
 __metaclass__ = type
+
 '''
-Cisco ACIのスイッチにSSHで接続してiShell上のコマンドshow vpc briefの出力を加工します。
+Cisco ACIのiShellで実行したshow vpc briefコマンドの出力を加工します。
 '''
+
 __author__ = 'takamitsu-iida'
 __version__ = '0.1'
 __date__ = "20210705"

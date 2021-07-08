@@ -1,0 +1,70 @@
+---
+
+
+- name: Create log directory if not exists
+  local_action:
+    module: file
+    path: "{{ LOG_DIR }}"
+    state: directory
+    recurse: true
+  changed_when: false
+  run_once: false  # ログディレクトリは対象ホストごとに違う可能性があるのでfalseを指定
+
+-
+  block: # showコマンドを実行してファイルに保存するブロック
+
+    - name: execute commands
+      cli_command:
+        command: "{{ item }}"
+      register: cli_result
+      loop: "{{ COMMANDS }}"
+
+    - set_fact:
+        cli_output: |-
+          {# COMMANDS配列とcli_result.results配列を結合したのちループを回す #}
+          {% for item in (COMMANDS | zip(cli_result.results) | list) -%}
+          ============================================================
+          {{ item[0] }}
+          ============================================================
+
+          {{ item[1].stdout }}
+
+          {% endfor -%}
+
+    - name: Save command output
+      local_action:
+        module: copy
+        content: "{{ cli_output }}"
+        dest: "{{ LOG_DIR }}/{{ filename }}"
+
+  vars:
+    date: "{{ lookup('pipe', 'date +%Y%m%d_%H%M%S') }}"
+    # filename: "{{ inventory_hostname }}_{{ role_name|basename }}_{{ date }}.txt"
+    filename: "{{ inventory_hostname }}_cli_log_{{ date }}.txt"
+
+-
+  block: # 分析するブロック
+
+    # 独自モジュールによる差分抽出
+    - name: analyze log
+      local_action:
+        module: diff
+        dst_dir: "{{ LOG_DIR }}"
+        dst_file_prefix: "{{ inventory_hostname }}"
+        dst_file_ext: ".txt"
+      register: r
+
+    - set_fact:
+        diff_list: "{{ r.diff_list }}"
+
+    - name: save result
+      local_action:
+        module: template
+        src: "{{ HTML }}"
+        # dest: "{{ LOG_DIR }}/{{ inventory_hostname }}_{{ role_name|basename }}.html"
+        dest: "{{ LOG_DIR }}/{{ inventory_hostname }}_cli_log_diff.html"
+      changed_when: false
+      ignore_errors: true
+
+  tags:
+    - analyzer

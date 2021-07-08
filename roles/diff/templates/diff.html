@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title>diff</title>
+  <meta charset="utf-8">
+  <style>
+    html {
+      font-size: 62.5%;
+    }
+
+    body {
+      margin: 40px;
+      font-size: 1.4em;
+    }
+
+    table.diff {
+      font-family: Courier;
+      border: medium;
+    }
+
+    .diff_header {
+      background-color: #e0e0e0
+    }
+
+    td.diff_header {
+      text-align: right
+    }
+
+    .diff_next {
+      background-color: #c0c0c0
+    }
+
+    .diff_add {
+      background-color: #aaffaa
+    }
+
+    .diff_chg {
+      background-color: #ffff77
+    }
+
+    .diff_sub {
+      background-color: #ffaaaa
+    }
+  </style>
+
+</head>
+
+<body>
+
+{% for obj in diff_list %}
+<h1>Diff</h1>
+  <h2>from_path: {{ obj['from_path']|d('') }}</h2>
+  <h2>to_path: {{ obj['to_path']|d('') }}</h2>
+  <div>
+{{ obj['diff']|d('') }}
+  </div>
+{% endfor %}
+
+</body>
+
+</html>
