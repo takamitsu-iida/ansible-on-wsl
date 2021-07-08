@@ -1,0 +1,59 @@
+---
+
+- name: Create log directory if not exists
+  local_action:
+    module: file
+    path: "{{ LOG_DIR }}"
+    state: directory
+    recurse: true
+  changed_when: false
+  run_once: false  # ログディレクトリは対象ホストごとに違う可能性があるのでfalseを指定
+
+-
+  block: # showコマンドを実行してファイルに保存するブロック
+
+    - name: show interface status
+      cli_command:
+        command: show interface status
+      register: cli_result
+
+    - set_fact:
+        cli_output: "{{ cli_result.stdout }}"
+
+    - name: Save command output
+      local_action:
+        module: copy
+        content: "{{ cli_result.stdout }}"
+        dest: "{{ LOG_DIR }}/{{ filename }}"
+
+  vars:
+    date: "{{ lookup('pipe', 'date +%Y%m%d_%H%M%S') }}"
+    filename: "{{ inventory_hostname }}_{{ role_name|basename }}_{{ date }}.txt"
+
+-
+  block: # 分析するブロック
+
+    # 独自モジュールによるログ分析
+    - name: analyze log
+      local_action:
+        module: aci_show_int_status
+        log_dir: "{{ LOG_DIR }}"
+        file_prefix: "{{ inventory_hostname}}"
+      register: r
+
+    - set_fact:
+        result_list: "{{ r.result_list }}"
+        filenames: "{{ r.filenames }}"
+
+    # - debug: var=result_list
+
+    - name: save result
+      local_action:
+        module: template
+        src: "{{ HTML }}"
+        dest: "{{ LOG_DIR }}/{{ filenames[0] }}.html"
+      changed_when: false
+      ignore_errors: true
+
+  tags:
+    - analyzer

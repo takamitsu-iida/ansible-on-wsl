@@ -9,14 +9,14 @@ ANSIBLE_METADATA = {
 
 DOCUMENTATION = '''
 ---
-module: aci_show_vpc_brief
+module: aci_show_int_status
 
-short_description: parse show vpc brief output
+short_description: parse show interface status output
 
 version_added: "2.9"
 
 description:
-  - parse show vpc brief output
+  - parse show interface status
 
 options:
   log_dir:

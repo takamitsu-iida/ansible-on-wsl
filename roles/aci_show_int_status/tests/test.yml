@@ -1,0 +1,15 @@
+---
+
+- name: test
+  hosts: leaf1
+  # hosts: leaf_switches
+  gather_facts: false
+  strategy: linear
+  serial: 0
+
+  tasks:
+    - import_role:
+        name: ../../aci_show_int_status
+      vars:
+        EXCLUDE_HOSTS: []
+        LOG_DIR: "{{ lookup('env', 'PWD') + '/log' }}"

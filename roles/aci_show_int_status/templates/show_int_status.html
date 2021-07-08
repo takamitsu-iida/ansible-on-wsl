@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title>aci show interface status</title>
+  <meta charset="utf-8">
+  <style>
+
+    html {
+      font-size: 62.5%;
+    }
+
+    body {
+      margin: 40px;
+      font-size: 1.4em;
+    }
+
+    .wrapper {
+      display: grid;
+      padding: 10px;
+      margin: 10px;
+      column-gap: 10px;
+      row-gap: 10px;
+      grid-template-columns: repeat(5, 50px) 60px 100px 60px 60px 1fr;
+      background-color:#F5F5F5;
+    }
+
+    .box {
+      width: 35px;
+      height: 35px;
+      background-color:#F5F5F5;
+      color: #fff;
+      border-radius: 4px;
+      padding: 4px;
+      margin: 0px;
+      font-size: 1.0rem;
+    }
+
+    .down {
+      background-color:black;
+    }
+
+    .up {
+      background-color:green;
+    }
+
+    .other {
+      background-color: #F5F5F5;
+    }
+
+    pre {
+      margin: 1em 0;
+      padding: 1em;
+      font-size: 120%;
+      max-width: 1320px;
+      color: #2F4F4F;
+      background-color:#F5F5F5;
+      overflow: auto;
+    }
+
+  </style>
+
+</head>
+
+<body>
+
+  <h1>Parsed files</h1>
+
+  {% for filename in filenames %}
+  <p>{{ filename }}</p>
+  {% endfor %}
+
+  <h1>Interface status history</h1>
+
+  show interface statusコマンドのログ・ファイルを分析してインタフェースの状態を表示します（最大で５世代）。
+  左から順に新しいログ・ファイルのポート状態です。
+
+  {# Port, Status, Duplex, Speed, Type #}
+  {% for port_list in result_list %}
+  <div class="wrapper">
+    {% for i in range(5) -%}
+      {% set port = port_list[i]['Port']|d('') %}
+      {% set status = port_list[i]['Status']|d('') %}
+      <div class="box {% if status == 'connected' %}up{% elif status == 'notconnect' %}down{% else %}other{% endif %} ">{{ port }}</div>
+    {% endfor -%}
+    <div>Port<br>{{ port_list[0]['Port']|d('') }}</div>
+    <div>Status<br>{{ port_list[0]['Status']|d('') }}</div>
+    <div>Duplex<br>{{ port_list[0]['Duplex']|d('') }}</div>
+    <div>Speed<br>{{ port_list[0]['Speed']|d('') }}</div>
+    <div>Type<br>{{ port_list[0]['Type']|d('') }}</div>
+  </div>
+  {% endfor %}
+
+  <h1>Command output</h1>
+
+  <h2>{{ filenames[0]|d('') }}</h2>
+
+  <pre>
+    <code>
+{{ cli_output|d('') }}
+    </code>
+  </pre>
+
+</body>
+</html>

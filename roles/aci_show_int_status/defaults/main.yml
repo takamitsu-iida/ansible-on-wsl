@@ -1,0 +1,10 @@
+---
+
+# 実行対象としないホストの配列
+EXCLUDE_HOSTS: []
+
+# ログファイルのディレクトリ
+LOG_DIR: "{{ lookup('env', 'PWD') }}/log"
+
+# HTMLテンプレート
+HTML: "show_int_status.html"

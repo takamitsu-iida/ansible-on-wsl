@@ -2,25 +2,37 @@
 # -*- coding: utf-8 -*-
 from __future__ import absolute_import, division, print_function
 
+from re import TEMPLATE
+
 __metaclass__ = type
 '''
-Cisco ACIのスイッチにSSHで接続してiShell上のコマンドshow vpc briefの出力を加工します。
+Cisco ACIのスイッチにSSHで接続してiShell上のコマンドshow int statusの出力を加工します。
 '''
 __author__ = 'takamitsu-iida'
 __version__ = '0.1'
 __date__ = "20210705"
 
-import os
-from pathlib import Path
-from collections import OrderedDict
 
+import os
+from collections import OrderedDict
+from io import StringIO
+from pathlib import Path
+
+#
+# textfsm is required
+#
+try:
+    from textfsm import TextFSM
+    HAS_TEXTFSM = True
+except ImportError as e:
+    HAS_TEXTFSM = False
 
 #
 # ANSIBLE ACTION_PLUGIN
 #
+from ansible.module_utils.common.text.converters import to_text
 from ansible.plugins.action import ActionBase
 from ansible.utils.display import Display
-from ansible.module_utils.common.text.converters import to_text
 
 
 class ActionModule(ActionBase):
@@ -58,28 +70,27 @@ class ActionModule(ActionBase):
             filenames.append(os.path.basename(path))
 
         d = OrderedDict()
-        parser = ShowVpcBriefParser()
+        parser = ShowIntStatusParser()
         for path in paths:
-            filename = os.path.basename(path)
             parsed_list = parser.parse_file(path)
             if parsed_list:
+                filename = os.path.basename(path)
                 d[filename] = parsed_list
 
         # 先頭の分析結果を取り出す
         first_parsed = next(iter(d.values()))
 
-        # idごとのリストにする
+        # Portごとのリストに変換する
         # 先頭が新しいファイルの情報
-        # [ {id: xxx}, {id: xxx}, {id: xxx}]
+        # [ {Port: xxx}, {Port: xxx}, {Port: xxx}]
         result_list = []
         for item in first_parsed:
-            port_id = item.get("id")
+            port_id = item.get('Port')
             port_list = self.get_port_list(d, port_id)
             result_list.append(port_list)
 
         result['filenames'] = filenames
         result['result_list'] = result_list
-
         return result
 
 
@@ -87,115 +98,72 @@ class ActionModule(ActionBase):
         result = []
         for filename, parsed_list in ordered_dict.items():
             for item in parsed_list:
-                if port_id == item.get("id"):
+                if port_id == item.get('Port'):
                     item['filename'] = filename
                     result.append(item)
                     continue
         return result
 
 
-class ShowVpcBriefParser:
-    '''show vpc briefコマンドの出力を固定長で切り取ってパースします
+class ShowIntStatusParser:
+    '''show interface statusコマンドの出力をパースします
     '''
-    #
-    # クラス変数
-    #
+    # textfsmのテンプレートは別ファイルにするほどのものでもないので文字列で定義する
+    TEMPLATE = """
+# ----------------------------------------------------------------------------------------------
+#  Port           Name                Status     Vlan       Duplex   Speed    Type
+# ----------------------------------------------------------------------------------------------
+#  mgmt0          --                  connected  routed     full     1G       --
+#  Eth1/1         --                  connected  trunk      full     10G      10g
+#  Eth1/2         --                  connected  trunk      full     10G      10g
+Value PORT (Eth\d/\d+)
+Value STATUS (\S+)
+Value DUPLEX (full|auto)
+Value SPEED (--|auto|inherit|\d+G)
+Value TYPE (\S+)
 
-    # 処理開始となる行
-    start_string = "id   Port   Status Consistency Reason                     Active vlans"
+Start
+  ^\s+${PORT}\s+\S+\s+${STATUS}\s+\S+\s+${DUPLEX}\s+${SPEED}\s+${TYPE} -> Record
 
-    def parse_buffers(self, lines):
-        """複数行の塊をパースする
-        1         2          3        4         5         6         7         8
-        012345678901234567890123456789012345678901234567890123456789012345678901234567890
-        ----------+---------+----------+--------+---------+---------+---------+---------+
-        vPC status
-        ----------------------------------------------------------------------
-        id   Port   Status Consistency Reason                     Active vlans
-        --   ----   ------ ----------- ------                     ------------
-        1    Po40   up     success     success                    101-106,109
-                                                                ,111
-        [0:5][5:12] [12:19][19:31]     [31:58]                    [58:]
-        """
+EOF
+    """
 
-        if not lines:
-            return None
-        d = OrderedDict()
-        for line in lines:
-            if len(line) < 58:
-                continue
-            d['id'] = d.get('id', '') + line[0:5].strip()
-            d['Port'] = d.get('Port', '') + line[5:12].strip()
-            d['Status'] = d.get('Status', '') + line[12:19].strip()
-            d['Consistency'] = d.get('Consistency', '') + line[19:31].strip()
-            d['Reason'] = d.get('Reason', '') + line[31:58].strip()
-            d['ActiveVlans'] = d.get('ActiveVlans', '') + line[58:].strip()
-
-        if len(d) == 0:
-            return None
-        return d
+    def get_table(self):
+        f = StringIO(ShowIntStatusParser.TEMPLATE.strip())
+        return TextFSM(f)
 
 
-    def parse_file(self, filename):
-        lines = []
+    def parse_file(self, input_path) -> list:
+        data = None
         try:
-            with open(filename, "r") as f:
-                lines = f.readlines()
+            with open(input_path, "r") as f:
+                data = f.read()
         except Exception:
             return []
-        return self.parse_lines(lines)
 
+        table = self.get_table()
+        parsed_list = table.ParseText(data)
 
-    def parse_lines(self, lines):
-        results = []
+        result_list = []
+        # convert list of list to list of dict
+        for item in parsed_list:
+            d = {
+                'Port': item[0],
+                'Status': item[1],
+                'Duplex': item[2],
+                'Speed': item[3],
+                'Type': item[4]
+            }
+            result_list.append(d)
 
-        # 複数行表示の塊
-        buffer_lines = []
-
-        # 処理対象の先頭を見つけたか
-        is_started = False
-
-        for line in lines:
-            # 開始行を見つけるまで読み飛ばす
-            if line.startswith(ShowVpcBriefParser.start_string):
-                is_started = True
-                continue
-
-            if not is_started:
-                continue
-
-            # --で始まっている行は読み飛ばす
-            if len(line) == 0 or line.startswith("--"):
-                continue
-
-            # 数字で始まっていれば塊を発見
-            if line[0].isdigit():
-                # 古い塊をパース
-                data = self.parse_buffers(buffer_lines)
-                if data:
-                    results.append(data)
-                # バッファを新しくする
-                buffer_lines = []
-                buffer_lines.append(line)
-                continue
-
-            # 空白で始まっていれば塊の一部
-            if line[0].isspace():
-                buffer_lines.append(line)
-
-        # 最後の塊
-        data = self.parse_buffers(buffer_lines)
-        if data:
-            results.append(data)
-
-        return results
+        return result_list
 
 
 if __name__ == "__main__":
 
-    from pathlib import Path
     import argparse
     import sys
+    from pathlib import Path
 
 
     def here(path=''):
@@ -215,9 +183,9 @@ if __name__ == "__main__":
 
 
     def debug() -> int:
-        filename1 = "show_vpc_brief.1.txt"
+        filename1 = "leaf1_show_int_status.1.txt"
         input_path = os.path.join(app_dir, filename1)
-        parser = ShowVpcBriefParser()
+        parser = ShowIntStatusParser()
         results = parser.parse_file(input_path)
         for entry in results:
             print(entry)
@@ -247,7 +215,7 @@ if __name__ == "__main__":
             files = get_files(dir=args.directory, prefix=args.prefix)
             # max 10 files
             files = files[:10]
-            parser = ShowVpcBriefParser()
+            parser = ShowIntStatusParser()
             for f in files:
                 filename = os.path.basename(f)
                 result_list = parser.parse_file(f)
