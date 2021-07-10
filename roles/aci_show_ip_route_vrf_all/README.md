@@ -1,9 +1,11 @@
-<BR><BR>
 # aci_show_ip_route_vrf_all
 
 Cisco ACIの各スイッチにSSH接続してiShell上のコマンド `show ip route vrf all` を実行してルーティングテーブルを採取します。
 
-<BR><BR>
+このロールでは`files`ディレクトリに置いたPythonスクリプト`aci_show_ip_route_vrf_all.py`を呼び出します。
+
+<BR>
+
 # Requirements
 
 SSHでCisco ACIの各スイッチに接続できる環境が必要です。踏み台(bastionホスト)経由で構いません。
@@ -12,26 +14,26 @@ SSHでCisco ACIの各スイッチに接続できる環境が必要です。踏�
 
 ACIの各スイッチはnetwork_osをnxosとして設定しますが、実際にはACI独自のiShellですので、terminal_pluginsで挙動を変更する必要があります。このロールに同梱しています。
 
+<BR>
 
-<BR><BR>
 # Role Variables
 
 defaults/main.ymlに記載の変数を利用します。
 
-### ログディレクトリの指定
-
-この設定ではプレイブックを実行したその場所に`log`ディレクトリを作成します
+以下の設定ではプレイブックを実行したその場所に`log`ディレクトリを作成します
 
 ```yml
 LOG_DIR: "{{ lookup('env', 'PWD') + '/log' }}"
 ```
 
-<BR><BR>
+<BR>
+
 # Dependencies
 
 他のロールへの依存はありません。
 
-<BR><BR>
+<BR>
+
 # Example Playbook
 
 初回実行時と、二回目以降の実行で挙動が変わります。
@@ -229,12 +231,14 @@ diff: 4   +: 2   -: 2     leaf1_aci_show_ip_route_vrf_all_20210704_150226.txt
 iida@FCCLS0008993-00:~/git/ansible-on-wsl/roles/aci_show_ip_route_vrf_all/tests$
 ```
 
-<BR><BR>
+<BR>
+
 # License
 
 BSD
 
-<BR><BR>
+<BR>
+
 # Author Information
 
 takamitsu-iida

@@ -1,38 +1,53 @@
-Role Name
-=========
+# aci_iping
 
-A brief description of the role goes here.
+Cisco ACIのスイッチにSSHで接続し、ipingコマンドを実行します。
 
-Requirements
-------------
+このロールでは独自のフィルタープラグインを利用します。
 
-Any pre-requisites that may not be covered by Ansible itself or the role should be mentioned here. For instance, if the role uses the EC2 module, it may be a good idea to mention in this section that the boto package is required.
+<br>
 
-Role Variables
---------------
+# Requirements
 
-A description of the settable variables for this role should go here, including any variables that are in defaults/main.yml, vars/main.yml, and any variables that can/should be set via parameters to the role. Any variables that are read from other roles and/or the global scope (ie. hostvars, group vars, etc.) should be mentioned here as well.
+制御ノード上にPythonのtextfsmモジュールが必要です。
 
-Dependencies
-------------
+<br>
 
-A list of other roles hosted on Galaxy should go here, plus any details in regards to parameters that may need to be set for other roles, or variables that are used from other roles.
+# Role Variables
 
-Example Playbook
-----------------
+`defaults/main.yml`に記載の変数を利用します。
 
-Including an example of how to use your role (for instance, with variables passed in as parameters) is always nice for users too:
+下記の設定では、カレントディレクトリ直下のlogディレクトリにログを格納します。各ノード単位にipingの実行結果をファイルに追記していきます。
 
-    - hosts: servers
-      roles:
-         - { role: username.rolename, x: 42 }
+```
+# ログファイルのディレクトリ
+LOG_DIR: "{{ lookup('env', 'PWD') }}/log"
+```
 
-License
--------
+<br>
+
+# Dependencies
+
+他のロールへの依存はありません。
+
+<br>
+
+# Example Playbook
+
+プレイブックの例は`tests/test.yml`にあります。
+
+実行後に`aci_iping_summary.html`というHTMLファイルが生成されます。
+ipingの実行結果を一覧表示したものです。上から下に実行したノード、右から左にipingを打った先、を表します。ロス率によって背景色が変わります。
+
+![キャプチャ](https://user-images.githubusercontent.com/21165341/125151152-0ae86d00-e180-11eb-8c19-77562c1780f5.PNG)
+
+<br>
+
+# License
 
 BSD
 
-Author Information
-------------------
+<br>
 
-An optional section for the role authors to include contact information, or a website (HTML is not allowed).
+# Author Information
+
+takamitsu-iida

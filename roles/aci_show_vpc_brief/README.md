@@ -1,8 +1,8 @@
 # aci_show_vpc_brief
 
-Cisco ACIのスイッチにログインしてiShell上のコマンド `show vpc brief` を実行し、ログに保存します。
+Cisco ACIのスイッチにログインしてiShell上のコマンド `show vpc brief` を実行してログに保存し、過去に採取したログと共に分析してポートの状態を可視化します。
 
-過去に採取したログと共に分析してポートの状態を可視化します。
+このロールでは独自モジュール`aci_show_vpc_brief`を使ってコマンド出力を加工します。
 
 <BR>
 

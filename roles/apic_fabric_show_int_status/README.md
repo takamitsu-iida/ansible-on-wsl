@@ -2,13 +2,15 @@
 
 Cisco ACIのAPICにSSH接続して`fabric xx show interface status`コマンドを実行し、その結果をパースしてHTMLファイルにします。
 
-<BR><BR>
+このロールでは独自のフィルタープラグイン`split_by_node`を使ってリストを加工します。
+
+<BR>
 
 # Requirements
 
 制御ノード上にPythonのTextFSMモジュールが必要です。
 
-<BR><BR>
+<BR>
 
 # Role Variables
 
@@ -21,13 +23,13 @@ Cisco ACIのAPICにSSH接続して`fabric xx show interface status`コマンド�
 LOG_DIR: "{{ lookup('env', 'PWD') + '/log' }}"
 ```
 
-<BR><BR>
+<BR>
 
 # Dependencies
 
 他のロールへの依存はありません。
 
-<BR><BR>
+<BR>
 
 # Example Playbook
 
@@ -37,7 +39,7 @@ HTMLファイルはこのようなイメージで表示します。緑のポー�
 ![fig_fabric_show_int_status](https://user-images.githubusercontent.com/21165341/124450535-7f598f80-ddbf-11eb-8adc-af7f81aea576.PNG)
 
 
-<BR><BR>
+<BR>
 
 # License
 
