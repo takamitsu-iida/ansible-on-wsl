@@ -36,6 +36,23 @@ LOG_DIR: "{{ lookup('env', 'PWD') + '/log' }}"
 
 # Example Playbook
 
+プレイブックの例は`tests/test.yml`にあります。
+
+```yml
+- name: test
+  hosts: leaf_switches
+  gather_facts: false
+  strategy: linear
+  serial: 0
+
+  tasks:
+    - import_role:
+        name: aci_show_ip_route_vrf_all
+      vars:
+        EXCLUDE_HOSTS: []
+        LOG_DIR: "{{ lookup('env', 'PWD') }}/log"
+```
+
 初回実行時と、二回目以降の実行で挙動が変わります。
 
 ### 初回実行時

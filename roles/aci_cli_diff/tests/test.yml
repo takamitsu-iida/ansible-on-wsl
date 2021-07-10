@@ -14,7 +14,6 @@
         EXCLUDE_HOSTS: []
         LOG_DIR: "{{ lookup('env', 'PWD') }}/log"
         COMMANDS:
-          - show inventory
           - show lldp neighbors
           - show hardware
           - show module

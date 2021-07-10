@@ -27,13 +27,16 @@ pythonの標準ライブラリdifflibを用いて文字列を比較してHTMLの
 
 # Example Playbook
 
+NOTE: 少なくとも2回、実行しないとdiffがとれません。
+
+
 ```yml
   tasks:
     - import_role:
-        name: diff
+        name: aci_cli_diff
       vars:
         EXCLUDE_HOSTS: []
-        LOG_DIR: "{{ lookup('env', 'PWD') + '/log' }}"
+        LOG_DIR: "{{ lookup('env', 'PWD') }}/log"
         COMMANDS:
           - show inventory
           - show lldp neighbors
@@ -41,6 +44,11 @@ pythonの標準ライブラリdifflibを用いて文字列を比較してHTMLの
           - show module
           - show cores
 ```
+
+差分があれば色付きで表示されます。
+
+![キャプチャ](https://user-images.githubusercontent.com/21165341/125151610-556ae900-e182-11eb-9c0b-2041f1ed4f2a.PNG)
+
 
 <br>
 

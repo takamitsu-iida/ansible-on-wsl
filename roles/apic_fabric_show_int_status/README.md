@@ -33,6 +33,30 @@ LOG_DIR: "{{ lookup('env', 'PWD') + '/log' }}"
 
 # Example Playbook
 
+プレイブックの例は`tests/test.yml`にあります。
+
+```yml
+
+- name: test
+  hosts: apic1
+  gather_facts: false
+  strategy: linear
+  serial: 0
+
+  tasks:
+    - import_role:
+        name: apic_fabric_show_int_status
+      vars:
+        EXCLUDE_HOSTS: []
+        LOG_DIR: "{{ lookup('env', 'PWD') }}/log"
+        FABRICS:
+          - 101
+          - 102
+          - 103
+          - 104
+        DEBUG: false
+```
+
 実行すると指定したログディレクトリにテキストファイルとHTMLファイルが生成されます。
 HTMLファイルはこのようなイメージで表示します。緑のポートは`connected`、黒は`notconnect`、グレーはそれ以外を表します。
 

@@ -26,6 +26,23 @@ Cisco ACIのスイッチにログインしてiShell上のコマンド `show vpc 
 
 # Example Playbook
 
+プレイブックの例は`tests/test.yml`にあります。
+
+```yml
+- name: test
+  hosts: leaf_switches
+  gather_facts: false
+  strategy: linear
+  serial: 0
+
+  tasks:
+    - import_role:
+        name: aci_show_vpc_brief
+      vars:
+        EXCLUDE_HOSTS: []
+        LOG_DIR: "{{ lookup('env', 'PWD') }}/log"
+```
+
 プレイブックを実行するたびに`show vpc brief`の実行結果を記録したログファイルが残ります。
 過去５世代までのログファイルをまとめて分析して、いつの時点でPortChannelの状態が変化したのかを可視化します。
 

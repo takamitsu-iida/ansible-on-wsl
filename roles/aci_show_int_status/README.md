@@ -28,6 +28,23 @@ Cisco ACIのスイッチにSSH接続できる環境が必要です。
 
 # Example Playbook
 
+プレイブックの例は`tests/test.yml`にあります。
+
+```yml
+- name: test
+  hosts: leaf_switches
+  gather_facts: false
+  strategy: linear
+  serial: 0
+
+  tasks:
+    - import_role:
+        name: aci_show_int_status
+      vars:
+        EXCLUDE_HOSTS: []
+        LOG_DIR: "{{ lookup('env', 'PWD') }}/log"
+```
+
 `show interface status`コマンドを実行した結果をログ・ファイルとして残します。
 
 過去のログも含めて分析し、HTMLファイルで可視化します。
