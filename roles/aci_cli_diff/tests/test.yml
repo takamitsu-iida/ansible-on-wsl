@@ -9,10 +9,10 @@
 
   tasks:
     - import_role:
-        name: ../../diff
+        name: ../../aci_cli_diff
       vars:
         EXCLUDE_HOSTS: []
-        LOG_DIR: "{{ lookup('env', 'PWD') + '/log' }}"
+        LOG_DIR: "{{ lookup('env', 'PWD') }}/log"
         COMMANDS:
           - show inventory
           - show lldp neighbors

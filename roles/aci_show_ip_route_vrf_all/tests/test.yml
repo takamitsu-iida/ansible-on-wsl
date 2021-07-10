@@ -12,4 +12,4 @@
         name: ../../aci_show_ip_route_vrf_all
       vars:
         EXCLUDE_HOSTS: []
-        LOG_DIR: "{{ lookup('env', 'PWD') + '/log' }}"
+        LOG_DIR: "{{ lookup('env', 'PWD') }}/log"

@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title>aci iping result</title>
+  <meta charset="utf-8">
+  <style>
+
+    html {
+      font-size: 62.5%;
+    }
+
+    body {
+      margin: 40px;
+      font-size: 1.4em;
+    }
+
+    .wrapper {
+      display: grid;
+      padding: 10px;
+      margin: 10px;
+      column-gap: 10px;
+      row-gap: 10px;
+      grid-template-columns: 150px repeat({{ ping_results | length }}, 120px);
+      background-color:#F5F5F5;
+    }
+
+    .box {
+      width: 110px;
+      height: 110px;
+      background-color:#F5F5F5;
+      color: #fff;
+      border-radius: 8px;
+      padding: 4px;
+      margin: 10px;
+      font-size: 1.2rem;
+    }
+
+    /* #78FF94	#77F9C3	#77EEFF	#75A9FF	#B384FF	#FF82B2	#FF8856 */
+
+    .LOSS0 {
+      background-color: #78FF94;
+      color: black;
+    }
+
+    .LOSS10 {
+      background-color: #77F9C3;
+      color: #fff;
+    }
+
+    .LOSS20 {
+      background-color: #B384FF;
+      color: #fff;
+    }
+
+    .LOSS30 {
+      background-color: #FF82B2;
+      color: #fff;
+    }
+
+    pre {
+      margin: 1em 0;
+      padding: 1em;
+      font-size: 120%;
+      max-width: 1320px;
+      color: #2F4F4F;
+      background-color:#F5F5F5;
+      overflow: auto;
+    }
+
+  </style>
+
+</head>
+
+<body>
+
+  <h1>aci iping result summary</h1>
+
+  {#
+    ping_results
+    [
+      {
+        'TO': xxx
+        'TRANSMITTED': xxx
+        'RECEIVED': xxx
+        'LOSS': xxx
+        'RTT_MIN': xxx
+        'RTT_AVG': xxx
+        'RTT_MAX': xxx
+      },
+    ]
+  #}
+
+
+  {% for host in ansible_play_hosts -%}
+    <div class="wrapper">
+      <div>
+        <h2>{{ host }}</h2>
+      </div>
+      {% set ping_results = hostvars[host].ping_results %}
+      {% for item in ping_results -%}
+        {% set TO = item['TO']|d('') %}
+        {% set LOSS = item['LOSS']|float|d('') %}
+        {% set RECEIVED = item['RECEIVED']|d('') %}
+        {% set RTT_AVG = item['RTT_AVG']|d('') %}
+        {% set RTT_MAX = item['RTT_MAX']|d('') %}
+        {% set RTT_MIN = item['RTT_MIN']|d('') %}
+        <div class="box {% if LOSS < 0.1 %}LOSS0{% elif LOSS <= 10 %}LOSS10{% elif LOSS <= 20 %}LOSS20{% else %}LOSS30{% endif %}">
+          <h3>{{ TO }}</h3>
+          LOSS: {{ LOSS }}%<br>
+          rtt avg/max/min {{ RTT_AVG }}/{{ RTT_MAX }}/{{ RTT_MIN }}
+        </div>
+      {% endfor %}
+    </div>
+  {% endfor %}
+
+
+</body>
+</html>

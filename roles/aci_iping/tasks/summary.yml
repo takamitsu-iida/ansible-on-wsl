@@ -1,0 +1,19 @@
+---
+
+- debug: var=ping_results
+
+-
+  block: # 全ノードのipingの結果をHTMLにする
+
+    - name: save ping result summary
+      local_action:
+        module: template
+        src: "{{ HTML }}"
+        dest: "{{ LOG_DIR }}/{{ role_name | basename }}_summary.html"
+      changed_when: false
+      ignore_errors: true
+
+  run_once: true
+
+  tags:
+    - analyzer

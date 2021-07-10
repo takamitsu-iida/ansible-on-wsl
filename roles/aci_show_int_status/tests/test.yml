@@ -12,4 +12,4 @@
         name: ../../aci_show_int_status
       vars:
         EXCLUDE_HOSTS: []
-        LOG_DIR: "{{ lookup('env', 'PWD') + '/log' }}"
+        LOG_DIR: "{{ lookup('env', 'PWD') }}/log"

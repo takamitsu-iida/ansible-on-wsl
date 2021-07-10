@@ -1,0 +1,7 @@
+---
+
+- name: import iping task
+  import_tasks: iping.yml
+
+- name: import summary task
+  import_tasks: summary.yml

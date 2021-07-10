@@ -1,0 +1,14 @@
+---
+
+VRF: overlay-1
+
+TARGETS:
+  - nw-00-03-06-00
+  - nw-00-03-14-00
+  - nw-00-03-22-00
+
+# ログファイルのディレクトリ
+LOG_DIR: "{{ lookup('env', 'PWD') }}/log"
+
+# HTMLテンプレート
+HTML: aci_iping.html

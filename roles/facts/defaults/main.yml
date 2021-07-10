@@ -15,7 +15,7 @@ SUMMARY_CSV: summary.csv.j2
 SUMMARY_TEXT: summary.text.j2
 
 # ログファイルのディレクトリ
-LOG_DIR: "{{ lookup('env', 'PWD') + '/log' }}"
+LOG_DIR: "{{ lookup('env', 'PWD') }}/log"
 
 # ファイル名のプレフィクス
 SUMMARY_FILE_PREFIX: ''
