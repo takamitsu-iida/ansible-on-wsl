@@ -57,6 +57,8 @@ git config --global https.proxy http://username:password@proxy-server.address:80
 
 `~/.gitconifg`をエディタで作成しても構いません。このような設定になると思います。
 
+URLごとに設定を入れられる模様。
+
 ```ini
 [user]
   name = ______
