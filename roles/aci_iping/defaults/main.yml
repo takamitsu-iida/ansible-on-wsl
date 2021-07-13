@@ -12,3 +12,6 @@ LOG_DIR: "{{ lookup('env', 'PWD') }}/log"
 
 # HTMLテンプレート
 HTML: aci_iping.html
+
+# 停止時間
+PAUSE: 60

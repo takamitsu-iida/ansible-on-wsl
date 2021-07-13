@@ -4,6 +4,9 @@ Cisco ACIのスイッチにSSHで接続し、ipingコマンドを実行します
 
 このロールでは独自のフィルタープラグインを利用します。
 
+
+このロールは`ctrl-c + a`で明示的に停止しない限り、繰り返し実行し続けます。
+
 <br>
 
 # Requirements
@@ -37,17 +40,38 @@ LOG_DIR: "{{ lookup('env', 'PWD') }}/log"
 
 ```yml
 
-- name: test
+---
+
+- name: create log directory
+  hosts: localhost
+  gather_facts: false
+  strategy: linear
+  serial: 0
+  tasks:
+    - name: Create log directory if not exists
+      local_action:
+        module: file
+        path: "{{ LOG_DIR }}"
+        state: directory
+        recurse: true
+      changed_when: false
+      run_once: true
+      vars:
+        LOG_DIR: "{{ lookup('env', 'PWD') }}/log"
+
+
+- name: iping
+  # hosts: leaf1
   hosts: leaf_switches
   gather_facts: false
   strategy: linear
   serial: 0
 
   tasks:
-    - import_role:
-        name: aci_iping
+    - include_role:
+        name: ../../aci_iping
       vars:
-        EXCLUDE_HOSTS: []
+        PAUSE: 60
         LOG_DIR: "{{ lookup('env', 'PWD') }}/log"
         TARGETS:
           - nw-00-03-06-00

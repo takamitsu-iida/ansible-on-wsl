@@ -1,7 +1,81 @@
 ---
 
-- name: import iping task
-  import_tasks: iping.yml
+-
+  block: # ipingコマンドを実行してファイルに保存するブロック
 
-- name: import summary task
-  import_tasks: summary.yml
+    - set_fact:
+        date: "{{ lookup('pipe', 'date +%Y%m%d_%H%M%S') }}"
+
+    - name: iping
+      cli_command:
+        command: "iping -V {{ VRF }} -i 0 {{ item }}"
+      loop: "{{ TARGETS }}"
+      register: r
+
+    - set_fact:
+        cli_output: |-
+          {# TARGETS配列とr.results配列を結合したのちループを回す #}
+          {% for item in (TARGETS | zip(r.results) | list) -%}
+          ============================================================
+          {{ date }}
+          iping -v {{ VRF }} {{ item[0] }}
+          ============================================================
+
+          {{ item[1].stdout }}
+
+          {% endfor -%}
+
+    # - debug: msg="{{ cli_output }}"
+
+    - name: Append command output
+      local_action:
+        module: blockinfile
+        block: "{{ cli_output }}"
+        path: "{{ LOG_DIR }}/{{ filename }}"
+        create: true
+        # insertbefore: BOF  # ファイルの先頭に追記
+        insertafter: EOF  # ファイルの末尾に追記
+        marker: ""
+        marker_begin: ""
+        marker_end: ""
+
+    # textfsmでパースした結果をset_factしておく
+    - set_fact:
+        ping_results: "{{ r.results | parse_ping }}"
+
+    # - debug: var=ping_results
+
+
+  rescue:
+    - set_fact:
+        ping_results: []
+
+  vars:
+    filename: "{{ inventory_hostname }}_{{ role_name | basename }}.txt"
+
+  tags:
+    - iping
+
+-
+  block: # 全ノードのipingの結果をHTMLにする
+
+    - name: save ping result summary
+      local_action:
+        module: template
+        src: "{{ HTML }}"
+        dest: "{{ LOG_DIR }}/{{ role_name | basename }}_summary.html"
+      changed_when: false
+      ignore_errors: true
+
+    - name: pause
+      pause:
+        # minutes: 1
+        seconds: "{{ PAUSE }}"
+
+
+  run_once: true
+
+  tags:
+    - analyzer
+
+- include_tasks: main.yml
