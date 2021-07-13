@@ -26,3 +26,6 @@
   tasks:
     - include_role:
         name: ../../ping_loop
+      vars:
+        PAUSE: 60
+        LOG_DIR: "{{ lookup('env', 'PWD') }}/log"

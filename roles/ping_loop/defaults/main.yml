@@ -28,3 +28,6 @@ LOG_DIR: "{{ lookup('env', 'PWD') }}/log"
 
 # HTMLテンプレート
 HTML: ios_ping.html
+
+# pause interval in seconds
+PAUSE: 60

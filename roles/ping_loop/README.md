@@ -44,7 +44,6 @@ Cisco IOS装置にSSH接続してpingコマンドを実行します。結果をH
       vars:
         LOG_DIR: "{{ lookup('env', 'PWD') }}/log"
 
-
 - name: ping
   hosts: iosxr_routers
   gather_facts: false
@@ -53,48 +52,19 @@ Cisco IOS装置にSSH接続してpingコマンドを実行します。結果をH
   tasks:
     - include_role:
         name: ping_loop
+      vars:
+        PAUSE: 60
+        LOG_DIR: "{{ lookup('env', 'PWD') }}/log"
 ```
 
 プレイブックを実行すると、同じロールを繰り返し実行します。
 途中60秒間のインターバルを設けていますので、そのタイミングで`ctrl-c a`を打ち込めば停止します。
 
-ロールを繰り返すために意図的にタスクをfailさせています。このfaildは期待される動作です。
-
 ```bash
-TASK [../../ping_loop : fail] ***
-fatal: [pe1]: FAILED! => {
-    "changed": false
-}
-
-MSG:
-
-INTENTIONAL FAIL PLEASE IGNORE
-fatal: [pe3]: FAILED! => {
-    "changed": false
-}
-
-MSG:
-
-INTENTIONAL FAIL PLEASE IGNORE
-fatal: [pe2]: FAILED! => {
-    "changed": false
-}
-
-MSG:
-
-INTENTIONAL FAIL PLEASE IGNORE
-fatal: [pe4]: FAILED! => {
-    "changed": false
-}
-
-MSG:
-
-INTENTIONAL FAIL PLEASE IGNORE
-
 TASK [../../ping_loop : save ping result summary] ***
 ok: [pe1 -> localhost]
 
-TASK [../../ping_loop : Pause for 60 seconds] ***
+TASK [../../ping_loop : pause] ***
 Pausing for 60 seconds
 (ctrl+C then 'C' = continue early, ctrl+C then 'A' = abort)
 ```

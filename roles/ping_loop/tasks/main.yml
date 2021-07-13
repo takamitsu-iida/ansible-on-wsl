@@ -1,7 +1,7 @@
 ---
 
 -
-  block: # pingコマンドを実行してファイルに保存するブロック
+  block:
 
     - set_fact:
         date: "{{ lookup('pipe', 'date +%Y%m%d_%H%M%S') }}"
@@ -49,30 +49,28 @@
 
     # - debug: var=ping_results
 
-    - fail:
-        msg: INTENTIONAL FAIL PLEASE IGNORE
-
   rescue:
-
-    - block:
-
-        - name: save ping result summary
-          local_action:
-            module: template
-            src: "{{ HTML }}"
-            dest: "{{ LOG_DIR }}/{{ role_name | basename }}_summary.html"
-          changed_when: false
-          ignore_errors: true
-
-        - name: Pause for 60 seconds
-          pause:
-            minutes: 1
-            # seconds: 10
-
-      run_once: true
-
-    - name: execute recursively
-      include_tasks: main.yml
+    - set_fact:
+        ping_results: []
 
   vars:
     filename: "{{ inventory_hostname }}_{{ role_name | basename }}.txt"
+
+-
+  block:
+    - name: save ping result summary
+      local_action:
+        module: template
+        src: "{{ HTML }}"
+        dest: "{{ LOG_DIR }}/{{ role_name | basename }}_summary.html"
+      changed_when: false
+      ignore_errors: true
+
+    - name: pause
+      pause:
+        # minutes: 1
+        seconds: "{{ PAUSE }}"
+
+  run_once: true
+
+- include_tasks: main.yml
