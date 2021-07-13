@@ -1,0 +1,28 @@
+---
+
+- name: Create log directory
+  hosts: localhost
+  gather_facts: false
+  strategy: linear
+  serial: 0
+  tasks:
+    - name: Create log directory if not exists
+      local_action:
+        module: file
+        path: "{{ LOG_DIR }}"
+        state: directory
+        recurse: true
+      changed_when: false
+      run_once: true
+      vars:
+        LOG_DIR: "{{ lookup('env', 'PWD') }}/log"
+
+
+- name: ping
+  hosts: iosxr_routers
+  gather_facts: false
+  strategy: linear
+  serial: 0
+  tasks:
+    - include_role:
+        name: ../../ping_loop

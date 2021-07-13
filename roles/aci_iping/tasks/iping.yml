@@ -40,8 +40,11 @@
         block: "{{ cli_output }}"
         path: "{{ LOG_DIR }}/{{ filename }}"
         create: true
-        insertbefore: BOF  # ファイルの先頭に追記
-        # insertafter: EOF  # ファイルの末尾に追記
+        # insertbefore: BOF  # ファイルの先頭に追記
+        insertafter: EOF  # ファイルの末尾に追記
+        marker: ""
+        marker_begin: ""
+        marker_end: ""
 
     # textfsmでパースした結果をset_factしておく
     - set_fact:

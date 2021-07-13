@@ -1,0 +1,78 @@
+---
+
+-
+  block: # pingコマンドを実行してファイルに保存するブロック
+
+    - set_fact:
+        date: "{{ lookup('pipe', 'date +%Y%m%d_%H%M%S') }}"
+
+    - name: ping
+      cli_command:
+        command: "ping {{ item }}"
+      when:
+        - TARGET[inventory_hostname]
+      loop: "{{ TARGET[inventory_hostname] }}"
+      register: r
+
+    - set_fact:
+        # TARGET配列とr.results配列を結合したのちループを回す
+        cli_output: |-
+          {% for item in (TARGET[inventory_hostname] | zip(r.results) | list) -%}
+          ============================================================
+          {{ date }}
+          ping {{ item[0] }}
+          ============================================================
+
+          {{ item[1].stdout }}
+
+          {% endfor -%}
+
+    # - debug: msg="{{ cli_output }}"
+
+    - name: Append command output
+      local_action:
+        module: blockinfile
+        block: "{{ cli_output }}"
+        path: "{{ LOG_DIR }}/{{ filename }}"
+        create: true
+        # insertbefore: BOF  # ファイルの先頭に追記
+        insertafter: EOF  # ファイルの末尾に追記
+        marker: ""
+        marker_begin: ""
+        marker_end: ""
+
+    # - debug: var=r.results
+
+    # parse by textfsm
+    - set_fact:
+        ping_results: "{{ r.results | parse_ios_ping }}"
+
+    # - debug: var=ping_results
+
+    - fail:
+        msg: INTENTIONAL FAIL PLEASE IGNORE
+
+  rescue:
+
+    - block:
+
+        - name: save ping result summary
+          local_action:
+            module: template
+            src: "{{ HTML }}"
+            dest: "{{ LOG_DIR }}/{{ role_name | basename }}_summary.html"
+          changed_when: false
+          ignore_errors: true
+
+        - name: Pause for 60 seconds
+          pause:
+            minutes: 1
+            # seconds: 10
+
+      run_once: true
+
+    - name: execute recursively
+      include_tasks: main.yml
+
+  vars:
+    filename: "{{ inventory_hostname }}_{{ role_name | basename }}.txt"
