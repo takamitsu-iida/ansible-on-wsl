@@ -44,6 +44,11 @@ class ActionModule(ActionBase):
         display = Display()
 
         # get task args
+        # - name: analyze log
+        #   aci_show_int_status:
+        #     log_dir: "{{ LOG_DIR }}"
+        #     file_prefix: "{{ inventory_hostname }}"
+        #   register: r
         log_dir = self._task.args.get('log_dir', '')
         file_prefix = self._task.args.get('file_prefix', '')
 

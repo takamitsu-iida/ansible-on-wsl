@@ -2,7 +2,12 @@
 
 Cisco ACIのSpineスイッチにSSH接続してiShell上のコマンド`show lldp neighbors`の実行結果を採取します。
 
-このロールでは独自のAction Pluginを使って実行結果を分析します。
+このロールでは独自のアクションプラグインを使って実行結果を分析します。
+
+`aci_spine_lldp`はコマンド出力の加工とjsonファイルの保存までを実行します。
+
+`aci_spine_lldp_diff`は`files/diff_source.json`との差分を確認し、CSSのクラスを付与する処理を行います。
+追加や削除があれば色で分かるようになっています。
 
 <br>
 

@@ -2,7 +2,7 @@
 
 Cisco ACIのスイッチにSSH接続してiShell上のコマンドshow interface statusを実行します。
 
-このロールでは独自モジュール`aci_show_int_status`を利用してコマンド出力を加工します。
+このロールでは独自のアクションプラグイン`aci_show_int_status`を利用してコマンド出力を加工します。
 
 <br>
 

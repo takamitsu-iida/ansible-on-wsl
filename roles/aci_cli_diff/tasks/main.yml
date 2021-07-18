@@ -45,10 +45,9 @@
 -
   block: # 分析するブロック
 
-    # 独自モジュールによる差分抽出
+    # 独自アクションプラグインによる差分抽出
     - name: analyze log
-      local_action:
-        module: diff
+      cli_diff:
         dst_dir: "{{ LOG_DIR }}"
         dst_file_prefix: "{{ inventory_hostname }}"
         dst_file_ext: ".txt"

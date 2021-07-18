@@ -35,6 +35,13 @@ class ActionModule(ActionBase):
         display = Display()
 
         # get task args
+        # tasks/main.yml
+        # - name: analyze log
+        #   cli_diff:
+        #     dst_dir: "{{ LOG_DIR }}"
+        #     dst_file_prefix: "{{ inventory_hostname }}"
+        #     dst_file_ext: ".txt"
+        #   register: r
         dst_dir = self._task.args.get('dst_dir')
         dst_file_prefix = self._task.args.get('dst_file_prefix')
         dst_file_ext = self._task.args.get('dst_file_ext', '.txt')
