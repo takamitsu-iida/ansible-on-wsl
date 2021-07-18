@@ -1,0 +1,5 @@
+---
+
+LOG_DIR: "{{ lookup('env', 'PWD') }}/log"
+
+HTML: aci_spine_lldp.html

@@ -1,0 +1,51 @@
+Capability codes:
+  (R) Router, (B) Bridge, (T) Telephone, (C) DOCSIS Cable Device
+  (W) WLAN Access Point, (P) Repeater, (S) Station, (O) Other
+Device ID            Local Intf      Hold-time  Capability  Port ID  
+nw-00-01-19-00        Eth1/1          120        BR          Eth1/49         
+nw-00-01-20-00        Eth1/2          120        BR          Eth1/49         
+nw-00-02-17-00        Eth1/3          120        BR          Eth1/49         
+nw-00-02-18-00        Eth1/4          120        BR          Eth1/49         
+nw-00-02-33-00        Eth1/5          120        BR          Eth1/49         
+nw-00-02-34-00        Eth1/6          120        BR          Eth1/49         
+nw-01-01-16-00        Eth1/7          120        BR          Eth1/49         
+nw-01-01-17-00        Eth1/8          120        BR          Eth1/49         
+nw-01-17-36-00        Eth1/9          120        BR          Eth1/25         
+nw-01-17-35-00        Eth1/10         120        BR          Eth1/25         
+nw-01-04-20-00        Eth1/11         120        BR          Eth1/25         
+nw-01-04-19-00        Eth1/12         120        BR          Eth1/25         
+nw-00-03-30-00        Eth1/13         120        BR          Eth1/49         
+nw-00-03-31-00        Eth1/14         120        BR          Eth1/49         
+nw-00-03-32-00        Eth1/15         120        BR          Eth1/49         
+nw-00-03-33-00        Eth1/16         120        BR          Eth1/49         
+nw-00-01-29-00        Eth1/18         120        BR          Eth1/49         
+nw-00-01-30-00        Eth1/19         120        BR          Eth1/49         
+nw-01-08-34-00        Eth1/20         120        BR          Eth1/49         
+nw-01-08-35-00        Eth1/21         120        BR          Eth1/49         
+nw-00-09-25-00        Eth1/22         120        BR          Eth1/49         
+nw-00-09-26-00        Eth1/23         120        BR          Eth1/49         
+nw-31-08-41-00        Eth1/25         120        BR          Eth1/31         
+nw-31-08-42-00        Eth1/26         120        BR          Eth1/31         
+nw-31-09-36-00        Eth1/27         120        BR          Eth1/31         
+nw-31-09-37-00        Eth1/28         120        BR          Eth1/31         
+nw-00-12-29-00        Eth1/29         120        BR          Eth1/53         
+nw-00-12-30-00        Eth1/30         120        BR          Eth1/53         
+nw-01-19-35-00_H08    Eth1/31         120        BR          Eth1/31         
+nw-01-19-36-00_H08    Eth1/32         120        BR          Eth1/31         
+nw-01-34-28-00        Eth2/1          120        BR          Eth1/53         
+nw-01-34-29-00        Eth2/2          120        BR          Eth1/53         
+nw-00-12-32-00        Eth2/3          120        BR          Eth1/53         
+nw-00-12-33-00        Eth2/4          120        BR          Eth1/53         
+nw-31-61-32-00        Eth2/5          120        BR          Eth1/53         
+nw-31-61-32-00        Eth2/6          120        BR          Eth1/54         
+nw-31-61-33-00        Eth2/7          120        BR          Eth1/53         
+nw-31-61-33-00        Eth2/8          120        BR          Eth1/54         
+nw-25-01-32-00_H10    Eth2/9          120        BR          Eth1/35         
+nw-25-01-32-00_H10    Eth2/10         120        BR          Eth1/36         
+nw-25-01-33-00_H10    Eth2/11         120        BR          Eth1/35         
+nw-25-01-33-00_H10    Eth2/12         120        BR          Eth1/36         
+nw-01-23-26-00        Eth2/13         120        BR          Eth1/31         
+nw-01-23-26-00        Eth2/14         120        BR          Eth1/32         
+nw-01-23-27-00        Eth2/15         120        BR          Eth1/31         
+nw-01-23-27-00        Eth2/16         120        BR          Eth1/32         
+Total entries displayed: 46

@@ -1,0 +1,90 @@
+---
+
+- name: create log directory if not exists
+  local_action:
+    module: file
+    path: "{{ LOG_DIR }}"
+    state: directory
+    recurse: true
+  changed_when: false
+  run_once: true
+
+- set_fact:
+    date: "{{ lookup('pipe', 'date +%Y%m%d_%H%M%S') }}"
+
+- set_fact:
+    filename: "{{ inventory_hostname }}_{{ role_name|basename }}_{{ date }}.txt"
+
+-
+  block:
+
+    - name: show lldp neighbors
+      cli_command:
+        command: show lldp neighbors
+      register: r
+
+    - name: save command output
+      local_action:
+        module: copy
+        content: "{{ r.stdout }}"
+        dest: "{{ LOG_DIR }}/{{ filename }}"
+
+    - set_fact:
+        lldp_stdout: "{{ r.stdout }}"
+
+  tags:
+    - cli_command
+
+-
+  block:  # -t analyzerで実行されたときは、テスト用のファイルを読み込んでset_factする
+    - set_fact:
+        lldp_stdout: "{{ lookup('file', 'lldp_stdout.txt') }}"
+      when:
+        lldp_stdout is not defined
+  tags:
+    - analyzer
+
+-
+  block:  # 分析するブロック
+
+    # 独自ActionPlugin aci_spine_lldp による加工
+    # set_factされたlldp_stdoutを全てのホストから取得して加工する
+    - name: analyze lldp
+      aci_spine_lldp:
+      register: r
+
+    - set_fact:
+        eles: "{{ r.eles }}"
+
+    - name: save json
+      local_action:
+        module: copy
+        content: "{{ r.eles }}"
+        dest: "{{ LOG_DIR }}/{{ role_name|basename }}_{{ date|d('') }}.json"
+
+    - name: diff lldp
+      aci_spine_lldp_diff:
+        src_filename: diff_source.json
+        eles: "{{ r.eles }}"
+      register: r
+
+    - set_fact:
+        eles: "{{ r.eles }}"
+
+    - name: save result
+      local_action:
+        module: template
+        src: "{{ HTML }}"
+        # dest: "{{ LOG_DIR }}/{{ role_name|basename }}_{{ date }}.html"
+        dest: "{{ LOG_DIR }}/{{ role_name|basename }}.html"
+      changed_when: false
+      ignore_errors: true
+
+
+
+
+
+  run_once: true
+
+  tags:
+    - analyzer

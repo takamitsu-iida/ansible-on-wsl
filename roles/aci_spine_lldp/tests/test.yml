@@ -1,0 +1,14 @@
+---
+
+- name: gather lldp info
+  hosts: spine_switches
+  #hosts: spine1
+  gather_facts: false
+  strategy: linear
+  serial: 0
+
+  tasks:
+    - import_role:
+        name: ../../aci_spine_lldp
+      vars:
+        LOG_DIR: "{{ lookup('env', 'PWD') }}/log"
