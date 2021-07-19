@@ -21,6 +21,8 @@ Cisco ACIのSpineスイッチにSSH接続してiShell上のコマンド`show lld
 
 `defaults/main.yml`に記載の変数を利用します。
 
+`DIFF_SOURCE_JSON_FILE`はロールの`files`ディレクトリからの相対パスです。
+
 <br>
 
 # Dependencies
@@ -45,6 +47,7 @@ Cisco ACIのSpineスイッチにSSH接続してiShell上のコマンド`show lld
         name: aci_spine_lldp
       vars:
         LOG_DIR: "{{ lookup('env', 'PWD') }}/log"
+        DIFF_SOURCE_JSON_FILE: aci_spine_lldp_20210718_174749.json
 ```
 
 <br>
