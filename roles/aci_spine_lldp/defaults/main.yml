@@ -2,4 +2,8 @@
 
 LOG_DIR: "{{ lookup('env', 'PWD') }}/log"
 
+# HTML template at templates directory
 HTML: aci_spine_lldp.html
+
+# JSON file to be compared at files directory
+DIFF_SOURCE_JSON_FILE: aci_spine_lldp_20210718_174749.json

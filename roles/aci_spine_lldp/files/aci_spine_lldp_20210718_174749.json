@@ -9,10 +9,11 @@
                 "spine"
             ]
         },
+
         {
             "data": {
-                "id": "nw-00-01-19-00",
-                "label": "nw-00-01-19-00"
+                "id": "nw-99-99-01-00",
+                "label": "DUMMY NODE 1"
             },
             "classes": [
                 "leaf"
@@ -20,8 +21,26 @@
         },
         {
             "data": {
-                "id": "nw-00-01-20-00",
-                "label": "nw-00-01-20-00"
+                "id": "nw-99-99-02-00",
+                "label": "DUMMY NODE 2"
+            },
+            "classes": [
+                "leaf"
+            ]
+        },
+        {
+            "data": {
+                "id": "nw-00-01-19-00-DUMMY",
+                "label": "nw-00-01-19-00-DUMMY"
+            },
+            "classes": [
+                "leaf"
+            ]
+        },
+        {
+            "data": {
+                "id": "nw-00-01-20-00-DUMMY",
+                "label": "nw-00-01-20-00-DUMMY"
             },
             "classes": [
                 "leaf"
@@ -389,6 +408,26 @@
         }
     ],
     "edges": [
+        {
+            "data": {
+                "id": "nw-99-99-01-00_Eth1/49_Eth1/1",
+                "source": "nw-99-99-01-00",
+                "target": "spine1",
+                "source_label": "Eth1/49",
+                "target_label": "Eth1/1",
+                "comment": "DUMMY DATA"
+            }
+        },
+        {
+            "data": {
+                "id": "nw-99-99-02-00_Eth1/49_Eth1/1",
+                "source": "nw-99-99-02-00",
+                "target": "spine1",
+                "source_label": "Eth1/49",
+                "target_label": "Eth1/1",
+                "comment": "DUMMY DATA"
+            }
+        },
         {
             "data": {
                 "id": "nw-00-01-19-00_Eth1/49_Eth1/1",

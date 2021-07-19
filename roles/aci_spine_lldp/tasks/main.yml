@@ -64,7 +64,7 @@
 
     - name: diff lldp
       aci_spine_lldp_diff:
-        src_filename: diff_source.json
+        src_filename: "{{ DIFF_SOURCE_JSON_FILE }}"
         eles: "{{ r.eles }}"
       register: r
 
