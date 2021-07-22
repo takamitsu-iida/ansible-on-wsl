@@ -45,7 +45,8 @@
 
     # textfsmでパースした結果をset_factしておく
     - name: parse ping output
-      set_fact:
+      local_action:
+        module: set_fact
         ping_results: "{{ r.results | parse_ping }}"
 
     # - debug: var=ping_results
