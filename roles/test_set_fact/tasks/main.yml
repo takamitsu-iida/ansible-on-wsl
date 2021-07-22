@@ -1,0 +1,16 @@
+---
+
+-
+  block:
+    - cli_command:
+        command: show version
+      register: r
+
+    - meta: reset_connection
+
+    - debug: msg="{{ r.stdout }}"
+
+    - set_fact:
+        ios_version: "{{ r.stdout | parse_show_version }}"
+
+    - debug: var=ios_version

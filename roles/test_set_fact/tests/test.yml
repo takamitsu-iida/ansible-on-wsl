@@ -1,0 +1,9 @@
+---
+
+- name: test set_fact
+  hosts: gw11
+  gather_facts: false
+
+  tasks:
+    - include_role:
+        name: ../../test_set_fact
