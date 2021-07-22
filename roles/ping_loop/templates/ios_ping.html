@@ -89,30 +89,28 @@
     },
    #}
 
-
-  {% for host in ansible_play_hosts -%}
+  {%- for host in ansible_play_hosts -%}
     <div class="wrapper">
       <div>
         <h2>{{ host }}</h2>
       </div>
-      {% set ping_results = hostvars[host].ping_results %}
-      {% for item in ping_results -%}
-        {% set TO = item['TO']|d('') %}
-        {% set RATE = item['RATE']|float|d('') %}
-        {% set RECEIVED = item['RECEIVED']|d('') %}
-        {% set TRANSMITTED = item['TRANSMITTED']|d('') %}
-        {% set RTT_AVG = item['RTT_AVG']|d('') %}
-        {% set RTT_MAX = item['RTT_MAX']|d('') %}
-        {% set RTT_MIN = item['RTT_MIN']|d('') %}
+      {%- set ping_results = hostvars[host].ping_results|d([]) -%}
+      {%- for item in ping_results -%}
+        {%- set TO = item['TO']|d('') -%}
+        {%- set RATE = item['RATE']|float|d('') -%}
+        {%- set RECEIVED = item['RECEIVED']|d('') -%}
+        {%- set TRANSMITTED = item['TRANSMITTED']|d('') -%}
+        {%- set RTT_AVG = item['RTT_AVG']|d('') -%}
+        {%- set RTT_MAX = item['RTT_MAX']|d('') -%}
+        {%- set RTT_MIN = item['RTT_MIN']|d('') -%}
         <div class="box {% if RATE > 99 %}LOSS0{% elif RATE >= 90 %}LOSS10{% elif RATE >= 80 %}LOSS20{% else %}LOSS30{% endif %}">
           <h3>{{ TO }}</h3>
           Success {{ RATE }}%<br>
           rtt avg/max/min {{ RTT_AVG }}/{{ RTT_MAX }}/{{ RTT_MIN }}
         </div>
-      {% endfor %}
+      {%- endfor -%}
     </div>
-  {% endfor %}
-
+  {%- endfor -%}
 
 </body>
 </html>

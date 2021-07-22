@@ -21,7 +21,7 @@
       margin: 10px;
       column-gap: 10px;
       row-gap: 10px;
-      grid-template-columns: 150px repeat({{ ping_results | length }}, 120px);
+      grid-template-columns: 300px repeat({{ ping_results | length }}, 120px);
       background-color:#F5F5F5;
     }
 
@@ -97,8 +97,8 @@
       <div>
         <h2>{{ host }}</h2>
       </div>
-      {% set ping_results = hostvars[host].ping_results %}
-      {% for item in ping_results -%}
+      {%- set ping_results = hostvars[host].ping_results | d([]) -%}
+      {%- for item in ping_results -%}
         {% set TO = item['TO']|d('') %}
         {% set LOSS = item['LOSS']|float|d('') %}
         {% set RECEIVED = item['RECEIVED']|d('') %}
@@ -110,7 +110,7 @@
           LOSS: {{ LOSS }}%<br>
           rtt avg/max/min {{ RTT_AVG }}/{{ RTT_MAX }}/{{ RTT_MIN }}
         </div>
-      {% endfor %}
+      {%- endfor -%}
     </div>
   {% endfor %}
 

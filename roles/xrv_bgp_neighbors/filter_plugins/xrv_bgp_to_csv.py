@@ -11,8 +11,13 @@ class FilterModule(object):
       "xrv_bgp_to_csv": self.xrv_bgp_to_csv
     }
 
-  # io.StringIO requires python3
+  #
+  # NOTE: io.StringIO requires python3
+  #
+
   def xrv_bgp_to_csv(self, lines):
+    if not lines:
+      return None
     # lines shoud be like this
     # [ {obj}, {obj}, {obj} ]
     output = io.StringIO()

@@ -2,7 +2,8 @@
 
 # 実行時間を記録する
 - name: get current time
-  set_fact:
+  local_action:
+    module: set_fact
     _date: "{{ lookup('pipe', 'date +%Y%m%d_%H%M%S') }}"
 
 -
@@ -13,17 +14,17 @@
           - show bgp neighbors
       register: r
       when:
-        - ansible_network_os == 'cisco.iosxr.iosxr'
+        - ansible_network_os in ['iosxr', 'cisco.iosxr.iosxr']
 
-    # - debug:
-    #     msg: "{{ r.stdout[0] }}"
+    # - debug: var=r
 
     #
     # レポート用に実行結果をset_factする
     #
-    - set_fact:
-        _result: "{{ 'NG' if r.failed else 'OK' }}"
-        _stdout: "{{ r.stdout[0] }}"
+    - local_action:
+        module: set_fact
+        _result: "{{ 'NG' if r.skipped|d(false) or r.failed|d(false) else 'OK' }}"
+        _stdout: "{{ r.stdout[0]|d('') }}"
 
   rescue:
     # - debug:
@@ -32,5 +33,6 @@
     #
     # レポート用に失敗した情報をset_factする
     #
-    - set_fact:
+    - local_action:
+        module: set_fact
         _result: 'NG'

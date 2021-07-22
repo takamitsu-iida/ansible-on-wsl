@@ -35,7 +35,8 @@
           skip: true
       register: r
 
-    - set_fact:
+    - local_action:
+        module: set_fact
         skipped: "{{ r.skipped|d(false) }}"
 
     - name: Save command output
@@ -55,7 +56,8 @@
     #     patterns: "{{ inventory_hostname }}_{{ role_name|basename }}_*.txt"
     #   register: find_result
     #
-    # - set_fact:
+    # - local_action:
+    #     module: set_fact
     #     log_files: "{{ find_result.files | sort(attribute='ctime', reverse=True) | map(attribute='path') | list }}"
     #
     # - debug: var=log_files

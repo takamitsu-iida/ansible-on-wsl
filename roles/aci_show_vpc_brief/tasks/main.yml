@@ -17,7 +17,9 @@
         command: show vpc brief
       register: cli_result
 
-    - set_fact:
+    - name: set_fact cli_command output
+      local_action:
+        module: set_fact
         cli_output: "{{ cli_result.stdout }}"
 
     - name: Save command output
@@ -41,7 +43,9 @@
         file_prefix: "{{ inventory_hostname}}"
       register: r
 
-    - set_fact:
+    - name: set_fact analyzed result
+      local_action:
+        module: set_fact
         result_list: "{{ r.result_list }}"
         filenames: "{{ r.filenames }}"
 

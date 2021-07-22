@@ -3,7 +3,8 @@
 -
   block:
 
-    - set_fact:
+    - local_action:
+        module: set_fact
         date: "{{ lookup('pipe', 'date +%Y%m%d_%H%M%S') }}"
 
     - name: ping
@@ -14,7 +15,9 @@
       loop: "{{ TARGET[inventory_hostname] }}"
       register: r
 
-    - set_fact:
+    - name: set_fact cli_command output
+      local_action:
+        module: set_fact
         # TARGET配列とr.results配列を結合したのちループを回す
         cli_output: |-
           {% for item in (TARGET[inventory_hostname] | zip(r.results) | list) -%}
@@ -44,13 +47,15 @@
     # - debug: var=r.results
 
     # parse by textfsm
-    - set_fact:
+    - local_action:
+        module: set_fact
         ping_results: "{{ r.results | parse_ios_ping }}"
 
     # - debug: var=ping_results
 
   rescue:
-    - set_fact:
+    - local_action:
+        module: set_fact
         ping_results: []
 
   vars:

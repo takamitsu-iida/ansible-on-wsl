@@ -12,7 +12,8 @@
           skip: true
       register: r
 
-    - set_fact:
+    - local_action:
+        module: set_fact
         skipped: "{{ r.skipped|d(false) }}"
 
     - name: create summary info

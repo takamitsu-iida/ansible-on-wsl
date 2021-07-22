@@ -21,17 +21,20 @@
     #
     # レポート用に実行結果をset_factする
     #
-    - set_fact:
+    - local_action:
+        module: set_fact
         _result: "{{ 'NG' if r.failed else 'OK' }}"
 
   rescue:
     #
     # レポート用に失敗した情報をset_factする
     #
-    - set_fact:
+    - local_action:
+        module: set_fact
         _result: 'NG'
 
   always:
-    - set_fact:
+    - local_action:
+        module: set_fact
         _addr: "{{ ADDR }}"
         _port: "{{ PORT }}"

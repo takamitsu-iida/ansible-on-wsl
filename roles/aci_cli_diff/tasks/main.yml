@@ -19,7 +19,9 @@
       register: cli_result
       loop: "{{ COMMANDS }}"
 
-    - set_fact:
+    - name: set_fact cli_command output
+      local_action:
+        module: set_fact
         cli_output: |-
           {# COMMANDS配列とcli_result.results配列を結合したのちループを回す #}
           {% for item in (COMMANDS | zip(cli_result.results) | list) -%}
@@ -53,7 +55,9 @@
         dst_file_ext: ".txt"
       register: r
 
-    - set_fact:
+    - name: set_fact diff_list
+      local_action:
+        module: set_fact
         diff_list: "{{ r.diff_list }}"
 
     - name: save result

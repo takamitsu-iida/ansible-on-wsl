@@ -4,7 +4,8 @@
   meta: reset_connection
 
 - name: get current time
-  set_fact:
+  local_action:
+    module: set_fact
     cmd_date: "{{ lookup('pipe', 'date +%Y%m%d_%H%M%S') }}"
 
 - name: wait for ssh down
@@ -16,7 +17,8 @@
     timeout: 300
 
 - name: get current time
-  set_fact:
+  local_action:
+    module: set_fact
     ssh_down_date: "{{ lookup('pipe', 'date +%Y%m%d_%H%M%S') }}"
 
 - name: wait for ssh up
@@ -28,7 +30,8 @@
     delay: 30
 
 - name: get current time
-  set_fact:
+  local_action:
+    module: set_fact
     ssh_up_date: "{{ lookup('pipe', 'date +%Y%m%d_%H%M%S') }}"
 
 - name: sleep 10 seconds

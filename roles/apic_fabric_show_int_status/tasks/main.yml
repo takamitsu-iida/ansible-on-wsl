@@ -35,7 +35,8 @@
     #   when:
     #     - ansible_verbosity > 0
 
-    - set_fact:
+    - local_action:
+        module: set_fact
         filename: "{{ inventory_hostname }}_{{ role_name|basename }}_{{ date }}.txt"
         cli_output: |-
           {% for item in cli_result.results %}
@@ -48,7 +49,8 @@
         content: "{{ cli_output }}"
         dest: "{{ LOG_DIR }}/{{ filename }}"
 
-    - set_fact:
+    - local_action:
+        module: set_fact
         cli_parsed: "{{ cli_output | parse_cli_textfsm(TEXTFSM) | split_by_node }}"
 
   vars:
@@ -58,14 +60,17 @@
 
 
 -
-  block:
-  - set_fact:
+  block: ### DEBUG ONLY
+  - local_action:
+      module: set_fact
       cli_output: "{{ lookup('file', log_file) }}"
 
-  - set_fact:
+  - local_action:
+      module: set_fact
       cli_parsed: "{{ cli_output | parse_cli_textfsm(TEXTFSM) | split_by_node }}"
 
-  - set_fact:
+  - local_action:
+      module: set_fact
       filename: "{{ log_file|basename }}"
 
   vars:

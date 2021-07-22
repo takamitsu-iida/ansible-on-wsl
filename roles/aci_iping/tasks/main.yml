@@ -3,16 +3,20 @@
 -
   block: # ipingコマンドを実行してファイルに保存するブロック
 
-    - set_fact:
+    - name: set date
+      local_action:
+        module: set_fact
         date: "{{ lookup('pipe', 'date +%Y%m%d_%H%M%S') }}"
 
     - name: iping
       cli_command:
-        command: "iping -V {{ VRF }} -i 0 {{ item }}"
+        command: "iping -V {{ VRF }} -i 0 -s 5000 {{ item }}"
       loop: "{{ TARGETS }}"
       register: r
 
-    - set_fact:
+    - name: set_fact cli_command result
+      local_action:
+        module: set_fact
         cli_output: |-
           {# TARGETS配列とr.results配列を結合したのちループを回す #}
           {% for item in (TARGETS | zip(r.results) | list) -%}
@@ -40,14 +44,16 @@
         marker_end: ""
 
     # textfsmでパースした結果をset_factしておく
-    - set_fact:
+    - name: parse ping output
+      local_action:
+        module: set_fact
         ping_results: "{{ r.results | parse_ping }}"
 
     # - debug: var=ping_results
 
-
   rescue:
-    - set_fact:
+    - local_action:
+        module: set_fact
         ping_results: []
 
   vars:

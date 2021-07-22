@@ -13,13 +13,15 @@
           skip: true
       register: r
 
-    - set_fact:
+    - local_action:
+        module: set_fact
         skipped: "{{ r.skipped|d(false) }}"
         target_intf_names: []
         target_interface_regex: "{{ target_interface_regex|d('.*') }}"
 
-    - name: target interfaces list
-      set_fact:
+    - name: set_fact target interfaces list
+      local_action:
+        module: set_fact
         target_intf_names: "{{ target_intf_names + [item] }}"
       with_items: "{{ ansible_net_interfaces }}"
       when:

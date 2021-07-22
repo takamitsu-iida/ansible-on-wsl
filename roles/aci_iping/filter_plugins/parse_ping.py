@@ -87,10 +87,10 @@ class FilterModule(object):
 Value TO (\S+)
 Value TRANSMITTED (\d+)
 Value RECEIVED (\d+)
-Value LOSS (\d+\.\d+)
-Value RTT_MIN (\d+\.\d+)
-Value RTT_AVG (\d+\.\d+)
-Value RTT_MAX (\d+\.\d+)
+Value LOSS (\d+(\.\d+){0,1})
+Value RTT_MIN (\d+(\.\d+){0,1})
+Value RTT_AVG (\d+(\.\d+){0,1})
+Value RTT_MAX (\d+(\.\d+){0,1})
 
 Start
   ^---\s+${TO}\s+ping\s+statistics\s+---
