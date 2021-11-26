@@ -96,14 +96,71 @@ sudo pip3 install pip -U
 
 Ansibleをインストールします。
 
-【重要】pipで個人環境に入れるのではなくaptで導入します。pipで入れた場合、踏み台経由のSSHが動作しない事象が発生しました。
+> 【重要】
+>
+> ansible 2.9をインストールします。2.10以降は踏み台経由のSSHが動作しない事象が発生しています。原因調査中。
+
+- pipの場合
+
+```bash
+pip install ansible==2.9
+```
+
+この場合、インストール先は`$HOME/.local/bin`ですので、.bashrcか.profileでパスを通してください。
+
+- aptの場合
+
+まず、aptでインストールできるバージョンを調べます。
+
+```bash
+$ sudo apt-cache showpkg ansible
+Package: ansible
+Versions:
+4.8.0-1ppa~focal (/var/lib/apt/lists/ppa.launchpad.net_ansible_ansible_ubuntu_dists_focal_main_binary-amd64_Packages)
+ Description Language:
+                 File: /var/lib/apt/lists/ppa.launchpad.net_ansible_ansible_ubuntu_dists_focal_main_binary-amd64_Packages
+                  MD5: dd9239407f1ea54d7ec35b5e409a5042
+ Description Language: en
+                 File: /var/lib/apt/lists/ppa.launchpad.net_ansible_ansible_ubuntu_dists_focal_main_i18n_Translation-en
+                  MD5: dd9239407f1ea54d7ec35b5e409a5042
+
+2.9.6+dfsg-1 (/var/lib/apt/lists/archive.ubuntu.com_ubuntu_dists_focal_universe_binary-amd64_Packages) (/var/lib/dpkg/status)
+ Description Language:
+                 File: /var/lib/apt/lists/archive.ubuntu.com_ubuntu_dists_focal_universe_binary-amd64_Packages
+                  MD5: db2b21b0d2286fccc4401d5982361488
+ Description Language: en
+                 File: /var/lib/apt/lists/archive.ubuntu.com_ubuntu_dists_focal_universe_i18n_Translation-en
+                  MD5: db2b21b0d2286fccc4401d5982361488
+
+Reverse Depends:
+  ansible-core,ansible 2.10.0
+  ansible-core,ansible 2.10.0
+  ansible-core,ansible
+  ansible-lint,ansible
+  vmdb2,ansible
+  ssg-base,ansible
+  shade-inventory,ansible
+  packer,ansible
+  kworkflow,ansible
+Dependencies:
+4.8.0-1ppa~focal - python3:any (0 (null)) ansible-core (0 (null))
+2.9.6+dfsg-1 - python3-cryptography (0 (null)) python3-jinja2 (0 (null)) python3-yaml (0 (null)) python3:any (0 (null)) openssh-client (16 (null)) python3-paramiko (0 (null)) python3-crypto (0 (null)) python3-distutils (0 (null)) python3-dnspython (0 (null)) python3-httplib2 (0 (null)) python3-netaddr (0 (null)) python3-argcomplete (0 (null)) python3-jmespath (0 (null)) python3-kerberos (0 (null)) python3-libcloud (0 (null)) python3-selinux (0 (null)) python3-winrm (0 (null)) python3-xmltodict (0 (null)) cowsay (0 (null)) sshpass (0 (null))
+Provides:
+4.8.0-1ppa~focal -
+2.9.6+dfsg-1 -
+Reverse Provides:
+```
+
+一番新しい`4.8.0-1ppa~focal`というのはansible-coreの2.10を使っていますので、これはダメです。
+
+`2.9.6+dfsg-1`をインストールしてください。
 
 ```bash
 sudo apt-get update
 sudo apt-get install software-properties-common
 sudo apt-add-repository ppa:ansible/ansible
 sudo apt-get update
-sudo apt-get install ansible
+sudo apt-get install ansible=2.9.6+dfsg-1
 ```
 
 <BR>
