@@ -98,7 +98,17 @@ Ansibleをインストールします。
 
 > 【重要】
 >
-> ansible 2.9をインストールします。2.10以降は踏み台経由のSSHが動作しない事象が発生しています。原因調査中。
+> ansible 2.10以降は踏み台経由のSSHが動作しない事象が発生します。
+> この事象はlibsshを使うことで回避できます（デフォルトはparamiko）。
+>
+> <https://docs.ansible.com/ansible/latest/collections/ansible/netcommon/network_cli_connection.html>
+>
+> pip install ansible-pylibssh
+
+> 【重要】
+>
+> 以下の手順ではansible 2.9をインストールします。
+
 
 - pipの場合
 
