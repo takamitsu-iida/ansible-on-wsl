@@ -64,7 +64,7 @@ HTMLファイルはこのようなイメージで表示します。緑のポー�
 
 <BR>
 
-[出力例](https://takamitsu-iida.github.io/ansible-on-wsl/aci_fabric_show_int_status.html)
+[出力例](https://takamitsu-iida.github.io/ansible-on-wsl/apic_fabric_show_int_status.html)
 
 <BR>
 
