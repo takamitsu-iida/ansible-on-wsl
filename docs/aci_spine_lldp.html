@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+
+<html lang="ja">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0">
+    <title>aci spine lldp</title>
+
+    <!-- jQuery -->
+    <script src="https://unpkg.com/jquery/dist/jquery.min.js"></script>
+
+    <!-- cytoscape.js -->
+    <script src="https://unpkg.com/cytoscape/dist/cytoscape.min.js"></script>
+
+    <!-- ELKレイアウトを使う場合 -->
+    <script src="https://unpkg.com/elkjs/lib/elk.bundled.js"></script>
+    <script src="https://unpkg.com/cytoscape-elk/dist/cytoscape-elk.js"></script>
+
+    <!-- automoveを使う場合 -->
+    <script src="https://unpkg.com/cytoscape-automove/cytoscape-automove.js"></script>
+
+    <!-- fcoseを使う場合 -->
+    <script src="https://unpkg.com/numeric@1.2.6/numeric-1.2.6.js"></script>
+    <script src="https://unpkg.com/layout-base@1.0.1/layout-base.js"></script>
+    <script src="https://unpkg.com/cose-base@1.0.0/cose-base.js"></script>
+    <script src="https://unpkg.com/cytoscape-fcose@1.0.0/cytoscape-fcose.js"></script>
+
+    <style>
+        html {
+          font-size: 62.5%;
+        }
+
+        body {
+            margin-left: 40px;
+            margin-right: 40px;
+            font-size: 1.4em;
+        }
+
+        #cy {
+            position: absolute;
+            left: 0;
+            top: 50px;
+            bottom: 0;
+            right: 0;
+            z-index: 10;
+            background-color: #e9e9e9;
+            border: solid;
+            border-width: 1;
+        }
+
+    </style>
+
+    <script>
+
+        var CyLayout = (function () {
+            var _setLayout = function (cy, layoutName) {
+                var layout = {
+                    name: layoutName,
+                    fit: true,
+                    animate: true,
+                };
+                cy.layout(layout).run();
+                // LEAFスイッチだけでレイアウトを計算する場合
+                // cy.elements('.leaf').layout(layout).run();
+                return layout;
+            };
+            return {
+                setLeyout: _setLayout
+            };
+        })();
+
+        document.addEventListener('DOMContentLoaded', function () {
+
+            var cy = window.cy = cytoscape({
+                container: document.getElementById('cy'),
+
+                // レイアウトの初期値
+                layout: {
+                    // name: 'preset',        // 位置をマニュアル指定
+                    // name: 'grid',             // グリッド状にノードを配置
+                    // name: 'circle',        // 円状にノードを配置
+                    name: 'breadthfirst',  // ツリー状に配置
+                    // name: 'elk',           // ELKレイアウト
+                },
+
+                style: [
+                    {
+                        selector: 'node',
+                        style: {
+                            'shape': 'rectangle',
+                            'label': 'data(label)',
+                            'border-color': '#000',
+                            'border-width': 1,
+                            'text-halign': 'center',
+                            'text-valign': 'center'
+                        }
+                    },
+                    {
+                        selector: 'edge',
+                        style: {
+                            // 'curve-style': 'taxi',
+                            'curve-style': 'bezier',
+                            'line-color': "#a9a9a9",
+                            'width': 2,
+                            'target-arrow-shape': 'circle',
+                            'target-label': 'data(target_label)',
+                            'source-arrow-shape': 'circle',
+                            'source-label': 'data(source_label)',
+                            'source-endpoint': 'outside-to-node-or-label',
+                            'target-endpoint': 'outside-to-node-or-label',
+                            'source-text-offset': 50,
+                            'target-text-offset': 100,
+                        }
+                    },
+                    {
+                        selector: '.spine',
+                        style: {
+                            'background-color': '#4169e1',
+                            'width': 240,
+                            'height': 80,
+                        }
+                    },
+                    {
+                        selector: '.leaf',
+                        style: {
+                            'background-color': '#00bfff',
+                            'width': 120,
+                            'height': 40,
+                        }
+                    },
+                    {
+                        selector: 'node.DELETED',
+                        style: {
+                            'background-color': '#FF3333',
+                            'width': 240,
+                            'height': 80,
+                        }
+                    },
+                    {
+                        selector: 'node.NEW',
+                        style: {
+                            'background-color': '#00CC00',
+                            'width': 240,
+                            'height': 80,
+                        }
+                    },
+                    {
+                        selector: 'edge.DELETED',
+                        style: {
+                            'line-color': '#FF3333',
+                            'width': 4,
+                        }
+                    },
+                    {
+                        selector: 'edge.NEW',
+                        style: {
+                            'line-color': '#00CC00',
+                            'width': 4,
+                        }
+                    },
+
+                ],
+
+                elements: {'nodes': [{'data': {'id': 'spine1', 'label': 'spine1'}, 'classes': ['spine', 'EXIST']}, {'data': {'id': 'nw-00-01-19-00', 'label': 'nw-00-01-19-00'}, 'classes': ['leaf', 'NEW']}, {'data': {'id': 'nw-00-01-20-00', 'label': 'nw-00-01-20-00'}, 'classes': ['leaf', 'NEW']}, {'data': {'id': 'nw-00-02-17-00', 'label': 'nw-00-02-17-00'}, 'classes': ['leaf', 'EXIST']}, {'data': {'id': 'nw-00-02-18-00', 'label': 'nw-00-02-18-00'}, 'classes': ['leaf', 'EXIST']}, {'data': {'id': 'nw-00-02-33-00', 'label': 'nw-00-02-33-00'}, 'classes': ['leaf', 'EXIST']}, {'data': {'id': 'nw-00-02-34-00', 'label': 'nw-00-02-34-00'}, 'classes': ['leaf', 'EXIST']}, {'data': {'id': 'nw-01-01-16-00', 'label': 'nw-01-01-16-00'}, 'classes': ['leaf', 'EXIST']}, {'data': {'id': 'nw-01-01-17-00', 'label': 'nw-01-01-17-00'}, 'classes': ['leaf', 'EXIST']}, {'data': {'id': 'nw-01-17-36-00', 'label': 'nw-01-17-36-00'}, 'classes': ['leaf', 'EXIST']}, {'data': {'id': 'nw-01-17-35-00', 'label': 'nw-01-17-35-00'}, 'classes': ['leaf', 'EXIST']}, {'data': {'id': 'nw-01-04-20-00', 'label': 'nw-01-04-20-00'}, 'classes': ['leaf', 'EXIST']}, {'data': {'id': 'nw-01-04-19-00', 'label': 'nw-01-04-19-00'}, 'classes': ['leaf', 'EXIST']}, {'data': {'id': 'nw-00-03-30-00', 'label': 'nw-00-03-30-00'}, 'classes': ['leaf', 'EXIST']}, {'data': {'id': 'nw-00-03-31-00', 'label': 'nw-00-03-31-00'}, 'classes': ['leaf', 'EXIST']}, {'data': {'id': 'nw-00-03-32-00', 'label': 'nw-00-03-32-00'}, 'classes': ['leaf', 'EXIST']}, {'data': {'id': 'nw-00-03-33-00', 'label': 'nw-00-03-33-00'}, 'classes': ['leaf', 'EXIST']}, {'data': {'id': 'nw-00-01-29-00', 'label': 'nw-00-01-29-00'}, 'classes': ['leaf', 'EXIST']}, {'data': {'id': 'nw-00-01-30-00', 'label': 'nw-00-01-30-00'}, 'classes': ['leaf', 'EXIST']}, {'data': {'id': 'nw-01-08-34-00', 'label': 'nw-01-08-34-00'}, 'classes': ['leaf', 'EXIST']}, {'data': {'id': 'nw-01-08-35-00', 'label': 'nw-01-08-35-00'}, 'classes': ['leaf', 'EXIST']}, {'data': {'id': 'nw-00-09-25-00', 'label': 'nw-00-09-25-00'}, 'classes': ['leaf', 'EXIST']}, {'data': {'id': 'nw-00-09-26-00', 'label': 'nw-00-09-26-00'}, 'classes': ['leaf', 'EXIST']}, {'data': {'id': 'nw-31-08-41-00', 'label': 'nw-31-08-41-00'}, 'classes': ['leaf', 'EXIST']}, {'data': {'id': 'nw-31-08-42-00', 'label': 'nw-31-08-42-00'}, 'classes': ['leaf', 'EXIST']}, {'data': {'id': 'nw-31-09-36-00', 'label': 'nw-31-09-36-00'}, 'classes': ['leaf', 'EXIST']}, {'data': {'id': 'nw-31-09-37-00', 'label': 'nw-31-09-37-00'}, 'classes': ['leaf', 'EXIST']}, {'data': {'id': 'nw-00-12-29-00', 'label': 'nw-00-12-29-00'}, 'classes': ['leaf', 'EXIST']}, {'data': {'id': 'nw-00-12-30-00', 'label': 'nw-00-12-30-00'}, 'classes': ['leaf', 'EXIST']}, {'data': {'id': 'nw-01-19-35-00_H08', 'label': 'nw-01-19-35-00_H08'}, 'classes': ['leaf', 'EXIST']}, {'data': {'id': 'nw-01-19-36-00_H08', 'label': 'nw-01-19-36-00_H08'}, 'classes': ['leaf', 'EXIST']}, {'data': {'id': 'nw-01-34-28-00', 'label': 'nw-01-34-28-00'}, 'classes': ['leaf', 'EXIST']}, {'data': {'id': 'nw-01-34-29-00', 'label': 'nw-01-34-29-00'}, 'classes': ['leaf', 'EXIST']}, {'data': {'id': 'nw-00-12-32-00', 'label': 'nw-00-12-32-00'}, 'classes': ['leaf', 'EXIST']}, {'data': {'id': 'nw-00-12-33-00', 'label': 'nw-00-12-33-00'}, 'classes': ['leaf', 'EXIST']}, {'data': {'id': 'nw-31-61-32-00', 'label': 'nw-31-61-32-00'}, 'classes': ['leaf', 'EXIST']}, {'data': {'id': 'nw-31-61-33-00', 'label': 'nw-31-61-33-00'}, 'classes': ['leaf', 'EXIST']}, {'data': {'id': 'nw-25-01-32-00_H10', 'label': 'nw-25-01-32-00_H10'}, 'classes': ['leaf', 'EXIST']}, {'data': {'id': 'nw-25-01-33-00_H10', 'label': 'nw-25-01-33-00_H10'}, 'classes': ['leaf', 'EXIST']}, {'data': {'id': 'nw-01-23-26-00', 'label': 'nw-01-23-26-00'}, 'classes': ['leaf', 'EXIST']}, {'data': {'id': 'nw-01-23-27-00', 'label': 'nw-01-23-27-00'}, 'classes': ['leaf', 'EXIST']}, {'data': {'id': 'spine2', 'label': 'spine2'}, 'classes': ['spine', 'EXIST']}, {'data': {'id': 'spine3', 'label': 'spine3'}, 'classes': ['spine', 'EXIST']}, {'data': {'id': 'nw-99-99-01-00', 'label': 'DUMMY NODE 1'}, 'classes': ['leaf', 'DELETED']}, {'data': {'id': 'nw-99-99-02-00', 'label': 'DUMMY NODE 2'}, 'classes': ['leaf', 'DELETED']}, {'data': {'id': 'nw-00-01-19-00-DUMMY', 'label': 'nw-00-01-19-00'}, 'classes': ['leaf', 'DELETED']}, {'data': {'id': 'nw-00-01-20-00-DUMMY', 'label': 'nw-00-01-20-00'}, 'classes': ['leaf', 'DELETED']}], 'edges': [{'data': {'id': 'nw-00-01-19-00_Eth1/49_Eth1/1', 'source': 'nw-00-01-19-00', 'target': 'spine1', 'source_label': 'Eth1/49', 'target_label': 'Eth1/1'}, 'classes': ['EXIST']}, {'data': {'id': 'nw-00-01-20-00_Eth1/49_Eth1/2', 'source': 'nw-00-01-20-00', 'target': 'spine1', 'source_label': 'Eth1/49', 'target_label': 'Eth1/2'}, 'classes': ['EXIST']}, {'data': {'id': 'nw-00-02-17-00_Eth1/49_Eth1/3', 'source': 'nw-00-02-17-00', 'target': 'spine1', 'source_label': 'Eth1/49', 'target_label': 'Eth1/3'}, 'classes': ['EXIST']}, {'data': {'id': 'nw-00-02-18-00_Eth1/49_Eth1/4', 'source': 'nw-00-02-18-00', 'target': 'spine1', 'source_label': 'Eth1/49', 'target_label': 'Eth1/4'}, 'classes': ['EXIST']}, {'data': {'id': 'nw-00-02-33-00_Eth1/49_Eth1/5', 'source': 'nw-00-02-33-00', 'target': 'spine1', 'source_label': 'Eth1/49', 'target_label': 'Eth1/5'}, 'classes': ['EXIST']}, {'data': {'id': 'nw-00-02-34-00_Eth1/49_Eth1/6', 'source': 'nw-00-02-34-00', 'target': 'spine1', 'source_label': 'Eth1/49', 'target_label': 'Eth1/6'}, 'classes': ['EXIST']}, {'data': {'id': 'nw-01-01-16-00_Eth1/49_Eth1/7', 'source': 'nw-01-01-16-00', 'target': 'spine1', 'source_label': 'Eth1/49', 'target_label': 'Eth1/7'}, 'classes': ['EXIST']}, {'data': {'id': 'nw-01-01-17-00_Eth1/49_Eth1/8', 'source': 'nw-01-01-17-00', 'target': 'spine1', 'source_label': 'Eth1/49', 'target_label': 'Eth1/8'}, 'classes': ['EXIST']}, {'data': {'id': 'nw-01-17-36-00_Eth1/25_Eth1/9', 'source': 'nw-01-17-36-00', 'target': 'spine1', 'source_label': 'Eth1/25', 'target_label': 'Eth1/9'}, 'classes': ['EXIST']}, {'data': {'id': 'nw-01-17-35-00_Eth1/25_Eth1/10', 'source': 'nw-01-17-35-00', 'target': 'spine1', 'source_label': 'Eth1/25', 'target_label': 'Eth1/10'}, 'classes': ['EXIST']}, {'data': {'id': 'nw-01-04-20-00_Eth1/25_Eth1/11', 'source': 'nw-01-04-20-00', 'target': 'spine1', 'source_label': 'Eth1/25', 'target_label': 'Eth1/11'}, 'classes': ['EXIST']}, {'data': {'id': 'nw-01-04-19-00_Eth1/25_Eth1/12', 'source': 'nw-01-04-19-00', 'target': 'spine1', 'source_label': 'Eth1/25', 'target_label': 'Eth1/12'}, 'classes': ['EXIST']}, {'data': {'id': 'nw-00-03-30-00_Eth1/49_Eth1/13', 'source': 'nw-00-03-30-00', 'target': 'spine1', 'source_label': 'Eth1/49', 'target_label': 'Eth1/13'}, 'classes': ['EXIST']}, {'data': {'id': 'nw-00-03-31-00_Eth1/49_Eth1/14', 'source': 'nw-00-03-31-00', 'target': 'spine1', 'source_label': 'Eth1/49', 'target_label': 'Eth1/14'}, 'classes': ['EXIST']}, {'data': {'id': 'nw-00-03-32-00_Eth1/49_Eth1/15', 'source': 'nw-00-03-32-00', 'target': 'spine1', 'source_label': 'Eth1/49', 'target_label': 'Eth1/15'}, 'classes': ['EXIST']}, {'data': {'id': 'nw-00-03-33-00_Eth1/49_Eth1/16', 'source': 'nw-00-03-33-00', 'target': 'spine1', 'source_label': 'Eth1/49', 'target_label': 'Eth1/16'}, 'classes': ['EXIST']}, {'data': {'id': 'nw-00-01-29-00_Eth1/49_Eth1/18', 'source': 'nw-00-01-29-00', 'target': 'spine1', 'source_label': 'Eth1/49', 'target_label': 'Eth1/18'}, 'classes': ['EXIST']}, {'data': {'id': 'nw-00-01-30-00_Eth1/49_Eth1/19', 'source': 'nw-00-01-30-00', 'target': 'spine1', 'source_label': 'Eth1/49', 'target_label': 'Eth1/19'}, 'classes': ['EXIST']}, {'data': {'id': 'nw-01-08-34-00_Eth1/49_Eth1/20', 'source': 'nw-01-08-34-00', 'target': 'spine1', 'source_label': 'Eth1/49', 'target_label': 'Eth1/20'}, 'classes': ['EXIST']}, {'data': {'id': 'nw-01-08-35-00_Eth1/49_Eth1/21', 'source': 'nw-01-08-35-00', 'target': 'spine1', 'source_label': 'Eth1/49', 'target_label': 'Eth1/21'}, 'classes': ['EXIST']}, {'data': {'id': 'nw-00-09-25-00_Eth1/49_Eth1/22', 'source': 'nw-00-09-25-00', 'target': 'spine1', 'source_label': 'Eth1/49', 'target_label': 'Eth1/22'}, 'classes': ['EXIST']}, {'data': {'id': 'nw-00-09-26-00_Eth1/49_Eth1/23', 'source': 'nw-00-09-26-00', 'target': 'spine1', 'source_label': 'Eth1/49', 'target_label': 'Eth1/23'}, 'classes': ['EXIST']}, {'data': {'id': 'nw-31-08-41-00_Eth1/31_Eth1/25', 'source': 'nw-31-08-41-00', 'target': 'spine1', 'source_label': 'Eth1/31', 'target_label': 'Eth1/25'}, 'classes': ['EXIST']}, {'data': {'id': 'nw-31-08-42-00_Eth1/31_Eth1/26', 'source': 'nw-31-08-42-00', 'target': 'spine1', 'source_label': 'Eth1/31', 'target_label': 'Eth1/26'}, 'classes': ['EXIST']}, {'data': {'id': 'nw-31-09-36-00_Eth1/31_Eth1/27', 'source': 'nw-31-09-36-00', 'target': 'spine1', 'source_label': 'Eth1/31', 'target_label': 'Eth1/27'}, 'classes': ['EXIST']}, {'data': {'id': 'nw-31-09-37-00_Eth1/31_Eth1/28', 'source': 'nw-31-09-37-00', 'target': 'spine1', 'source_label': 'Eth1/31', 'target_label': 'Eth1/28'}, 'classes': ['EXIST']}, {'data': {'id': 'nw-00-12-29-00_Eth1/53_Eth1/29', 'source': 'nw-00-12-29-00', 'target': 'spine1', 'source_label': 'Eth1/53', 'target_label': 'Eth1/29'}, 'classes': ['EXIST']}, {'data': {'id': 'nw-00-12-30-00_Eth1/53_Eth1/30', 'source': 'nw-00-12-30-00', 'target': 'spine1', 'source_label': 'Eth1/53', 'target_label': 'Eth1/30'}, 'classes': ['EXIST']}, {'data': {'id': 'nw-01-19-35-00_H08_Eth1/31_Eth1/31', 'source': 'nw-01-19-35-00_H08', 'target': 'spine1', 'source_label': 'Eth1/31', 'target_label': 'Eth1/31'}, 'classes': ['EXIST']}, {'data': {'id': 'nw-01-19-36-00_H08_Eth1/31_Eth1/32', 'source': 'nw-01-19-36-00_H08', 'target': 'spine1', 'source_label': 'Eth1/31', 'target_label': 'Eth1/32'}, 'classes': ['EXIST']}, {'data': {'id': 'nw-01-34-28-00_Eth1/53_Eth2/1', 'source': 'nw-01-34-28-00', 'target': 'spine1', 'source_label': 'Eth1/53', 'target_label': 'Eth2/1'}, 'classes': ['EXIST']}, {'data': {'id': 'nw-01-34-29-00_Eth1/53_Eth2/2', 'source': 'nw-01-34-29-00', 'target': 'spine1', 'source_label': 'Eth1/53', 'target_label': 'Eth2/2'}, 'classes': ['EXIST']}, {'data': {'id': 'nw-00-12-32-00_Eth1/53_Eth2/3', 'source': 'nw-00-12-32-00', 'target': 'spine1', 'source_label': 'Eth1/53', 'target_label': 'Eth2/3'}, 'classes': ['EXIST']}, {'data': {'id': 'nw-00-12-33-00_Eth1/53_Eth2/4', 'source': 'nw-00-12-33-00', 'target': 'spine1', 'source_label': 'Eth1/53', 'target_label': 'Eth2/4'}, 'classes': ['EXIST']}, {'data': {'id': 'nw-31-61-32-00_Eth1/53_Eth2/5', 'source': 'nw-31-61-32-00', 'target': 'spine1', 'source_label': 'Eth1/53', 'target_label': 'Eth2/5'}, 'classes': ['EXIST']}, {'data': {'id': 'nw-31-61-32-00_Eth1/54_Eth2/6', 'source': 'nw-31-61-32-00', 'target': 'spine1', 'source_label': 'Eth1/54', 'target_label': 'Eth2/6'}, 'classes': ['EXIST']}, {'data': {'id': 'nw-31-61-33-00_Eth1/53_Eth2/7', 'source': 'nw-31-61-33-00', 'target': 'spine1', 'source_label': 'Eth1/53', 'target_label': 'Eth2/7'}, 'classes': ['EXIST']}, {'data': {'id': 'nw-31-61-33-00_Eth1/54_Eth2/8', 'source': 'nw-31-61-33-00', 'target': 'spine1', 'source_label': 'Eth1/54', 'target_label': 'Eth2/8'}, 'classes': ['EXIST']}, {'data': {'id': 'nw-25-01-32-00_H10_Eth1/35_Eth2/9', 'source': 'nw-25-01-32-00_H10', 'target': 'spine1', 'source_label': 'Eth1/35', 'target_label': 'Eth2/9'}, 'classes': ['EXIST']}, {'data': {'id': 'nw-25-01-32-00_H10_Eth1/36_Eth2/10', 'source': 'nw-25-01-32-00_H10', 'target': 'spine1', 'source_label': 'Eth1/36', 'target_label': 'Eth2/10'}, 'classes': ['EXIST']}, {'data': {'id': 'nw-25-01-33-00_H10_Eth1/35_Eth2/11', 'source': 'nw-25-01-33-00_H10', 'target': 'spine1', 'source_label': 'Eth1/35', 'target_label': 'Eth2/11'}, 'classes': ['EXIST']}, {'data': {'id': 'nw-25-01-33-00_H10_Eth1/36_Eth2/12', 'source': 'nw-25-01-33-00_H10', 'target': 'spine1', 'source_label': 'Eth1/36', 'target_label': 'Eth2/12'}, 'classes': ['EXIST']}, {'data': {'id': 'nw-01-23-26-00_Eth1/31_Eth2/13', 'source': 'nw-01-23-26-00', 'target': 'spine1', 'source_label': 'Eth1/31', 'target_label': 'Eth2/13'}, 'classes': ['EXIST']}, {'data': {'id': 'nw-01-23-26-00_Eth1/32_Eth2/14', 'source': 'nw-01-23-26-00', 'target': 'spine1', 'source_label': 'Eth1/32', 'target_label': 'Eth2/14'}, 'classes': ['EXIST']}, {'data': {'id': 'nw-01-23-27-00_Eth1/31_Eth2/15', 'source': 'nw-01-23-27-00', 'target': 'spine1', 'source_label': 'Eth1/31', 'target_label': 'Eth2/15'}, 'classes': ['EXIST']}, {'data': {'id': 'nw-01-23-27-00_Eth1/32_Eth2/16', 'source': 'nw-01-23-27-00', 'target': 'spine1', 'source_label': 'Eth1/32', 'target_label': 'Eth2/16'}, 'classes': ['EXIST']}, {'data': {'id': 'nw-00-01-19-00_Eth1/51_Eth1/1', 'source': 'nw-00-01-19-00', 'target': 'spine2', 'source_label': 'Eth1/51', 'target_label': 'Eth1/1'}, 'classes': ['EXIST']}, {'data': {'id': 'nw-00-01-20-00_Eth1/51_Eth1/2', 'source': 'nw-00-01-20-00', 'target': 'spine2', 'source_label': 'Eth1/51', 'target_label': 'Eth1/2'}, 'classes': ['EXIST']}, {'data': {'id': 'nw-00-02-17-00_Eth1/51_Eth1/3', 'source': 'nw-00-02-17-00', 'target': 'spine2', 'source_label': 'Eth1/51', 'target_label': 'Eth1/3'}, 'classes': ['EXIST']}, {'data': {'id': 'nw-00-02-18-00_Eth1/51_Eth1/4', 'source': 'nw-00-02-18-00', 'target': 'spine2', 'source_label': 'Eth1/51', 'target_label': 'Eth1/4'}, 'classes': ['EXIST']}, {'data': {'id': 'nw-00-02-33-00_Eth1/51_Eth1/5', 'source': 'nw-00-02-33-00', 'target': 'spine2', 'source_label': 'Eth1/51', 'target_label': 'Eth1/5'}, 'classes': ['EXIST']}, {'data': {'id': 'nw-00-02-34-00_Eth1/51_Eth1/6', 'source': 'nw-00-02-34-00', 'target': 'spine2', 'source_label': 'Eth1/51', 'target_label': 'Eth1/6'}, 'classes': ['EXIST']}, {'data': {'id': 'nw-01-01-16-00_Eth1/51_Eth1/7', 'source': 'nw-01-01-16-00', 'target': 'spine2', 'source_label': 'Eth1/51', 'target_label': 'Eth1/7'}, 'classes': ['EXIST']}, {'data': {'id': 'nw-01-01-17-00_Eth1/51_Eth1/8', 'source': 'nw-01-01-17-00', 'target': 'spine2', 'source_label': 'Eth1/51', 'target_label': 'Eth1/8'}, 'classes': ['EXIST']}, {'data': {'id': 'nw-01-17-36-00_Eth1/29_Eth1/9', 'source': 'nw-01-17-36-00', 'target': 'spine2', 'source_label': 'Eth1/29', 'target_label': 'Eth1/9'}, 'classes': ['EXIST']}, {'data': {'id': 'nw-01-17-35-00_Eth1/29_Eth1/10', 'source': 'nw-01-17-35-00', 'target': 'spine2', 'source_label': 'Eth1/29', 'target_label': 'Eth1/10'}, 'classes': ['EXIST']}, {'data': {'id': 'nw-01-04-20-00_Eth1/29_Eth1/11', 'source': 'nw-01-04-20-00', 'target': 'spine2', 'source_label': 'Eth1/29', 'target_label': 'Eth1/11'}, 'classes': ['EXIST']}, {'data': {'id': 'nw-01-04-19-00_Eth1/29_Eth1/12', 'source': 'nw-01-04-19-00', 'target': 'spine2', 'source_label': 'Eth1/29', 'target_label': 'Eth1/12'}, 'classes': ['EXIST']}, {'data': {'id': 'nw-00-03-30-00_Eth1/51_Eth1/13', 'source': 'nw-00-03-30-00', 'target': 'spine2', 'source_label': 'Eth1/51', 'target_label': 'Eth1/13'}, 'classes': ['EXIST']}, {'data': {'id': 'nw-00-03-31-00_Eth1/51_Eth1/14', 'source': 'nw-00-03-31-00', 'target': 'spine2', 'source_label': 'Eth1/51', 'target_label': 'Eth1/14'}, 'classes': ['EXIST']}, {'data': {'id': 'nw-00-03-32-00_Eth1/51_Eth1/15', 'source': 'nw-00-03-32-00', 'target': 'spine2', 'source_label': 'Eth1/51', 'target_label': 'Eth1/15'}, 'classes': ['EXIST']}, {'data': {'id': 'nw-00-03-33-00_Eth1/51_Eth1/16', 'source': 'nw-00-03-33-00', 'target': 'spine2', 'source_label': 'Eth1/51', 'target_label': 'Eth1/16'}, 'classes': ['EXIST']}, {'data': {'id': 'nw-00-01-29-00_Eth1/51_Eth1/18', 'source': 'nw-00-01-29-00', 'target': 'spine2', 'source_label': 'Eth1/51', 'target_label': 'Eth1/18'}, 'classes': ['EXIST']}, {'data': {'id': 'nw-00-01-30-00_Eth1/51_Eth1/19', 'source': 'nw-00-01-30-00', 'target': 'spine2', 'source_label': 'Eth1/51', 'target_label': 'Eth1/19'}, 'classes': ['EXIST']}, {'data': {'id': 'nw-01-08-34-00_Eth1/51_Eth1/20', 'source': 'nw-01-08-34-00', 'target': 'spine2', 'source_label': 'Eth1/51', 'target_label': 'Eth1/20'}, 'classes': ['EXIST']}, {'data': {'id': 'nw-01-08-35-00_Eth1/51_Eth1/21', 'source': 'nw-01-08-35-00', 'target': 'spine2', 'source_label': 'Eth1/51', 'target_label': 'Eth1/21'}, 'classes': ['EXIST']}, {'data': {'id': 'nw-00-09-25-00_Eth1/51_Eth1/22', 'source': 'nw-00-09-25-00', 'target': 'spine2', 'source_label': 'Eth1/51', 'target_label': 'Eth1/22'}, 'classes': ['EXIST']}, {'data': {'id': 'nw-00-09-26-00_Eth1/51_Eth1/23', 'source': 'nw-00-09-26-00', 'target': 'spine2', 'source_label': 'Eth1/51', 'target_label': 'Eth1/23'}, 'classes': ['EXIST']}, {'data': {'id': 'nw-31-08-41-00_Eth1/29_Eth1/25', 'source': 'nw-31-08-41-00', 'target': 'spine2', 'source_label': 'Eth1/29', 'target_label': 'Eth1/25'}, 'classes': ['EXIST']}, {'data': {'id': 'nw-31-08-42-00_Eth1/29_Eth1/26', 'source': 'nw-31-08-42-00', 'target': 'spine2', 'source_label': 'Eth1/29', 'target_label': 'Eth1/26'}, 'classes': ['EXIST']}, {'data': {'id': 'nw-31-09-36-00_Eth1/29_Eth1/27', 'source': 'nw-31-09-36-00', 'target': 'spine2', 'source_label': 'Eth1/29', 'target_label': 'Eth1/27'}, 'classes': ['EXIST']}, {'data': {'id': 'nw-31-09-37-00_Eth1/29_Eth1/28', 'source': 'nw-31-09-37-00', 'target': 'spine2', 'source_label': 'Eth1/29', 'target_label': 'Eth1/28'}, 'classes': ['EXIST']}, {'data': {'id': 'nw-00-12-29-00_Eth1/51_Eth1/29', 'source': 'nw-00-12-29-00', 'target': 'spine2', 'source_label': 'Eth1/51', 'target_label': 'Eth1/29'}, 'classes': ['EXIST']}, {'data': {'id': 'nw-00-12-30-00_Eth1/51_Eth1/30', 'source': 'nw-00-12-30-00', 'target': 'spine2', 'source_label': 'Eth1/51', 'target_label': 'Eth1/30'}, 'classes': ['EXIST']}, {'data': {'id': 'nw-01-19-35-00_H08_Eth1/29_Eth1/31', 'source': 'nw-01-19-35-00_H08', 'target': 'spine2', 'source_label': 'Eth1/29', 'target_label': 'Eth1/31'}, 'classes': ['EXIST']}, {'data': {'id': 'nw-01-19-36-00_H08_Eth1/29_Eth1/32', 'source': 'nw-01-19-36-00_H08', 'target': 'spine2', 'source_label': 'Eth1/29', 'target_label': 'Eth1/32'}, 'classes': ['EXIST']}, {'data': {'id': 'nw-01-34-28-00_Eth1/51_Eth2/1', 'source': 'nw-01-34-28-00', 'target': 'spine2', 'source_label': 'Eth1/51', 'target_label': 'Eth2/1'}, 'classes': ['EXIST']}, {'data': {'id': 'nw-01-34-29-00_Eth1/51_Eth2/2', 'source': 'nw-01-34-29-00', 'target': 'spine2', 'source_label': 'Eth1/51', 'target_label': 'Eth2/2'}, 'classes': ['EXIST']}, {'data': {'id': 'nw-00-12-32-00_Eth1/51_Eth2/3', 'source': 'nw-00-12-32-00', 'target': 'spine2', 'source_label': 'Eth1/51', 'target_label': 'Eth2/3'}, 'classes': ['EXIST']}, {'data': {'id': 'nw-00-12-33-00_Eth1/51_Eth2/4', 'source': 'nw-00-12-33-00', 'target': 'spine2', 'source_label': 'Eth1/51', 'target_label': 'Eth2/4'}, 'classes': ['EXIST']}, {'data': {'id': 'nw-31-61-32-00_Eth1/51_Eth2/5', 'source': 'nw-31-61-32-00', 'target': 'spine2', 'source_label': 'Eth1/51', 'target_label': 'Eth2/5'}, 'classes': ['EXIST']}, {'data': {'id': 'nw-31-61-32-00_Eth1/52_Eth2/6', 'source': 'nw-31-61-32-00', 'target': 'spine2', 'source_label': 'Eth1/52', 'target_label': 'Eth2/6'}, 'classes': ['EXIST']}, {'data': {'id': 'nw-31-61-33-00_Eth1/51_Eth2/7', 'source': 'nw-31-61-33-00', 'target': 'spine2', 'source_label': 'Eth1/51', 'target_label': 'Eth2/7'}, 'classes': ['EXIST']}, {'data': {'id': 'nw-31-61-33-00_Eth1/52_Eth2/8', 'source': 'nw-31-61-33-00', 'target': 'spine2', 'source_label': 'Eth1/52', 'target_label': 'Eth2/8'}, 'classes': ['EXIST']}, {'data': {'id': 'nw-25-01-32-00_H10_Eth1/33_Eth2/9', 'source': 'nw-25-01-32-00_H10', 'target': 'spine2', 'source_label': 'Eth1/33', 'target_label': 'Eth2/9'}, 'classes': ['EXIST']}, {'data': {'id': 'nw-25-01-32-00_H10_Eth1/34_Eth2/10', 'source': 'nw-25-01-32-00_H10', 'target': 'spine2', 'source_label': 'Eth1/34', 'target_label': 'Eth2/10'}, 'classes': ['EXIST']}, {'data': {'id': 'nw-25-01-33-00_H10_Eth1/33_Eth2/11', 'source': 'nw-25-01-33-00_H10', 'target': 'spine2', 'source_label': 'Eth1/33', 'target_label': 'Eth2/11'}, 'classes': ['EXIST']}, {'data': {'id': 'nw-25-01-33-00_H10_Eth1/34_Eth2/12', 'source': 'nw-25-01-33-00_H10', 'target': 'spine2', 'source_label': 'Eth1/34', 'target_label': 'Eth2/12'}, 'classes': ['EXIST']}, {'data': {'id': 'nw-01-23-26-00_Eth1/33_Eth2/13', 'source': 'nw-01-23-26-00', 'target': 'spine2', 'source_label': 'Eth1/33', 'target_label': 'Eth2/13'}, 'classes': ['EXIST']}, {'data': {'id': 'nw-01-23-26-00_Eth1/34_Eth2/14', 'source': 'nw-01-23-26-00', 'target': 'spine2', 'source_label': 'Eth1/34', 'target_label': 'Eth2/14'}, 'classes': ['EXIST']}, {'data': {'id': 'nw-01-23-27-00_Eth1/33_Eth2/15', 'source': 'nw-01-23-27-00', 'target': 'spine2', 'source_label': 'Eth1/33', 'target_label': 'Eth2/15'}, 'classes': ['EXIST']}, {'data': {'id': 'nw-01-23-27-00_Eth1/34_Eth2/16', 'source': 'nw-01-23-27-00', 'target': 'spine2', 'source_label': 'Eth1/34', 'target_label': 'Eth2/16'}, 'classes': ['EXIST']}, {'data': {'id': 'nw-00-01-19-00_Eth1/53_Eth1/1', 'source': 'nw-00-01-19-00', 'target': 'spine3', 'source_label': 'Eth1/53', 'target_label': 'Eth1/1'}, 'classes': ['EXIST']}, {'data': {'id': 'nw-00-01-20-00_Eth1/53_Eth1/2', 'source': 'nw-00-01-20-00', 'target': 'spine3', 'source_label': 'Eth1/53', 'target_label': 'Eth1/2'}, 'classes': ['EXIST']}, {'data': {'id': 'nw-00-02-17-00_Eth1/53_Eth1/3', 'source': 'nw-00-02-17-00', 'target': 'spine3', 'source_label': 'Eth1/53', 'target_label': 'Eth1/3'}, 'classes': ['EXIST']}, {'data': {'id': 'nw-00-02-18-00_Eth1/53_Eth1/4', 'source': 'nw-00-02-18-00', 'target': 'spine3', 'source_label': 'Eth1/53', 'target_label': 'Eth1/4'}, 'classes': ['EXIST']}, {'data': {'id': 'nw-00-02-33-00_Eth1/53_Eth1/5', 'source': 'nw-00-02-33-00', 'target': 'spine3', 'source_label': 'Eth1/53', 'target_label': 'Eth1/5'}, 'classes': ['EXIST']}, {'data': {'id': 'nw-00-02-34-00_Eth1/53_Eth1/6', 'source': 'nw-00-02-34-00', 'target': 'spine3', 'source_label': 'Eth1/53', 'target_label': 'Eth1/6'}, 'classes': ['EXIST']}, {'data': {'id': 'nw-01-01-16-00_Eth1/53_Eth1/7', 'source': 'nw-01-01-16-00', 'target': 'spine3', 'source_label': 'Eth1/53', 'target_label': 'Eth1/7'}, 'classes': ['EXIST']}, {'data': {'id': 'nw-01-01-17-00_Eth1/53_Eth1/8', 'source': 'nw-01-01-17-00', 'target': 'spine3', 'source_label': 'Eth1/53', 'target_label': 'Eth1/8'}, 'classes': ['EXIST']}, {'data': {'id': 'nw-01-17-36-00_Eth1/31_Eth1/9', 'source': 'nw-01-17-36-00', 'target': 'spine3', 'source_label': 'Eth1/31', 'target_label': 'Eth1/9'}, 'classes': ['EXIST']}, {'data': {'id': 'nw-01-17-35-00_Eth1/31_Eth1/10', 'source': 'nw-01-17-35-00', 'target': 'spine3', 'source_label': 'Eth1/31', 'target_label': 'Eth1/10'}, 'classes': ['EXIST']}, {'data': {'id': 'nw-01-04-20-00_Eth1/31_Eth1/11', 'source': 'nw-01-04-20-00', 'target': 'spine3', 'source_label': 'Eth1/31', 'target_label': 'Eth1/11'}, 'classes': ['EXIST']}, {'data': {'id': 'nw-01-04-19-00_Eth1/31_Eth1/12', 'source': 'nw-01-04-19-00', 'target': 'spine3', 'source_label': 'Eth1/31', 'target_label': 'Eth1/12'}, 'classes': ['EXIST']}, {'data': {'id': 'nw-00-03-30-00_Eth1/53_Eth1/13', 'source': 'nw-00-03-30-00', 'target': 'spine3', 'source_label': 'Eth1/53', 'target_label': 'Eth1/13'}, 'classes': ['EXIST']}, {'data': {'id': 'nw-00-03-31-00_Eth1/53_Eth1/14', 'source': 'nw-00-03-31-00', 'target': 'spine3', 'source_label': 'Eth1/53', 'target_label': 'Eth1/14'}, 'classes': ['EXIST']}, {'data': {'id': 'nw-00-03-32-00_Eth1/53_Eth1/15', 'source': 'nw-00-03-32-00', 'target': 'spine3', 'source_label': 'Eth1/53', 'target_label': 'Eth1/15'}, 'classes': ['EXIST']}, {'data': {'id': 'nw-00-03-33-00_Eth1/53_Eth1/16', 'source': 'nw-00-03-33-00', 'target': 'spine3', 'source_label': 'Eth1/53', 'target_label': 'Eth1/16'}, 'classes': ['EXIST']}, {'data': {'id': 'nw-00-01-29-00_Eth1/53_Eth1/18', 'source': 'nw-00-01-29-00', 'target': 'spine3', 'source_label': 'Eth1/53', 'target_label': 'Eth1/18'}, 'classes': ['EXIST']}, {'data': {'id': 'nw-00-01-30-00_Eth1/53_Eth1/19', 'source': 'nw-00-01-30-00', 'target': 'spine3', 'source_label': 'Eth1/53', 'target_label': 'Eth1/19'}, 'classes': ['EXIST']}, {'data': {'id': 'nw-01-08-34-00_Eth1/53_Eth1/20', 'source': 'nw-01-08-34-00', 'target': 'spine3', 'source_label': 'Eth1/53', 'target_label': 'Eth1/20'}, 'classes': ['EXIST']}, {'data': {'id': 'nw-01-08-35-00_Eth1/53_Eth1/21', 'source': 'nw-01-08-35-00', 'target': 'spine3', 'source_label': 'Eth1/53', 'target_label': 'Eth1/21'}, 'classes': ['EXIST']}, {'data': {'id': 'nw-00-09-25-00_Eth1/53_Eth1/22', 'source': 'nw-00-09-25-00', 'target': 'spine3', 'source_label': 'Eth1/53', 'target_label': 'Eth1/22'}, 'classes': ['EXIST']}, {'data': {'id': 'nw-00-09-26-00_Eth1/53_Eth1/23', 'source': 'nw-00-09-26-00', 'target': 'spine3', 'source_label': 'Eth1/53', 'target_label': 'Eth1/23'}, 'classes': ['EXIST']}, {'data': {'id': 'nw-31-08-41-00_Eth1/25_Eth1/25', 'source': 'nw-31-08-41-00', 'target': 'spine3', 'source_label': 'Eth1/25', 'target_label': 'Eth1/25'}, 'classes': ['EXIST']}, {'data': {'id': 'nw-31-08-42-00_Eth1/25_Eth1/26', 'source': 'nw-31-08-42-00', 'target': 'spine3', 'source_label': 'Eth1/25', 'target_label': 'Eth1/26'}, 'classes': ['EXIST']}, {'data': {'id': 'nw-31-09-36-00_Eth1/25_Eth1/27', 'source': 'nw-31-09-36-00', 'target': 'spine3', 'source_label': 'Eth1/25', 'target_label': 'Eth1/27'}, 'classes': ['EXIST']}, {'data': {'id': 'nw-31-09-37-00_Eth1/25_Eth1/28', 'source': 'nw-31-09-37-00', 'target': 'spine3', 'source_label': 'Eth1/25', 'target_label': 'Eth1/28'}, 'classes': ['EXIST']}, {'data': {'id': 'nw-00-12-29-00_Eth1/49_Eth1/29', 'source': 'nw-00-12-29-00', 'target': 'spine3', 'source_label': 'Eth1/49', 'target_label': 'Eth1/29'}, 'classes': ['EXIST']}, {'data': {'id': 'nw-00-12-30-00_Eth1/49_Eth1/30', 'source': 'nw-00-12-30-00', 'target': 'spine3', 'source_label': 'Eth1/49', 'target_label': 'Eth1/30'}, 'classes': ['EXIST']}, {'data': {'id': 'nw-01-19-35-00_H08_Eth1/25_Eth1/31', 'source': 'nw-01-19-35-00_H08', 'target': 'spine3', 'source_label': 'Eth1/25', 'target_label': 'Eth1/31'}, 'classes': ['EXIST']}, {'data': {'id': 'nw-01-19-36-00_H08_Eth1/25_Eth1/32', 'source': 'nw-01-19-36-00_H08', 'target': 'spine3', 'source_label': 'Eth1/25', 'target_label': 'Eth1/32'}, 'classes': ['EXIST']}, {'data': {'id': 'nw-01-34-28-00_Eth1/49_Eth2/1', 'source': 'nw-01-34-28-00', 'target': 'spine3', 'source_label': 'Eth1/49', 'target_label': 'Eth2/1'}, 'classes': ['EXIST']}, {'data': {'id': 'nw-01-34-29-00_Eth1/49_Eth2/2', 'source': 'nw-01-34-29-00', 'target': 'spine3', 'source_label': 'Eth1/49', 'target_label': 'Eth2/2'}, 'classes': ['EXIST']}, {'data': {'id': 'nw-00-12-32-00_Eth1/49_Eth2/3', 'source': 'nw-00-12-32-00', 'target': 'spine3', 'source_label': 'Eth1/49', 'target_label': 'Eth2/3'}, 'classes': ['EXIST']}, {'data': {'id': 'nw-00-12-33-00_Eth1/49_Eth2/4', 'source': 'nw-00-12-33-00', 'target': 'spine3', 'source_label': 'Eth1/49', 'target_label': 'Eth2/4'}, 'classes': ['EXIST']}, {'data': {'id': 'nw-31-61-32-00_Eth1/49_Eth2/5', 'source': 'nw-31-61-32-00', 'target': 'spine3', 'source_label': 'Eth1/49', 'target_label': 'Eth2/5'}, 'classes': ['EXIST']}, {'data': {'id': 'nw-31-61-32-00_Eth1/50_Eth2/6', 'source': 'nw-31-61-32-00', 'target': 'spine3', 'source_label': 'Eth1/50', 'target_label': 'Eth2/6'}, 'classes': ['EXIST']}, {'data': {'id': 'nw-31-61-33-00_Eth1/49_Eth2/7', 'source': 'nw-31-61-33-00', 'target': 'spine3', 'source_label': 'Eth1/49', 'target_label': 'Eth2/7'}, 'classes': ['EXIST']}, {'data': {'id': 'nw-31-61-33-00_Eth1/50_Eth2/8', 'source': 'nw-31-61-33-00', 'target': 'spine3', 'source_label': 'Eth1/50', 'target_label': 'Eth2/8'}, 'classes': ['EXIST']}, {'data': {'id': 'nw-25-01-32-00_H10_Eth1/31_Eth2/9', 'source': 'nw-25-01-32-00_H10', 'target': 'spine3', 'source_label': 'Eth1/31', 'target_label': 'Eth2/9'}, 'classes': ['EXIST']}, {'data': {'id': 'nw-25-01-32-00_H10_Eth1/32_Eth2/10', 'source': 'nw-25-01-32-00_H10', 'target': 'spine3', 'source_label': 'Eth1/32', 'target_label': 'Eth2/10'}, 'classes': ['EXIST']}, {'data': {'id': 'nw-25-01-33-00_H10_Eth1/31_Eth2/11', 'source': 'nw-25-01-33-00_H10', 'target': 'spine3', 'source_label': 'Eth1/31', 'target_label': 'Eth2/11'}, 'classes': ['EXIST']}, {'data': {'id': 'nw-25-01-33-00_H10_Eth1/32_Eth2/12', 'source': 'nw-25-01-33-00_H10', 'target': 'spine3', 'source_label': 'Eth1/32', 'target_label': 'Eth2/12'}, 'classes': ['EXIST']}, {'data': {'id': 'nw-01-23-26-00_Eth1/35_Eth2/13', 'source': 'nw-01-23-26-00', 'target': 'spine3', 'source_label': 'Eth1/35', 'target_label': 'Eth2/13'}, 'classes': ['EXIST']}, {'data': {'id': 'nw-01-23-26-00_Eth1/36_Eth2/14', 'source': 'nw-01-23-26-00', 'target': 'spine3', 'source_label': 'Eth1/36', 'target_label': 'Eth2/14'}, 'classes': ['EXIST']}, {'data': {'id': 'nw-01-23-27-00_Eth1/35_Eth2/15', 'source': 'nw-01-23-27-00', 'target': 'spine3', 'source_label': 'Eth1/35', 'target_label': 'Eth2/15'}, 'classes': ['EXIST']}, {'data': {'id': 'nw-01-23-27-00_Eth1/36_Eth2/16', 'source': 'nw-01-23-27-00', 'target': 'spine3', 'source_label': 'Eth1/36', 'target_label': 'Eth2/16'}, 'classes': ['EXIST']}, {'data': {'id': 'nw-99-99-01-00_Eth1/49_Eth1/1', 'source': 'nw-99-99-01-00', 'target': 'spine1', 'source_label': 'Eth1/49', 'target_label': 'Eth1/1', 'comment': 'DUMMY DATA'}, 'classes': ['DELETED']}, {'data': {'id': 'nw-99-99-02-00_Eth1/49_Eth1/1', 'source': 'nw-99-99-02-00', 'target': 'spine1', 'source_label': 'Eth1/49', 'target_label': 'Eth1/1', 'comment': 'DUMMY DATA'}, 'classes': ['DELETED']}]},
+
+            });
+
+            cy.automove({
+                nodesMatching: cy.$('.spine'),
+                reposition: function (node) {
+                    var pos = node.position();
+
+                    // チェックボックスがチェックされてなければ、自分の位置を返す
+                    if (document.getElementById("Automove").checked === false) {
+                        return pos;
+                    }
+
+                    // ドラッグしているノードならその位置を返却
+                    if (node.grabbed()) {
+                        return pos;
+                    }
+
+                    // それ以外のノードに対しては、Y座標はドラッグしているノードと同じものを返却する
+                    var pos = {
+                        x: node.position('x'),
+                        y: node.position('y')
+                    };
+
+                    cy.$('.spine').forEach(function(n) {
+                        if (n.grabbed()) {
+                            pos.y = n.position('y');
+                        }
+                    });
+                    return pos;
+
+                },
+                when: 'matching'
+            });
+
+            // CyLayout.setLeyout(cy, 'breadthfirst');
+
+            $("#Layout").change(function () {
+                // console.log($("#Layout").val());
+                CyLayout.setLeyout(cy, $("#Layout").val());
+            });
+
+            $("#spine1").change(function () {
+                // var spine1 = cy.nodes[id='spine1'];
+                var connectedEdges = cy.filter("node[id='spine1']").connectedEdges();
+                if ($("#spine1").prop("checked")) {
+                    connectedEdges.show();
+                } else {
+                    connectedEdges.hide();
+                }
+            });
+            $("#spine2").change(function () {
+                var connectedEdges = cy.filter("node[id='spine2']").connectedEdges();
+                if ($("#spine2").prop("checked")) {
+                    connectedEdges.show();
+                } else {
+                    connectedEdges.hide();
+                }
+            });
+            $("#spine3").change(function () {
+                var connectedEdges = cy.filter("node[id='spine3']").connectedEdges();
+                if ($("#spine3").prop("checked")) {
+                    connectedEdges.show();
+                } else {
+                    connectedEdges.hide();
+                }
+            });
+
+
+        });
+
+    </script>
+</head>
+
+<body>
+
+    <div>
+        <label for="Layout">レイアウト</label>
+        <select id="Layout" name="nameLayout">
+          <option value="grid">grid</option>
+          <option value="circle">circle</option>
+          <option value="concentric">concentric</option>
+          <option value="breadthfirst" selected>breadthfirst</option>
+          <option value="fcose">fcose</option>
+        </select>
+        <span style="margin-right:4em;"></span>
+        <label><input id="Automove" name="nameAutomove" type="checkbox">Spine横揃え</label>
+        <span style="margin-right:4em;"></span>
+        <label><input id="spine1" name="nameSpine1" type="checkbox" checked>Spine1</label>
+        <label><input id="spine2" name="nameSpine2" type="checkbox" checked>Spine2</label>
+        <label><input id="spine3" name="nameSpine3" type="checkbox" checked>Spine3</label>
+    </div>
+
+    <div id="cy"></div>
+
+</body>
+
+</html>

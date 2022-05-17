@@ -62,6 +62,9 @@ HTMLファイルはこのようなイメージで表示します。緑のポー�
 
 ![fig_fabric_show_int_status](https://user-images.githubusercontent.com/21165341/124450535-7f598f80-ddbf-11eb-8adc-af7f81aea576.PNG)
 
+<BR>
+
+[出力例](https://takamitsu-iida.github.io/ansible-on-wsl/aci_fabric_show_int_status.html)
 
 <BR>
 

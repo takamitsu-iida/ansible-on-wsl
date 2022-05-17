@@ -53,6 +53,10 @@ Cisco ACIのスイッチにSSH接続できる環境が必要です。
 
 <br>
 
+[出力例](https://takamitsu-iida.github.io/ansible-on-wsl/aci_show_int_status.html)
+
+<br>
+
 # License
 
 BSD

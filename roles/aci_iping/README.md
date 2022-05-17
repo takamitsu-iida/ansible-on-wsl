@@ -86,6 +86,10 @@ ipingの実行結果を一覧表示したものです。上から下に実行し
 
 <br>
 
+[出力例](https://takamitsu-iida.github.io/ansible-on-wsl/aci_iping.html)
+
+<br>
+
 # License
 
 BSD

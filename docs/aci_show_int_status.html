@@ -1,0 +1,928 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title>aci show interface status</title>
+  <meta charset="utf-8">
+  <style>
+
+    html {
+      font-size: 62.5%;
+    }
+
+    body {
+      margin: 40px;
+      font-size: 1.4em;
+    }
+
+    .wrapper {
+      display: grid;
+      padding: 10px;
+      margin: 10px;
+      column-gap: 10px;
+      row-gap: 10px;
+      grid-template-columns: repeat(5, 50px) 60px 100px 60px 60px 1fr;
+      background-color:#F5F5F5;
+    }
+
+    .box {
+      width: 35px;
+      height: 35px;
+      background-color:#F5F5F5;
+      color: #fff;
+      border-radius: 4px;
+      padding: 4px;
+      margin: 0px;
+      font-size: 1.0rem;
+    }
+
+    .down {
+      background-color:black;
+    }
+
+    .up {
+      background-color:green;
+    }
+
+    .other {
+      background-color: lightgray;
+    }
+
+    pre {
+      margin: 1em 0;
+      padding: 1em;
+      font-size: 120%;
+      max-width: 1320px;
+      color: #2F4F4F;
+      background-color:#F5F5F5;
+      overflow: auto;
+    }
+
+  </style>
+
+</head>
+
+<body>
+
+  <h1>Parsed files</h1>
+
+    <p>leaf1_aci_show_int_status_20210710_180354.txt</p>
+    <p>leaf1_aci_show_int_status_20210708_132318.txt</p>
+    <p>leaf1_aci_show_int_status_20210708_131046.txt</p>
+    <p>leaf1_aci_show_int_status_20210708_131014.txt</p>
+    <p>leaf1_aci_show_int_status_20210708_130843.txt</p>
+  
+  <h1>Interface status history</h1>
+
+  show interface statusコマンドのログ・ファイルを分析してインタフェースの状態を表示します（最大で５世代）。
+  左から順に新しいログ・ファイルのポート状態です。
+
+      <div class="wrapper">
+                <div class="box up ">Eth1/1</div>
+                <div class="box up ">Eth1/1</div>
+                <div class="box up ">Eth1/1</div>
+                <div class="box up ">Eth1/1</div>
+                <div class="box up ">Eth1/1</div>
+    <div>Port<br>Eth1/1</div>
+    <div>Status<br>connected</div>
+    <div>Duplex<br>full</div>
+    <div>Speed<br>10G</div>
+    <div>Type<br>10g</div>
+  </div>
+    <div class="wrapper">
+                <div class="box up ">Eth1/2</div>
+                <div class="box up ">Eth1/2</div>
+                <div class="box up ">Eth1/2</div>
+                <div class="box up ">Eth1/2</div>
+                <div class="box up ">Eth1/2</div>
+    <div>Port<br>Eth1/2</div>
+    <div>Status<br>connected</div>
+    <div>Duplex<br>full</div>
+    <div>Speed<br>10G</div>
+    <div>Type<br>10g</div>
+  </div>
+    <div class="wrapper">
+                <div class="box up ">Eth1/3</div>
+                <div class="box up ">Eth1/3</div>
+                <div class="box up ">Eth1/3</div>
+                <div class="box up ">Eth1/3</div>
+                <div class="box up ">Eth1/3</div>
+    <div>Port<br>Eth1/3</div>
+    <div>Status<br>connected</div>
+    <div>Duplex<br>full</div>
+    <div>Speed<br>10G</div>
+    <div>Type<br>10g</div>
+  </div>
+    <div class="wrapper">
+                <div class="box up ">Eth1/4</div>
+                <div class="box up ">Eth1/4</div>
+                <div class="box up ">Eth1/4</div>
+                <div class="box up ">Eth1/4</div>
+                <div class="box up ">Eth1/4</div>
+    <div>Port<br>Eth1/4</div>
+    <div>Status<br>connected</div>
+    <div>Duplex<br>full</div>
+    <div>Speed<br>10G</div>
+    <div>Type<br>10g</div>
+  </div>
+    <div class="wrapper">
+                <div class="box up ">Eth1/5</div>
+                <div class="box up ">Eth1/5</div>
+                <div class="box up ">Eth1/5</div>
+                <div class="box up ">Eth1/5</div>
+                <div class="box up ">Eth1/5</div>
+    <div>Port<br>Eth1/5</div>
+    <div>Status<br>connected</div>
+    <div>Duplex<br>full</div>
+    <div>Speed<br>10G</div>
+    <div>Type<br>10g</div>
+  </div>
+    <div class="wrapper">
+                <div class="box up ">Eth1/6</div>
+                <div class="box up ">Eth1/6</div>
+                <div class="box up ">Eth1/6</div>
+                <div class="box up ">Eth1/6</div>
+                <div class="box up ">Eth1/6</div>
+    <div>Port<br>Eth1/6</div>
+    <div>Status<br>connected</div>
+    <div>Duplex<br>full</div>
+    <div>Speed<br>10G</div>
+    <div>Type<br>10g</div>
+  </div>
+    <div class="wrapper">
+                <div class="box up ">Eth1/7</div>
+                <div class="box up ">Eth1/7</div>
+                <div class="box up ">Eth1/7</div>
+                <div class="box up ">Eth1/7</div>
+                <div class="box up ">Eth1/7</div>
+    <div>Port<br>Eth1/7</div>
+    <div>Status<br>connected</div>
+    <div>Duplex<br>full</div>
+    <div>Speed<br>10G</div>
+    <div>Type<br>10g</div>
+  </div>
+    <div class="wrapper">
+                <div class="box down ">Eth1/8</div>
+                <div class="box down ">Eth1/8</div>
+                <div class="box down ">Eth1/8</div>
+                <div class="box down ">Eth1/8</div>
+                <div class="box down ">Eth1/8</div>
+    <div>Port<br>Eth1/8</div>
+    <div>Status<br>notconnect</div>
+    <div>Duplex<br>full</div>
+    <div>Speed<br>inherit</div>
+    <div>Type<br>10g</div>
+  </div>
+    <div class="wrapper">
+                <div class="box up ">Eth1/9</div>
+                <div class="box up ">Eth1/9</div>
+                <div class="box up ">Eth1/9</div>
+                <div class="box up ">Eth1/9</div>
+                <div class="box up ">Eth1/9</div>
+    <div>Port<br>Eth1/9</div>
+    <div>Status<br>connected</div>
+    <div>Duplex<br>full</div>
+    <div>Speed<br>10G</div>
+    <div>Type<br>10g</div>
+  </div>
+    <div class="wrapper">
+                <div class="box up ">Eth1/10</div>
+                <div class="box up ">Eth1/10</div>
+                <div class="box up ">Eth1/10</div>
+                <div class="box up ">Eth1/10</div>
+                <div class="box up ">Eth1/10</div>
+    <div>Port<br>Eth1/10</div>
+    <div>Status<br>connected</div>
+    <div>Duplex<br>full</div>
+    <div>Speed<br>10G</div>
+    <div>Type<br>10g</div>
+  </div>
+    <div class="wrapper">
+                <div class="box up ">Eth1/11</div>
+                <div class="box up ">Eth1/11</div>
+                <div class="box up ">Eth1/11</div>
+                <div class="box up ">Eth1/11</div>
+                <div class="box up ">Eth1/11</div>
+    <div>Port<br>Eth1/11</div>
+    <div>Status<br>connected</div>
+    <div>Duplex<br>full</div>
+    <div>Speed<br>10G</div>
+    <div>Type<br>10g</div>
+  </div>
+    <div class="wrapper">
+                <div class="box up ">Eth1/12</div>
+                <div class="box up ">Eth1/12</div>
+                <div class="box up ">Eth1/12</div>
+                <div class="box up ">Eth1/12</div>
+                <div class="box up ">Eth1/12</div>
+    <div>Port<br>Eth1/12</div>
+    <div>Status<br>connected</div>
+    <div>Duplex<br>full</div>
+    <div>Speed<br>10G</div>
+    <div>Type<br>10g</div>
+  </div>
+    <div class="wrapper">
+                <div class="box up ">Eth1/13</div>
+                <div class="box up ">Eth1/13</div>
+                <div class="box up ">Eth1/13</div>
+                <div class="box up ">Eth1/13</div>
+                <div class="box up ">Eth1/13</div>
+    <div>Port<br>Eth1/13</div>
+    <div>Status<br>connected</div>
+    <div>Duplex<br>full</div>
+    <div>Speed<br>10G</div>
+    <div>Type<br>10g</div>
+  </div>
+    <div class="wrapper">
+                <div class="box up ">Eth1/14</div>
+                <div class="box up ">Eth1/14</div>
+                <div class="box up ">Eth1/14</div>
+                <div class="box up ">Eth1/14</div>
+                <div class="box up ">Eth1/14</div>
+    <div>Port<br>Eth1/14</div>
+    <div>Status<br>connected</div>
+    <div>Duplex<br>full</div>
+    <div>Speed<br>10G</div>
+    <div>Type<br>10g</div>
+  </div>
+    <div class="wrapper">
+                <div class="box up ">Eth1/15</div>
+                <div class="box up ">Eth1/15</div>
+                <div class="box up ">Eth1/15</div>
+                <div class="box up ">Eth1/15</div>
+                <div class="box up ">Eth1/15</div>
+    <div>Port<br>Eth1/15</div>
+    <div>Status<br>connected</div>
+    <div>Duplex<br>full</div>
+    <div>Speed<br>10G</div>
+    <div>Type<br>10g</div>
+  </div>
+    <div class="wrapper">
+                <div class="box down ">Eth1/16</div>
+                <div class="box down ">Eth1/16</div>
+                <div class="box down ">Eth1/16</div>
+                <div class="box down ">Eth1/16</div>
+                <div class="box down ">Eth1/16</div>
+    <div>Port<br>Eth1/16</div>
+    <div>Status<br>notconnect</div>
+    <div>Duplex<br>full</div>
+    <div>Speed<br>inherit</div>
+    <div>Type<br>10g</div>
+  </div>
+    <div class="wrapper">
+                <div class="box up ">Eth1/17</div>
+                <div class="box up ">Eth1/17</div>
+                <div class="box up ">Eth1/17</div>
+                <div class="box up ">Eth1/17</div>
+                <div class="box up ">Eth1/17</div>
+    <div>Port<br>Eth1/17</div>
+    <div>Status<br>connected</div>
+    <div>Duplex<br>full</div>
+    <div>Speed<br>1G</div>
+    <div>Type<br>10g</div>
+  </div>
+    <div class="wrapper">
+                <div class="box up ">Eth1/18</div>
+                <div class="box up ">Eth1/18</div>
+                <div class="box up ">Eth1/18</div>
+                <div class="box up ">Eth1/18</div>
+                <div class="box up ">Eth1/18</div>
+    <div>Port<br>Eth1/18</div>
+    <div>Status<br>connected</div>
+    <div>Duplex<br>full</div>
+    <div>Speed<br>10G</div>
+    <div>Type<br>10g</div>
+  </div>
+    <div class="wrapper">
+                <div class="box up ">Eth1/19</div>
+                <div class="box up ">Eth1/19</div>
+                <div class="box up ">Eth1/19</div>
+                <div class="box up ">Eth1/19</div>
+                <div class="box up ">Eth1/19</div>
+    <div>Port<br>Eth1/19</div>
+    <div>Status<br>connected</div>
+    <div>Duplex<br>full</div>
+    <div>Speed<br>10G</div>
+    <div>Type<br>10g</div>
+  </div>
+    <div class="wrapper">
+                <div class="box up ">Eth1/20</div>
+                <div class="box up ">Eth1/20</div>
+                <div class="box up ">Eth1/20</div>
+                <div class="box up ">Eth1/20</div>
+                <div class="box up ">Eth1/20</div>
+    <div>Port<br>Eth1/20</div>
+    <div>Status<br>connected</div>
+    <div>Duplex<br>full</div>
+    <div>Speed<br>1G</div>
+    <div>Type<br>10g</div>
+  </div>
+    <div class="wrapper">
+                <div class="box down ">Eth1/21</div>
+                <div class="box down ">Eth1/21</div>
+                <div class="box down ">Eth1/21</div>
+                <div class="box down ">Eth1/21</div>
+                <div class="box down ">Eth1/21</div>
+    <div>Port<br>Eth1/21</div>
+    <div>Status<br>notconnect</div>
+    <div>Duplex<br>full</div>
+    <div>Speed<br>inherit</div>
+    <div>Type<br>10g</div>
+  </div>
+    <div class="wrapper">
+                <div class="box down ">Eth1/22</div>
+                <div class="box down ">Eth1/22</div>
+                <div class="box down ">Eth1/22</div>
+                <div class="box down ">Eth1/22</div>
+                <div class="box down ">Eth1/22</div>
+    <div>Port<br>Eth1/22</div>
+    <div>Status<br>notconnect</div>
+    <div>Duplex<br>full</div>
+    <div>Speed<br>inherit</div>
+    <div>Type<br>10g</div>
+  </div>
+    <div class="wrapper">
+                <div class="box down ">Eth1/23</div>
+                <div class="box down ">Eth1/23</div>
+                <div class="box down ">Eth1/23</div>
+                <div class="box down ">Eth1/23</div>
+                <div class="box down ">Eth1/23</div>
+    <div>Port<br>Eth1/23</div>
+    <div>Status<br>notconnect</div>
+    <div>Duplex<br>full</div>
+    <div>Speed<br>inherit</div>
+    <div>Type<br>10g</div>
+  </div>
+    <div class="wrapper">
+                <div class="box down ">Eth1/24</div>
+                <div class="box down ">Eth1/24</div>
+                <div class="box down ">Eth1/24</div>
+                <div class="box down ">Eth1/24</div>
+                <div class="box down ">Eth1/24</div>
+    <div>Port<br>Eth1/24</div>
+    <div>Status<br>notconnect</div>
+    <div>Duplex<br>full</div>
+    <div>Speed<br>inherit</div>
+    <div>Type<br>10g</div>
+  </div>
+    <div class="wrapper">
+                <div class="box up ">Eth1/25</div>
+                <div class="box up ">Eth1/25</div>
+                <div class="box up ">Eth1/25</div>
+                <div class="box up ">Eth1/25</div>
+                <div class="box up ">Eth1/25</div>
+    <div>Port<br>Eth1/25</div>
+    <div>Status<br>connected</div>
+    <div>Duplex<br>full</div>
+    <div>Speed<br>10G</div>
+    <div>Type<br>10g</div>
+  </div>
+    <div class="wrapper">
+                <div class="box up ">Eth1/26</div>
+                <div class="box up ">Eth1/26</div>
+                <div class="box up ">Eth1/26</div>
+                <div class="box up ">Eth1/26</div>
+                <div class="box up ">Eth1/26</div>
+    <div>Port<br>Eth1/26</div>
+    <div>Status<br>connected</div>
+    <div>Duplex<br>full</div>
+    <div>Speed<br>10G</div>
+    <div>Type<br>10g</div>
+  </div>
+    <div class="wrapper">
+                <div class="box up ">Eth1/27</div>
+                <div class="box up ">Eth1/27</div>
+                <div class="box up ">Eth1/27</div>
+                <div class="box up ">Eth1/27</div>
+                <div class="box up ">Eth1/27</div>
+    <div>Port<br>Eth1/27</div>
+    <div>Status<br>connected</div>
+    <div>Duplex<br>full</div>
+    <div>Speed<br>10G</div>
+    <div>Type<br>10g</div>
+  </div>
+    <div class="wrapper">
+                <div class="box up ">Eth1/28</div>
+                <div class="box up ">Eth1/28</div>
+                <div class="box up ">Eth1/28</div>
+                <div class="box up ">Eth1/28</div>
+                <div class="box up ">Eth1/28</div>
+    <div>Port<br>Eth1/28</div>
+    <div>Status<br>connected</div>
+    <div>Duplex<br>full</div>
+    <div>Speed<br>10G</div>
+    <div>Type<br>10g</div>
+  </div>
+    <div class="wrapper">
+                <div class="box up ">Eth1/29</div>
+                <div class="box up ">Eth1/29</div>
+                <div class="box up ">Eth1/29</div>
+                <div class="box up ">Eth1/29</div>
+                <div class="box up ">Eth1/29</div>
+    <div>Port<br>Eth1/29</div>
+    <div>Status<br>connected</div>
+    <div>Duplex<br>full</div>
+    <div>Speed<br>10G</div>
+    <div>Type<br>10g</div>
+  </div>
+    <div class="wrapper">
+                <div class="box up ">Eth1/30</div>
+                <div class="box up ">Eth1/30</div>
+                <div class="box up ">Eth1/30</div>
+                <div class="box up ">Eth1/30</div>
+                <div class="box up ">Eth1/30</div>
+    <div>Port<br>Eth1/30</div>
+    <div>Status<br>connected</div>
+    <div>Duplex<br>full</div>
+    <div>Speed<br>1G</div>
+    <div>Type<br>10g</div>
+  </div>
+    <div class="wrapper">
+                <div class="box up ">Eth1/31</div>
+                <div class="box up ">Eth1/31</div>
+                <div class="box up ">Eth1/31</div>
+                <div class="box up ">Eth1/31</div>
+                <div class="box up ">Eth1/31</div>
+    <div>Port<br>Eth1/31</div>
+    <div>Status<br>connected</div>
+    <div>Duplex<br>full</div>
+    <div>Speed<br>10G</div>
+    <div>Type<br>10g</div>
+  </div>
+    <div class="wrapper">
+                <div class="box up ">Eth1/32</div>
+                <div class="box up ">Eth1/32</div>
+                <div class="box up ">Eth1/32</div>
+                <div class="box up ">Eth1/32</div>
+                <div class="box up ">Eth1/32</div>
+    <div>Port<br>Eth1/32</div>
+    <div>Status<br>connected</div>
+    <div>Duplex<br>full</div>
+    <div>Speed<br>10G</div>
+    <div>Type<br>10g</div>
+  </div>
+    <div class="wrapper">
+                <div class="box up ">Eth1/33</div>
+                <div class="box up ">Eth1/33</div>
+                <div class="box up ">Eth1/33</div>
+                <div class="box up ">Eth1/33</div>
+                <div class="box up ">Eth1/33</div>
+    <div>Port<br>Eth1/33</div>
+    <div>Status<br>connected</div>
+    <div>Duplex<br>full</div>
+    <div>Speed<br>1G</div>
+    <div>Type<br>10g</div>
+  </div>
+    <div class="wrapper">
+                <div class="box up ">Eth1/34</div>
+                <div class="box up ">Eth1/34</div>
+                <div class="box up ">Eth1/34</div>
+                <div class="box up ">Eth1/34</div>
+                <div class="box up ">Eth1/34</div>
+    <div>Port<br>Eth1/34</div>
+    <div>Status<br>connected</div>
+    <div>Duplex<br>full</div>
+    <div>Speed<br>10G</div>
+    <div>Type<br>10g</div>
+  </div>
+    <div class="wrapper">
+                <div class="box up ">Eth1/35</div>
+                <div class="box up ">Eth1/35</div>
+                <div class="box up ">Eth1/35</div>
+                <div class="box up ">Eth1/35</div>
+                <div class="box up ">Eth1/35</div>
+    <div>Port<br>Eth1/35</div>
+    <div>Status<br>connected</div>
+    <div>Duplex<br>full</div>
+    <div>Speed<br>10G</div>
+    <div>Type<br>10g</div>
+  </div>
+    <div class="wrapper">
+                <div class="box up ">Eth1/36</div>
+                <div class="box up ">Eth1/36</div>
+                <div class="box up ">Eth1/36</div>
+                <div class="box up ">Eth1/36</div>
+                <div class="box up ">Eth1/36</div>
+    <div>Port<br>Eth1/36</div>
+    <div>Status<br>connected</div>
+    <div>Duplex<br>full</div>
+    <div>Speed<br>10G</div>
+    <div>Type<br>10g</div>
+  </div>
+    <div class="wrapper">
+                <div class="box up ">Eth1/37</div>
+                <div class="box up ">Eth1/37</div>
+                <div class="box up ">Eth1/37</div>
+                <div class="box up ">Eth1/37</div>
+                <div class="box up ">Eth1/37</div>
+    <div>Port<br>Eth1/37</div>
+    <div>Status<br>connected</div>
+    <div>Duplex<br>full</div>
+    <div>Speed<br>10G</div>
+    <div>Type<br>10g</div>
+  </div>
+    <div class="wrapper">
+                <div class="box up ">Eth1/38</div>
+                <div class="box up ">Eth1/38</div>
+                <div class="box up ">Eth1/38</div>
+                <div class="box up ">Eth1/38</div>
+                <div class="box up ">Eth1/38</div>
+    <div>Port<br>Eth1/38</div>
+    <div>Status<br>connected</div>
+    <div>Duplex<br>full</div>
+    <div>Speed<br>10G</div>
+    <div>Type<br>10g</div>
+  </div>
+    <div class="wrapper">
+                <div class="box up ">Eth1/39</div>
+                <div class="box up ">Eth1/39</div>
+                <div class="box up ">Eth1/39</div>
+                <div class="box up ">Eth1/39</div>
+                <div class="box up ">Eth1/39</div>
+    <div>Port<br>Eth1/39</div>
+    <div>Status<br>connected</div>
+    <div>Duplex<br>full</div>
+    <div>Speed<br>10G</div>
+    <div>Type<br>10g</div>
+  </div>
+    <div class="wrapper">
+                <div class="box up ">Eth1/40</div>
+                <div class="box up ">Eth1/40</div>
+                <div class="box up ">Eth1/40</div>
+                <div class="box up ">Eth1/40</div>
+                <div class="box up ">Eth1/40</div>
+    <div>Port<br>Eth1/40</div>
+    <div>Status<br>connected</div>
+    <div>Duplex<br>full</div>
+    <div>Speed<br>1G</div>
+    <div>Type<br>10g</div>
+  </div>
+    <div class="wrapper">
+                <div class="box up ">Eth1/41</div>
+                <div class="box up ">Eth1/41</div>
+                <div class="box up ">Eth1/41</div>
+                <div class="box up ">Eth1/41</div>
+                <div class="box up ">Eth1/41</div>
+    <div>Port<br>Eth1/41</div>
+    <div>Status<br>connected</div>
+    <div>Duplex<br>full</div>
+    <div>Speed<br>10G</div>
+    <div>Type<br>10g</div>
+  </div>
+    <div class="wrapper">
+                <div class="box up ">Eth1/42</div>
+                <div class="box up ">Eth1/42</div>
+                <div class="box up ">Eth1/42</div>
+                <div class="box up ">Eth1/42</div>
+                <div class="box up ">Eth1/42</div>
+    <div>Port<br>Eth1/42</div>
+    <div>Status<br>connected</div>
+    <div>Duplex<br>full</div>
+    <div>Speed<br>10G</div>
+    <div>Type<br>10g</div>
+  </div>
+    <div class="wrapper">
+                <div class="box up ">Eth1/43</div>
+                <div class="box up ">Eth1/43</div>
+                <div class="box up ">Eth1/43</div>
+                <div class="box up ">Eth1/43</div>
+                <div class="box up ">Eth1/43</div>
+    <div>Port<br>Eth1/43</div>
+    <div>Status<br>connected</div>
+    <div>Duplex<br>full</div>
+    <div>Speed<br>10G</div>
+    <div>Type<br>10g</div>
+  </div>
+    <div class="wrapper">
+                <div class="box up ">Eth1/44</div>
+                <div class="box up ">Eth1/44</div>
+                <div class="box up ">Eth1/44</div>
+                <div class="box up ">Eth1/44</div>
+                <div class="box up ">Eth1/44</div>
+    <div>Port<br>Eth1/44</div>
+    <div>Status<br>connected</div>
+    <div>Duplex<br>full</div>
+    <div>Speed<br>10G</div>
+    <div>Type<br>10g</div>
+  </div>
+    <div class="wrapper">
+                <div class="box down ">Eth1/45</div>
+                <div class="box down ">Eth1/45</div>
+                <div class="box down ">Eth1/45</div>
+                <div class="box down ">Eth1/45</div>
+                <div class="box down ">Eth1/45</div>
+    <div>Port<br>Eth1/45</div>
+    <div>Status<br>notconnect</div>
+    <div>Duplex<br>full</div>
+    <div>Speed<br>inherit</div>
+    <div>Type<br>10g</div>
+  </div>
+    <div class="wrapper">
+                <div class="box down ">Eth1/46</div>
+                <div class="box down ">Eth1/46</div>
+                <div class="box down ">Eth1/46</div>
+                <div class="box down ">Eth1/46</div>
+                <div class="box down ">Eth1/46</div>
+    <div>Port<br>Eth1/46</div>
+    <div>Status<br>notconnect</div>
+    <div>Duplex<br>full</div>
+    <div>Speed<br>inherit</div>
+    <div>Type<br>10g</div>
+  </div>
+    <div class="wrapper">
+                <div class="box down ">Eth1/47</div>
+                <div class="box down ">Eth1/47</div>
+                <div class="box down ">Eth1/47</div>
+                <div class="box down ">Eth1/47</div>
+                <div class="box down ">Eth1/47</div>
+    <div>Port<br>Eth1/47</div>
+    <div>Status<br>notconnect</div>
+    <div>Duplex<br>full</div>
+    <div>Speed<br>inherit</div>
+    <div>Type<br>10g</div>
+  </div>
+    <div class="wrapper">
+                <div class="box down ">Eth1/48</div>
+                <div class="box down ">Eth1/48</div>
+                <div class="box down ">Eth1/48</div>
+                <div class="box down ">Eth1/48</div>
+                <div class="box down ">Eth1/48</div>
+    <div>Port<br>Eth1/48</div>
+    <div>Status<br>notconnect</div>
+    <div>Duplex<br>full</div>
+    <div>Speed<br>inherit</div>
+    <div>Type<br>10g</div>
+  </div>
+    <div class="wrapper">
+                <div class="box up ">Eth1/49</div>
+                <div class="box up ">Eth1/49</div>
+                <div class="box up ">Eth1/49</div>
+                <div class="box up ">Eth1/49</div>
+                <div class="box up ">Eth1/49</div>
+    <div>Port<br>Eth1/49</div>
+    <div>Status<br>connected</div>
+    <div>Duplex<br>full</div>
+    <div>Speed<br>40G</div>
+    <div>Type<br>QSFP-40G-SR-BD</div>
+  </div>
+    <div class="wrapper">
+                <div class="box other ">Eth1/50</div>
+                <div class="box other ">Eth1/50</div>
+                <div class="box other ">Eth1/50</div>
+                <div class="box other ">Eth1/50</div>
+                <div class="box other ">Eth1/50</div>
+    <div>Port<br>Eth1/50</div>
+    <div>Status<br>sfpabsent</div>
+    <div>Duplex<br>full</div>
+    <div>Speed<br>inherit</div>
+    <div>Type<br>--</div>
+  </div>
+    <div class="wrapper">
+                <div class="box up ">Eth1/51</div>
+                <div class="box up ">Eth1/51</div>
+                <div class="box up ">Eth1/51</div>
+                <div class="box up ">Eth1/51</div>
+                <div class="box up ">Eth1/51</div>
+    <div>Port<br>Eth1/51</div>
+    <div>Status<br>connected</div>
+    <div>Duplex<br>full</div>
+    <div>Speed<br>40G</div>
+    <div>Type<br>QSFP-40G-SR-BD</div>
+  </div>
+    <div class="wrapper">
+                <div class="box other ">Eth1/52</div>
+                <div class="box other ">Eth1/52</div>
+                <div class="box other ">Eth1/52</div>
+                <div class="box other ">Eth1/52</div>
+                <div class="box other ">Eth1/52</div>
+    <div>Port<br>Eth1/52</div>
+    <div>Status<br>sfpabsent</div>
+    <div>Duplex<br>full</div>
+    <div>Speed<br>inherit</div>
+    <div>Type<br>--</div>
+  </div>
+    <div class="wrapper">
+                <div class="box up ">Eth1/53</div>
+                <div class="box up ">Eth1/53</div>
+                <div class="box up ">Eth1/53</div>
+                <div class="box up ">Eth1/53</div>
+                <div class="box up ">Eth1/53</div>
+    <div>Port<br>Eth1/53</div>
+    <div>Status<br>connected</div>
+    <div>Duplex<br>full</div>
+    <div>Speed<br>40G</div>
+    <div>Type<br>QSFP-40G-SR-BD</div>
+  </div>
+    <div class="wrapper">
+                <div class="box other ">Eth1/54</div>
+                <div class="box other ">Eth1/54</div>
+                <div class="box other ">Eth1/54</div>
+                <div class="box other ">Eth1/54</div>
+                <div class="box other ">Eth1/54</div>
+    <div>Port<br>Eth1/54</div>
+    <div>Status<br>sfpabsent</div>
+    <div>Duplex<br>full</div>
+    <div>Speed<br>inherit</div>
+    <div>Type<br>--</div>
+  </div>
+  
+  <h1>Command output</h1>
+
+  <h2>leaf1_aci_show_int_status_20210710_180354.txt</h2>
+
+  <pre>
+    <code>
+----------------------------------------------------------------------------------------------
+ Port           Name                Status     Vlan       Duplex   Speed    Type              
+----------------------------------------------------------------------------------------------
+ mgmt0          --                  connected  routed     full     1G       --               
+ Eth1/1         --                  connected  trunk      full     10G      10g              
+ Eth1/2         --                  connected  trunk      full     10G      10g              
+ Eth1/3         --                  connected  trunk      full     10G      10g              
+ Eth1/4         --                  connected  trunk      full     10G      10g              
+ Eth1/5         --                  connected  trunk      full     10G      10g              
+ Eth1/6         --                  connected  trunk      full     10G      10g              
+ Eth1/7         --                  connected  trunk      full     10G      10g              
+ Eth1/8         --                  notconnect trunk      full     inherit  10g              
+ Eth1/9         --                  connected  trunk      full     10G      10g              
+ Eth1/10        --                  connected  trunk      full     10G      10g              
+ Eth1/11        --                  connected  trunk      full     10G      10g              
+ Eth1/12        --                  connected  trunk      full     10G      10g              
+ Eth1/13        --                  connected  trunk      full     10G      10g              
+ Eth1/14        --                  connected  trunk      full     10G      10g              
+ Eth1/15        --                  connected  trunk      full     10G      10g              
+ Eth1/16        --                  notconnect trunk      full     inherit  10g              
+ Eth1/17        --                  connected  trunk      full     1G       10g              
+ Eth1/18        --                  connected  trunk      full     10G      10g              
+ Eth1/19        --                  connected  trunk      full     10G      10g              
+ Eth1/20        --                  connected  trunk      full     1G       10g              
+ Eth1/21        --                  notconnect trunk      full     inherit  10g              
+ Eth1/22        --                  notconnect trunk      full     inherit  10g              
+ Eth1/23        --                  notconnect trunk      full     inherit  10g              
+ Eth1/24        --                  notconnect trunk      full     inherit  10g              
+ Eth1/25        --                  connected  trunk      full     10G      10g              
+ Eth1/26        --                  connected  trunk      full     10G      10g              
+ Eth1/27        --                  connected  trunk      full     10G      10g              
+ Eth1/28        --                  connected  trunk      full     10G      10g              
+ Eth1/29        --                  connected  trunk      full     10G      10g              
+ Eth1/30        --                  connected  trunk      full     1G       10g              
+ Eth1/31        --                  connected  trunk      full     10G      10g              
+ Eth1/32        --                  connected  trunk      full     10G      10g              
+ Eth1/33        --                  connected  trunk      full     1G       10g              
+ Eth1/34        --                  connected  trunk      full     10G      10g              
+ Eth1/35        --                  connected  trunk      full     10G      10g              
+ Eth1/36        --                  connected  trunk      full     10G      10g              
+ Eth1/37        --                  connected  trunk      full     10G      10g              
+ Eth1/38        --                  connected  trunk      full     10G      10g              
+ Eth1/39        --                  connected  trunk      full     10G      10g              
+ Eth1/40        --                  connected  trunk      full     1G       10g              
+ Eth1/41        --                  connected  trunk      full     10G      10g              
+ Eth1/42        --                  connected  trunk      full     10G      10g              
+ Eth1/43        --                  connected  trunk      full     10G      10g              
+ Eth1/44        --                  connected  trunk      full     10G      10g              
+ Eth1/45        --                  notconnect trunk      full     inherit  10g              
+ Eth1/46        --                  notconnect trunk      full     inherit  10g              
+ Eth1/47        --                  notconnect trunk      full     inherit  10g              
+ Eth1/48        --                  notconnect trunk      full     inherit  10g              
+ Eth1/49        --                  connected  routed     full     40G      QSFP-40G-SR-BD   
+ Eth1/49.7      --                  connected  routed     full     40G      QSFP-40G-SR-BD   
+ Eth1/50        --                  sfpabsent  routed     full     inherit  --               
+ Eth1/50.2      --                  parentdown routed     full     inherit  --               
+ Eth1/51        --                  connected  routed     full     40G      QSFP-40G-SR-BD   
+ Eth1/51.9      --                  connected  routed     full     40G      QSFP-40G-SR-BD   
+ Eth1/52        --                  sfpabsent  routed     full     inherit  --               
+ Eth1/52.4      --                  parentdown routed     full     inherit  --               
+ Eth1/53        --                  connected  routed     full     40G      QSFP-40G-SR-BD   
+ Eth1/53.8      --                  connected  routed     full     40G      QSFP-40G-SR-BD   
+ Eth1/54        --                  sfpabsent  routed     full     inherit  --               
+ Eth1/54.6      --                  parentdown routed     full     inherit  --               
+ Po1            --                  connected  trunk      full     10G      --               
+ Po2            --                  noopermemb trunk      auto     inherit  --               
+ Po3            --                  noopermemb trunk      full     inherit  --               
+ Po4            --                  connected  trunk      full     10G      --               
+ Po5            --                  connected  trunk      full     10G      --               
+ Po6            --                  noopermemb trunk      full     inherit  --               
+ Po7            --                  connected  trunk      full     10G      --               
+ Po8            --                  connected  trunk      full     10G      --               
+ Po9            --                  connected  trunk      full     10G      --               
+ Po10           --                  connected  trunk      full     10G      --               
+ Po11           --                  connected  trunk      full     10G      --               
+ Po12           --                  connected  trunk      full     10G      --               
+ Po13           --                  connected  trunk      full     10G      --               
+ Po14           --                  noopermemb trunk      auto     inherit  --               
+ Po15           --                  connected  trunk      full     10G      --               
+ Po16           --                  connected  trunk      full     10G      --               
+ Po17           --                  connected  trunk      full     10G      --               
+ Po18           --                  connected  trunk      full     10G      --               
+ Po19           --                  connected  trunk      full     10G      --               
+ Po20           --                  connected  trunk      full     10G      --               
+ Po21           --                  connected  trunk      full     10G      --               
+ Po22           --                  noopermemb trunk      auto     inherit  --               
+ Po23           --                  noopermemb trunk      full     inherit  --               
+ Po24           --                  connected  trunk      full     10G      --               
+ Po25           --                  noopermemb trunk      full     inherit  --               
+ Po26           --                  connected  trunk      full     10G      --               
+ Po27           --                  connected  trunk      full     10G      --               
+ Po28           --                  connected  trunk      full     10G      --               
+ Po29           --                  noopermemb trunk      auto     inherit  --               
+ Po30           --                  connected  trunk      full     10G      --               
+ Po31           --                  noopermemb trunk      full     inherit  --               
+ Po32           --                  connected  trunk      full     10G      --               
+ Po33           --                  connected  trunk      full     10G      --               
+ Po34           --                  connected  trunk      full     10G      --               
+ Po35           --                  connected  trunk      full     10G      --               
+ Po36           --                  connected  trunk      full     10G      --               
+ Po37           --                  connected  trunk      full     10G      --               
+ Po38           --                  connected  trunk      full     10G      --               
+ Po39           --                  connected  trunk      full     10G      --               
+ Po40           --                  connected  trunk      full     10G      --               
+ Po41           --                  connected  trunk      full     10G      --               
+ Po42           --                  connected  trunk      full     10G      --               
+ Lo0            --                  connected  routed     auto     --       --               
+ Lo1            --                  connected  routed     auto     --       --               
+ Lo1023         --                  connected  routed     auto     --       --               
+ Vlan10         --                  unknown    routed     auto     auto     --               
+ Vlan12         --                  unknown    routed     auto     auto     --               
+ Vlan14         --                  unknown    routed     auto     auto     --               
+ Vlan16         --                  unknown    routed     auto     auto     --               
+ Vlan18         --                  unknown    routed     auto     auto     --               
+ Vlan20         --                  unknown    routed     auto     auto     --               
+ Vlan22         --                  unknown    routed     auto     auto     --               
+ Vlan24         --                  unknown    routed     auto     auto     --               
+ Vlan26         --                  unknown    routed     auto     auto     --               
+
+----------------------------------------------------------------
+ Interface     Name                Status    Reason             
+----------------------------------------------------------------
+ Tunnel1       --                  up        no-reason         
+ Tunnel2       --                  up        no-reason         
+ Tunnel3       --                  up        no-reason         
+ Tunnel4       --                  up        no-reason         
+ Tunnel5       --                  up        no-reason         
+ Tunnel6       --                  up        no-reason         
+ Tunnel7       --                  up        no-reason         
+ Tunnel8       --                  up        no-reason         
+ Tunnel9       --                  up        no-reason         
+ Tunnel10      --                  up        no-reason         
+ Tunnel11      --                  up        no-reason         
+ Tunnel12      --                  up        no-reason         
+ Tunnel13      --                  up        no-reason         
+ Tunnel14      --                  up        no-reason         
+ Tunnel15      --                  up        no-reason         
+ Tunnel16      --                  up        no-reason         
+ Tunnel17      --                  up        no-reason         
+ Tunnel18      --                  up        no-reason         
+ Tunnel19      --                  up        no-reason         
+ Tunnel20      --                  up        no-reason         
+ Tunnel21      --                  up        no-reason         
+ Tunnel22      --                  up        no-reason         
+ Tunnel23      --                  up        no-reason         
+ Tunnel24      --                  up        no-reason         
+ Tunnel25      --                  up        no-reason         
+ Tunnel26      --                  up        no-reason         
+ Tunnel27      --                  up        no-reason         
+ Tunnel28      --                  up        no-reason         
+ Tunnel29      --                  up        no-reason         
+ Tunnel30      --                  up        no-reason         
+ Tunnel31      --                  up        no-reason         
+ Tunnel32      --                  up        no-reason         
+ Tunnel33      --                  up        no-reason         
+ Tunnel35      --                  up        no-reason         
+ Tunnel36      --                  up        no-reason         
+ Tunnel37      --                  up        no-reason         
+ Tunnel38      --                  up        no-reason         
+ Tunnel39      --                  up        no-reason         
+ Tunnel40      --                  up        no-reason         
+ Tunnel41      --                  up        no-reason         
+ Tunnel42      --                  up        no-reason         
+ Tunnel43      --                  up        no-reason         
+ Tunnel44      --                  up        no-reason         
+ Tunnel45      --                  up        no-reason         
+ Tunnel46      --                  up        no-reason         
+ Tunnel47      --                  up        no-reason         
+ Tunnel48      --                  up        no-reason         
+ Tunnel49      --                  up        no-reason         
+ Tunnel50      --                  up        no-reason         
+ Tunnel52      --                  up        no-reason         
+ Tunnel53      --                  up        no-reason         
+ Tunnel54      --                  up        no-reason         
+ Tunnel55      --                  up        no-reason         
+ Tunnel56      --                  up        no-reason         
+ Tunnel57      --                  up        no-reason         
+ Tunnel58      --                  up        no-reason         
+ Tunnel59      --                  up        no-reason         
+ Tunnel60      --                  up        no-reason         
+ Tunnel61      --                  up        no-reason         
+ Tunnel62      --                  up        no-reason         
+ Tunnel63      --                  up        no-reason         
+ Tunnel64      --                  up        no-reason         
+ Tunnel65      --                  up        no-reason         
+ Tunnel66      --                  up        no-reason         
+ Tunnel67      --                  up        no-reason         
+ Tunnel68      --                  up        no-reason         
+ Tunnel72      --                  up        no-reason
+    </code>
+  </pre>
+
+</body>
+</html>

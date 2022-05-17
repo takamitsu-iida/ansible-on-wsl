@@ -52,6 +52,10 @@ Cisco ACIのスイッチにログインしてiShell上のコマンド `show vpc 
 
 <BR>
 
+[出力例](https://takamitsu-iida.github.io/ansible-on-wsl/aci_show_vpc_brief.html)
+
+<BR>
+
 # License
 
 BSD

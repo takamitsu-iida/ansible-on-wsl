@@ -49,6 +49,9 @@ NOTE: 少なくとも2回、実行しないとdiffがとれません。
 
 ![キャプチャ](https://user-images.githubusercontent.com/21165341/125151610-556ae900-e182-11eb-9c0b-2041f1ed4f2a.PNG)
 
+<br>
+
+[出力例](https://takamitsu-iida.github.io/ansible-on-wsl/aci_cli_diff.html)
 
 <br>
 

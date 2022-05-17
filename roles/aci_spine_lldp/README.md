@@ -52,6 +52,10 @@ Cisco ACIのSpineスイッチにSSH接続してiShell上のコマンド`show lld
 
 <br>
 
+[出力例](https://takamitsu-iida.github.io/ansible-on-wsl/aci_spine_lldp.html)
+
+<br>
+
 # License
 
 BSD

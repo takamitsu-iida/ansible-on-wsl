@@ -1,0 +1,740 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title>aci show vpc brief</title>
+  <meta charset="utf-8">
+  <style>
+
+    html {
+      font-size: 62.5%;
+    }
+
+    body {
+      margin: 40px;
+      font-size: 1.4em;
+    }
+
+    .wrapper {
+      display: grid;
+      padding: 10px;
+      margin: 10px;
+      column-gap: 10px;
+      row-gap: 10px;
+      grid-template-columns: repeat(5, 50px) 50px 60px 60px 100px 200px 1fr;
+      background-color:#F5F5F5;
+    }
+
+    .box {
+      width: 35px;
+      height: 35px;
+      background-color:grey;
+      color: #fff;
+      border-radius: 4px;
+      padding: 4px;
+      margin: 0px;
+      font-size: 1.0rem;
+    }
+
+    .down {
+      background-color:black;
+    }
+
+    .up {
+      background-color:green;
+    }
+
+    pre {
+      margin: 1em 0;
+      padding: 1em;
+      font-size: 120%;
+      max-width: 1320px;
+      color: #2F4F4F;
+      background-color:#F5F5F5;
+      overflow: auto;
+    }
+
+  </style>
+
+</head>
+
+<body>
+
+  <h1>Parsed files</h1>
+
+    <p>leaf1_aci_show_vpc_brief_20210707_200826.txt</p>
+  
+  <h1>Port status history</h1>
+
+  show vpc briefコマンドのログ・ファイルを分析してポートチャネルの状態を表示します（最大で５世代）。
+  左から順に新しいログ・ファイルのポート状態です。
+
+    <div class="wrapper">
+                <div class="box up ">Po40</div>
+                <div class="box  "></div>
+                <div class="box  "></div>
+                <div class="box  "></div>
+                <div class="box  "></div>
+    <div>id<br>1</div>
+    <div>Port<br>Po40</div>
+    <div>Status<br>up</div>
+    <div>Consistency<br>success</div>
+    <div>Reason<br>success</div>
+    <div>ActiveVlans<br>101-106,109,111</div>
+  </div>
+    <div class="wrapper">
+                <div class="box up ">Po35</div>
+                <div class="box  "></div>
+                <div class="box  "></div>
+                <div class="box  "></div>
+                <div class="box  "></div>
+    <div>id<br>10</div>
+    <div>Port<br>Po35</div>
+    <div>Status<br>up</div>
+    <div>Consistency<br>success</div>
+    <div>Reason<br>success</div>
+    <div>ActiveVlans<br>101-106,109,111</div>
+  </div>
+    <div class="wrapper">
+                <div class="box down ">Po6</div>
+                <div class="box  "></div>
+                <div class="box  "></div>
+                <div class="box  "></div>
+                <div class="box  "></div>
+    <div>id<br>11</div>
+    <div>Port<br>Po6</div>
+    <div>Status<br>down*</div>
+    <div>Consistency<br>NotApplicable</div>
+    <div>Reason<br>Consistency Check NotPerformed</div>
+    <div>ActiveVlans<br></div>
+  </div>
+    <div class="wrapper">
+                <div class="box up ">Po4</div>
+                <div class="box  "></div>
+                <div class="box  "></div>
+                <div class="box  "></div>
+                <div class="box  "></div>
+    <div>id<br>12</div>
+    <div>Port<br>Po4</div>
+    <div>Status<br>up</div>
+    <div>Consistency<br>success</div>
+    <div>Reason<br>success</div>
+    <div>ActiveVlans<br>101-106,109,111</div>
+  </div>
+    <div class="wrapper">
+                <div class="box up ">Po36</div>
+                <div class="box  "></div>
+                <div class="box  "></div>
+                <div class="box  "></div>
+                <div class="box  "></div>
+    <div>id<br>13</div>
+    <div>Port<br>Po36</div>
+    <div>Status<br>up</div>
+    <div>Consistency<br>success</div>
+    <div>Reason<br>success</div>
+    <div>ActiveVlans<br>101-106,109,111</div>
+  </div>
+    <div class="wrapper">
+                <div class="box up ">Po17</div>
+                <div class="box  "></div>
+                <div class="box  "></div>
+                <div class="box  "></div>
+                <div class="box  "></div>
+    <div>id<br>14</div>
+    <div>Port<br>Po17</div>
+    <div>Status<br>up</div>
+    <div>Consistency<br>success</div>
+    <div>Reason<br>success</div>
+    <div>ActiveVlans<br>101-106,109,111</div>
+  </div>
+    <div class="wrapper">
+                <div class="box down ">Po2</div>
+                <div class="box  "></div>
+                <div class="box  "></div>
+                <div class="box  "></div>
+                <div class="box  "></div>
+    <div>id<br>17</div>
+    <div>Port<br>Po2</div>
+    <div>Status<br>down*</div>
+    <div>Consistency<br>NotApplicable</div>
+    <div>Reason<br>Consistency Check NotPerformed</div>
+    <div>ActiveVlans<br></div>
+  </div>
+    <div class="wrapper">
+                <div class="box up ">Po1</div>
+                <div class="box  "></div>
+                <div class="box  "></div>
+                <div class="box  "></div>
+                <div class="box  "></div>
+    <div>id<br>2</div>
+    <div>Port<br>Po1</div>
+    <div>Status<br>up</div>
+    <div>Consistency<br>success</div>
+    <div>Reason<br>success</div>
+    <div>ActiveVlans<br>101-106,109,111</div>
+  </div>
+    <div class="wrapper">
+                <div class="box up ">Po15</div>
+                <div class="box  "></div>
+                <div class="box  "></div>
+                <div class="box  "></div>
+                <div class="box  "></div>
+    <div>id<br>3</div>
+    <div>Port<br>Po15</div>
+    <div>Status<br>up</div>
+    <div>Consistency<br>success</div>
+    <div>Reason<br>success</div>
+    <div>ActiveVlans<br>101-106,109,111</div>
+  </div>
+    <div class="wrapper">
+                <div class="box up ">Po26</div>
+                <div class="box  "></div>
+                <div class="box  "></div>
+                <div class="box  "></div>
+                <div class="box  "></div>
+    <div>id<br>347</div>
+    <div>Port<br>Po26</div>
+    <div>Status<br>up</div>
+    <div>Consistency<br>success</div>
+    <div>Reason<br>success</div>
+    <div>ActiveVlans<br>101-106,109,111</div>
+  </div>
+    <div class="wrapper">
+                <div class="box up ">Po13</div>
+                <div class="box  "></div>
+                <div class="box  "></div>
+                <div class="box  "></div>
+                <div class="box  "></div>
+    <div>id<br>348</div>
+    <div>Port<br>Po13</div>
+    <div>Status<br>up</div>
+    <div>Consistency<br>success</div>
+    <div>Reason<br>success</div>
+    <div>ActiveVlans<br>101-106,109,111</div>
+  </div>
+    <div class="wrapper">
+                <div class="box up ">Po27</div>
+                <div class="box  "></div>
+                <div class="box  "></div>
+                <div class="box  "></div>
+                <div class="box  "></div>
+    <div>id<br>349</div>
+    <div>Port<br>Po27</div>
+    <div>Status<br>up</div>
+    <div>Consistency<br>success</div>
+    <div>Reason<br>success</div>
+    <div>ActiveVlans<br>101-106,109,111</div>
+  </div>
+    <div class="wrapper">
+                <div class="box down ">Po3</div>
+                <div class="box  "></div>
+                <div class="box  "></div>
+                <div class="box  "></div>
+                <div class="box  "></div>
+    <div>id<br>350</div>
+    <div>Port<br>Po3</div>
+    <div>Status<br>down*</div>
+    <div>Consistency<br>NotApplicable</div>
+    <div>Reason<br>Consistency Check NotPerformed</div>
+    <div>ActiveVlans<br></div>
+  </div>
+    <div class="wrapper">
+                <div class="box up ">Po11</div>
+                <div class="box  "></div>
+                <div class="box  "></div>
+                <div class="box  "></div>
+                <div class="box  "></div>
+    <div>id<br>351</div>
+    <div>Port<br>Po11</div>
+    <div>Status<br>up</div>
+    <div>Consistency<br>success</div>
+    <div>Reason<br>success</div>
+    <div>ActiveVlans<br>101-106,109,111</div>
+  </div>
+    <div class="wrapper">
+                <div class="box up ">Po42</div>
+                <div class="box  "></div>
+                <div class="box  "></div>
+                <div class="box  "></div>
+                <div class="box  "></div>
+    <div>id<br>352</div>
+    <div>Port<br>Po42</div>
+    <div>Status<br>up</div>
+    <div>Consistency<br>success</div>
+    <div>Reason<br>success</div>
+    <div>ActiveVlans<br>101-106,109,111</div>
+  </div>
+    <div class="wrapper">
+                <div class="box up ">Po34</div>
+                <div class="box  "></div>
+                <div class="box  "></div>
+                <div class="box  "></div>
+                <div class="box  "></div>
+    <div>id<br>353</div>
+    <div>Port<br>Po34</div>
+    <div>Status<br>up</div>
+    <div>Consistency<br>success</div>
+    <div>Reason<br>success</div>
+    <div>ActiveVlans<br>101-106,109,111</div>
+  </div>
+    <div class="wrapper">
+                <div class="box up ">Po5</div>
+                <div class="box  "></div>
+                <div class="box  "></div>
+                <div class="box  "></div>
+                <div class="box  "></div>
+    <div>id<br>354</div>
+    <div>Port<br>Po5</div>
+    <div>Status<br>up</div>
+    <div>Consistency<br>success</div>
+    <div>Reason<br>success</div>
+    <div>ActiveVlans<br>101-106,109,111</div>
+  </div>
+    <div class="wrapper">
+                <div class="box down ">Po29</div>
+                <div class="box  "></div>
+                <div class="box  "></div>
+                <div class="box  "></div>
+                <div class="box  "></div>
+    <div>id<br>4</div>
+    <div>Port<br>Po29</div>
+    <div>Status<br>down*</div>
+    <div>Consistency<br>NotApplicable</div>
+    <div>Reason<br>Consistency Check NotPerformed</div>
+    <div>ActiveVlans<br></div>
+  </div>
+    <div class="wrapper">
+                <div class="box up ">Po8</div>
+                <div class="box  "></div>
+                <div class="box  "></div>
+                <div class="box  "></div>
+                <div class="box  "></div>
+    <div>id<br>5</div>
+    <div>Port<br>Po8</div>
+    <div>Status<br>up</div>
+    <div>Consistency<br>success</div>
+    <div>Reason<br>success</div>
+    <div>ActiveVlans<br>101-106,109,111</div>
+  </div>
+    <div class="wrapper">
+                <div class="box up ">Po7</div>
+                <div class="box  "></div>
+                <div class="box  "></div>
+                <div class="box  "></div>
+                <div class="box  "></div>
+    <div>id<br>6</div>
+    <div>Port<br>Po7</div>
+    <div>Status<br>up</div>
+    <div>Consistency<br>success</div>
+    <div>Reason<br>success</div>
+    <div>ActiveVlans<br>101-106,109,111</div>
+  </div>
+    <div class="wrapper">
+                <div class="box down ">Po23</div>
+                <div class="box  "></div>
+                <div class="box  "></div>
+                <div class="box  "></div>
+                <div class="box  "></div>
+    <div>id<br>684</div>
+    <div>Port<br>Po23</div>
+    <div>Status<br>down*</div>
+    <div>Consistency<br>NotApplicable</div>
+    <div>Reason<br>Consistency Check NotPerformed</div>
+    <div>ActiveVlans<br></div>
+  </div>
+    <div class="wrapper">
+                <div class="box up ">Po41</div>
+                <div class="box  "></div>
+                <div class="box  "></div>
+                <div class="box  "></div>
+                <div class="box  "></div>
+    <div>id<br>685</div>
+    <div>Port<br>Po41</div>
+    <div>Status<br>up</div>
+    <div>Consistency<br>success</div>
+    <div>Reason<br>success</div>
+    <div>ActiveVlans<br>101-106,109,111</div>
+  </div>
+    <div class="wrapper">
+                <div class="box up ">Po21</div>
+                <div class="box  "></div>
+                <div class="box  "></div>
+                <div class="box  "></div>
+                <div class="box  "></div>
+    <div>id<br>686</div>
+    <div>Port<br>Po21</div>
+    <div>Status<br>up</div>
+    <div>Consistency<br>success</div>
+    <div>Reason<br>success</div>
+    <div>ActiveVlans<br>101-106,109,111</div>
+  </div>
+    <div class="wrapper">
+                <div class="box up ">Po9</div>
+                <div class="box  "></div>
+                <div class="box  "></div>
+                <div class="box  "></div>
+                <div class="box  "></div>
+    <div>id<br>687</div>
+    <div>Port<br>Po9</div>
+    <div>Status<br>up</div>
+    <div>Consistency<br>success</div>
+    <div>Reason<br>success</div>
+    <div>ActiveVlans<br>101-106,109,111</div>
+  </div>
+    <div class="wrapper">
+                <div class="box down ">Po25</div>
+                <div class="box  "></div>
+                <div class="box  "></div>
+                <div class="box  "></div>
+                <div class="box  "></div>
+    <div>id<br>688</div>
+    <div>Port<br>Po25</div>
+    <div>Status<br>down*</div>
+    <div>Consistency<br>NotApplicable</div>
+    <div>Reason<br>Consistency Check NotPerformed</div>
+    <div>ActiveVlans<br></div>
+  </div>
+    <div class="wrapper">
+                <div class="box up ">Po38</div>
+                <div class="box  "></div>
+                <div class="box  "></div>
+                <div class="box  "></div>
+                <div class="box  "></div>
+    <div>id<br>689</div>
+    <div>Port<br>Po38</div>
+    <div>Status<br>up</div>
+    <div>Consistency<br>success</div>
+    <div>Reason<br>success</div>
+    <div>ActiveVlans<br>101-106,109,111</div>
+  </div>
+    <div class="wrapper">
+                <div class="box up ">Po12</div>
+                <div class="box  "></div>
+                <div class="box  "></div>
+                <div class="box  "></div>
+                <div class="box  "></div>
+    <div>id<br>690</div>
+    <div>Port<br>Po12</div>
+    <div>Status<br>up</div>
+    <div>Consistency<br>success</div>
+    <div>Reason<br>success</div>
+    <div>ActiveVlans<br>101-106,109,111</div>
+  </div>
+    <div class="wrapper">
+                <div class="box up ">Po33</div>
+                <div class="box  "></div>
+                <div class="box  "></div>
+                <div class="box  "></div>
+                <div class="box  "></div>
+    <div>id<br>691</div>
+    <div>Port<br>Po33</div>
+    <div>Status<br>up</div>
+    <div>Consistency<br>success</div>
+    <div>Reason<br>success</div>
+    <div>ActiveVlans<br>101-106,109,111</div>
+  </div>
+    <div class="wrapper">
+                <div class="box up ">Po30</div>
+                <div class="box  "></div>
+                <div class="box  "></div>
+                <div class="box  "></div>
+                <div class="box  "></div>
+    <div>id<br>692</div>
+    <div>Port<br>Po30</div>
+    <div>Status<br>up</div>
+    <div>Consistency<br>success</div>
+    <div>Reason<br>success</div>
+    <div>ActiveVlans<br>101-106,109,111</div>
+  </div>
+    <div class="wrapper">
+                <div class="box up ">Po20</div>
+                <div class="box  "></div>
+                <div class="box  "></div>
+                <div class="box  "></div>
+                <div class="box  "></div>
+    <div>id<br>693</div>
+    <div>Port<br>Po20</div>
+    <div>Status<br>up</div>
+    <div>Consistency<br>success</div>
+    <div>Reason<br>success</div>
+    <div>ActiveVlans<br>101-106,109,111</div>
+  </div>
+    <div class="wrapper">
+                <div class="box up ">Po10</div>
+                <div class="box  "></div>
+                <div class="box  "></div>
+                <div class="box  "></div>
+                <div class="box  "></div>
+    <div>id<br>694</div>
+    <div>Port<br>Po10</div>
+    <div>Status<br>up</div>
+    <div>Consistency<br>success</div>
+    <div>Reason<br>success</div>
+    <div>ActiveVlans<br>101-106,109,111</div>
+  </div>
+    <div class="wrapper">
+                <div class="box up ">Po18</div>
+                <div class="box  "></div>
+                <div class="box  "></div>
+                <div class="box  "></div>
+                <div class="box  "></div>
+    <div>id<br>695</div>
+    <div>Port<br>Po18</div>
+    <div>Status<br>up</div>
+    <div>Consistency<br>success</div>
+    <div>Reason<br>success</div>
+    <div>ActiveVlans<br>101-106,109,111</div>
+  </div>
+    <div class="wrapper">
+                <div class="box up ">Po24</div>
+                <div class="box  "></div>
+                <div class="box  "></div>
+                <div class="box  "></div>
+                <div class="box  "></div>
+    <div>id<br>696</div>
+    <div>Port<br>Po24</div>
+    <div>Status<br>up</div>
+    <div>Consistency<br>success</div>
+    <div>Reason<br>success</div>
+    <div>ActiveVlans<br>101-106,109,111</div>
+  </div>
+    <div class="wrapper">
+                <div class="box up ">Po16</div>
+                <div class="box  "></div>
+                <div class="box  "></div>
+                <div class="box  "></div>
+                <div class="box  "></div>
+    <div>id<br>697</div>
+    <div>Port<br>Po16</div>
+    <div>Status<br>up</div>
+    <div>Consistency<br>success</div>
+    <div>Reason<br>success</div>
+    <div>ActiveVlans<br>101-106,109,111</div>
+  </div>
+    <div class="wrapper">
+                <div class="box down ">Po31</div>
+                <div class="box  "></div>
+                <div class="box  "></div>
+                <div class="box  "></div>
+                <div class="box  "></div>
+    <div>id<br>698</div>
+    <div>Port<br>Po31</div>
+    <div>Status<br>down*</div>
+    <div>Consistency<br>success</div>
+    <div>Reason<br>success</div>
+    <div>ActiveVlans<br></div>
+  </div>
+    <div class="wrapper">
+                <div class="box up ">Po39</div>
+                <div class="box  "></div>
+                <div class="box  "></div>
+                <div class="box  "></div>
+                <div class="box  "></div>
+    <div>id<br>699</div>
+    <div>Port<br>Po39</div>
+    <div>Status<br>up</div>
+    <div>Consistency<br>success</div>
+    <div>Reason<br>success</div>
+    <div>ActiveVlans<br>101-106,109,111</div>
+  </div>
+    <div class="wrapper">
+                <div class="box down ">Po14</div>
+                <div class="box  "></div>
+                <div class="box  "></div>
+                <div class="box  "></div>
+                <div class="box  "></div>
+    <div>id<br>7</div>
+    <div>Port<br>Po14</div>
+    <div>Status<br>down*</div>
+    <div>Consistency<br>NotApplicable</div>
+    <div>Reason<br>Consistency Check NotPerformed</div>
+    <div>ActiveVlans<br></div>
+  </div>
+    <div class="wrapper">
+                <div class="box up ">Po32</div>
+                <div class="box  "></div>
+                <div class="box  "></div>
+                <div class="box  "></div>
+                <div class="box  "></div>
+    <div>id<br>700</div>
+    <div>Port<br>Po32</div>
+    <div>Status<br>up</div>
+    <div>Consistency<br>success</div>
+    <div>Reason<br>success</div>
+    <div>ActiveVlans<br>101-106,109,111</div>
+  </div>
+    <div class="wrapper">
+                <div class="box up ">Po19</div>
+                <div class="box  "></div>
+                <div class="box  "></div>
+                <div class="box  "></div>
+                <div class="box  "></div>
+    <div>id<br>701</div>
+    <div>Port<br>Po19</div>
+    <div>Status<br>up</div>
+    <div>Consistency<br>success</div>
+    <div>Reason<br>success</div>
+    <div>ActiveVlans<br>101-106,109,111</div>
+  </div>
+    <div class="wrapper">
+                <div class="box down ">Po22</div>
+                <div class="box  "></div>
+                <div class="box  "></div>
+                <div class="box  "></div>
+                <div class="box  "></div>
+    <div>id<br>702</div>
+    <div>Port<br>Po22</div>
+    <div>Status<br>down*</div>
+    <div>Consistency<br>NotApplicable</div>
+    <div>Reason<br>Consistency Check NotPerformed</div>
+    <div>ActiveVlans<br></div>
+  </div>
+    <div class="wrapper">
+                <div class="box up ">Po28</div>
+                <div class="box  "></div>
+                <div class="box  "></div>
+                <div class="box  "></div>
+                <div class="box  "></div>
+    <div>id<br>8</div>
+    <div>Port<br>Po28</div>
+    <div>Status<br>up</div>
+    <div>Consistency<br>success</div>
+    <div>Reason<br>success</div>
+    <div>ActiveVlans<br>101-106,109,111</div>
+  </div>
+    <div class="wrapper">
+                <div class="box up ">Po37</div>
+                <div class="box  "></div>
+                <div class="box  "></div>
+                <div class="box  "></div>
+                <div class="box  "></div>
+    <div>id<br>9</div>
+    <div>Port<br>Po37</div>
+    <div>Status<br>up</div>
+    <div>Consistency<br>success</div>
+    <div>Reason<br>success</div>
+    <div>ActiveVlans<br>101-106,109,111</div>
+  </div>
+  
+  <h1>Command output</h1>
+
+  <h2>leaf1_aci_show_vpc_brief_20210707_200826.txt</h2>
+
+  <pre>
+    <code>
+Legend:
+		(*) - local vPC is down, forwarding via vPC peer-link
+
+vPC domain id                     : 51  
+Peer status                       : peer adjacency formed ok      
+vPC keep-alive status             : Disabled                      
+Configuration consistency status  : success 
+Per-vlan consistency status       : success                       
+Type-2 consistency status         : success 
+vPC role                          : primary                       
+Number of vPCs configured         : 42  
+Peer Gateway                      : Disabled
+Dual-active excluded VLANs        : -
+Graceful Consistency Check        : Enabled
+Auto-recovery status              : Enabled (timeout = 240 seconds)
+Operational Layer3 Peer           : Disabled
+
+vPC Peer-link status
+---------------------------------------------------------------------
+id   Port   Status Active vlans    
+--   ----   ------ --------------------------------------------------
+1           up     -                                                      
+
+vPC status
+----------------------------------------------------------------------
+id   Port   Status Consistency Reason                     Active vlans
+--   ----   ------ ----------- ------                     ------------
+1    Po40   up     success     success                    101-106,109      
+                                                          ,111             
+10   Po35   up     success     success                    101-106,109      
+                                                          ,111             
+11   Po6    down*  Not         Consistency Check Not                       
+                   Applicable  Performed                                   
+12   Po4    up     success     success                    101-106,109      
+                                                          ,111             
+13   Po36   up     success     success                    101-106,109      
+                                                          ,111             
+14   Po17   up     success     success                    101-106,109      
+                                                          ,111             
+17   Po2    down*  Not         Consistency Check Not                       
+                   Applicable  Performed                                   
+2    Po1    up     success     success                    101-106,109      
+                                                          ,111             
+3    Po15   up     success     success                    101-106,109      
+                                                          ,111             
+347  Po26   up     success     success                    101-106,109      
+                                                          ,111             
+348  Po13   up     success     success                    101-106,109      
+                                                          ,111             
+349  Po27   up     success     success                    101-106,109      
+                                                          ,111             
+350  Po3    down*  Not         Consistency Check Not                       
+                   Applicable  Performed                                   
+351  Po11   up     success     success                    101-106,109      
+                                                          ,111             
+352  Po42   up     success     success                    101-106,109      
+                                                          ,111             
+353  Po34   up     success     success                    101-106,109      
+                                                          ,111             
+354  Po5    up     success     success                    101-106,109      
+                                                          ,111             
+4    Po29   down*  Not         Consistency Check Not                       
+                   Applicable  Performed                                   
+5    Po8    up     success     success                    101-106,109      
+                                                          ,111             
+6    Po7    up     success     success                    101-106,109      
+                                                          ,111             
+684  Po23   down*  Not         Consistency Check Not                       
+                   Applicable  Performed                                   
+685  Po41   up     success     success                    101-106,109      
+                                                          ,111             
+686  Po21   up     success     success                    101-106,109      
+                                                          ,111             
+687  Po9    up     success     success                    101-106,109      
+                                                          ,111             
+688  Po25   down*  Not         Consistency Check Not                       
+                   Applicable  Performed                                   
+689  Po38   up     success     success                    101-106,109      
+                                                          ,111             
+690  Po12   up     success     success                    101-106,109      
+                                                          ,111             
+691  Po33   up     success     success                    101-106,109      
+                                                          ,111             
+692  Po30   up     success     success                    101-106,109      
+                                                          ,111             
+693  Po20   up     success     success                    101-106,109      
+                                                          ,111             
+694  Po10   up     success     success                    101-106,109      
+                                                          ,111             
+695  Po18   up     success     success                    101-106,109      
+                                                          ,111             
+696  Po24   up     success     success                    101-106,109      
+                                                          ,111             
+697  Po16   up     success     success                    101-106,109      
+                                                          ,111             
+698  Po31   down*  success     success                                     
+                                                                           
+699  Po39   up     success     success                    101-106,109      
+                                                          ,111             
+7    Po14   down*  Not         Consistency Check Not                       
+                   Applicable  Performed                                   
+700  Po32   up     success     success                    101-106,109      
+                                                          ,111             
+701  Po19   up     success     success                    101-106,109      
+                                                          ,111             
+702  Po22   down*  Not         Consistency Check Not                       
+                   Applicable  Performed                                   
+8    Po28   up     success     success                    101-106,109      
+                                                          ,111             
+9    Po37   up     success     success                    101-106,109      
+                                                          ,111
+    </code>
+  </pre>
+
+</body>
+</html>
